@@ -38,11 +38,11 @@ const EventCard: React.FC<EventCardProps> = memo(({ event }) => {
         
         <div className="flex flex-col items-end gap-3">
           <div className="text-3xl text-nova-neon group-hover:scale-110 transition-transform duration-300">
-            {event.category === 'jam' && <FaMusic />}
-            {event.category === 'workshop' && <FaGuitar />}
-            {event.category === 'performance' && <FaUsers />}
-            {event.category === 'rehearsal' && <FaMusic />}
-            {!['jam', 'workshop', 'performance', 'rehearsal'].includes(event.category) && <FaMusic />}
+            {event.category === 'jam' && <FaMusic key="jam" />}
+            {event.category === 'workshop' && <FaGuitar key="workshop" />}
+            {event.category === 'performance' && <FaUsers key="performance" />}
+            {event.category === 'rehearsal' && <FaMusic key="rehearsal" />}
+            {!['jam', 'workshop', 'performance', 'rehearsal'].includes(event.category) && <FaMusic key="default" />}
           </div>
           <span className={`px-4 py-2 rounded-full text-sm font-bold shadow-lg ${
             event.price === 0 
