@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, ReactElement } from 'react';
 import { FaCalendarAlt, FaClock, FaTicketAlt, FaMusic, FaUsers, FaGuitar, FaMapMarkerAlt } from 'react-icons/fa';
 import { format } from 'date-fns';
 import Button from './common/Button';
@@ -18,15 +18,6 @@ interface EventCardProps {
   };
 }
 
-const getCategoryIcon = (category: string) => {
-  switch(category) {
-    case 'jam': return <FaMusic />;
-    case 'workshop': return <FaGuitar />;
-    case 'performance': return <FaUsers />;
-    case 'rehearsal': return <FaMusic />;
-    default: return <FaMusic />;
-  }
-};
 
 const EventCard: React.FC<EventCardProps> = memo(({ event }) => {
   return (
@@ -47,7 +38,11 @@ const EventCard: React.FC<EventCardProps> = memo(({ event }) => {
         
         <div className="flex flex-col items-end gap-3">
           <div className="text-3xl text-nova-neon group-hover:scale-110 transition-transform duration-300">
-            {getCategoryIcon(event.category)}
+            {event.category === 'jam' && <FaMusic />}
+            {event.category === 'workshop' && <FaGuitar />}
+            {event.category === 'performance' && <FaUsers />}
+            {event.category === 'rehearsal' && <FaMusic />}
+            {!['jam', 'workshop', 'performance', 'rehearsal'].includes(event.category) && <FaMusic />}
           </div>
           <span className={`px-4 py-2 rounded-full text-sm font-bold shadow-lg ${
             event.price === 0 
