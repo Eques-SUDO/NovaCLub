@@ -41,7 +41,7 @@ const Home: React.FC = () => {
     {
       icon: <FaMusic />,
       title: "Weekly Jam Sessions",
-      description: "Join us every Tuesday & Thursday for collaborative music sessions - all skill levels welcome!"
+      description: "Join us every Sunday for collaborative music sessions - all skill levels welcome!"
     },
     {
       icon: <FaCalendarAlt />,
@@ -60,14 +60,15 @@ const Home: React.FC = () => {
     }
   ];
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const upcomingEvents: Event[] = [
     {
       id: 1,
       title: "Weekly Jam Session",
-      date: "TUE, JAN 30",
+      date: "SUN, JAN 28",
       time: "7:00 PM",
       artist: "Open to All Members",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3"
+      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 2,
@@ -75,7 +76,7 @@ const Home: React.FC = () => {
       date: "THU, FEB 1",
       time: "6:30 PM",
       artist: "Led by Sarah Chen (Music Major)",
-      image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?ixlib=rb-4.0.3"
+      image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     },
     {
       id: 3,
@@ -83,75 +84,78 @@ const Home: React.FC = () => {
       date: "FRI, FEB 2",
       time: "8:00 PM",
       artist: "Student Union Hall",
-      image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3"
+      image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     }
   ];
 
   const galleryImages: GalleryImage[] = [
-    {
-      id: 1,
-      title: "Jam Session Night",
-      description: "Students jamming together in our main practice room",
-      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3"
-    },
-    {
-      id: 2,
-      title: "Open Mic Performance",
-      description: "Sarah performing her original song at campus open mic",
-      image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3"
-    },
-    {
-      id: 3,
-      title: "Music Theory Workshop",
-      description: "Learning chord progressions and songwriting techniques",
-      image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?ixlib=rb-4.0.3"
-    },
-    {
-      id: 4,
-      title: "Band Practice",
-      description: "Our rock band preparing for the spring concert",
-      image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-4.0.3"
-    },
-    {
-      id: 5,
-      title: "Acoustic Session",
-      description: "Intimate acoustic performances in the student lounge",
-      image: "https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?ixlib=rb-4.0.3"
-    }
+    // Gallery images will be added here once available
   ];
 
   const staffMembers: StaffMember[] = [
     {
       id: 1,
-      name: "Alex Chen",
-      role: "Club President",
-      major: "Music Performance",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3",
-      description: "Leading our club with passion for bringing students together through music"
+      name: "Achraf ElOuazzani",
+      role: "President",
+      major: "", // Field of study not provided yet
+      image: "/images/staff/achraf.jpg",
+      description: "Singer/Records, Masters Songs"
     },
     {
       id: 2,
-      name: "Maya Rodriguez",
-      role: "Events Coordinator",
-      major: "Music Education",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3",
-      description: "Organizing amazing events and workshops for our growing community"
+      name: "Manal Ahmina (Minnie)",
+      role: "Vice President",
+      major: "", // Field of study not provided yet
+      image: "/images/staff/Minnie.jpg",
+      description: "Content Creator, Singer, Song Writer"
     },
     {
       id: 3,
-      name: "Jordan Kim",
-      role: "Technical Director",
-      major: "Audio Engineering",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3",
-      description: "Managing our equipment and helping with sound for all club events"
+      name: "Hiba ELKhourani",
+      role: "Human Resources",
+      major: "", // Field of study not provided yet
+      image: "/images/staff/hiba.jpg",
+      description: "Singer"
     },
     {
       id: 4,
-      name: "Sam Taylor",
-      role: "Workshop Leader",
-      major: "Music Theory & Composition",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3",
-      description: "Teaching music theory and helping members develop their musical skills"
+      name: "Salma Hajjaji",
+      role: "VP of Administration",
+      major: "", // Field of study not provided yet
+      image: "/images/staff/salma.jpg",
+      description: "Singer"
+    },
+    {
+      id: 5,
+      name: "Faris Moughamir",
+      role: "Artistic Director",
+      major: "", // Field of study not provided yet
+      image: "/images/staff/Faris.jpg",
+      description: "DJ and Producer"
+    },
+    {
+      id: 6,
+      name: "Nour Naim",
+      role: "Artistic Director",
+      major: "", // Field of study not provided yet
+      image: "/images/staff/Nour.jpg",
+      description: "Singer"
+    },
+    {
+      id: 7,
+      name: "Hamza Naim",
+      role: "Vocal Coach/Music Theory Tutor",
+      major: "", // Field of study not provided yet
+      image: "/images/staff/hamza.jpg",
+      description: "Singer"
+    },
+    {
+      id: 8,
+      name: "Youssef Loulida",
+      role: "Marketing Leader",
+      major: "", // Field of study not provided yet
+      image: "/images/staff/Youffes.jpg",
+      description: "Events Presenter"
     }
   ];
 
@@ -163,17 +167,17 @@ const Home: React.FC = () => {
         <motion.div 
           className="absolute inset-0 bg-cover bg-center opacity-30"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3')`
+            backgroundImage: `url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`
           }}
           initial={{ scale: 1.1, opacity: 0 }}
           animate={{ scale: 1, opacity: 0.3 }}
-          transition={{ duration: 2, ease: "easeOut" }}
+          transition={{ duration: 1, ease: "easeOut" }}
         />
         <motion.div 
           className="absolute inset-0 bg-gradient-to-br from-dark-bg/90 via-nova-darkPurple/60 to-primary/40"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1.5, delay: 0.5 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
         />
         
         {/* Animated NOVA Particles */}
@@ -181,197 +185,34 @@ const Home: React.FC = () => {
           className="absolute inset-0 overflow-hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 2, delay: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
         >
           <motion.div 
-            className="nova-particle w-96 h-96 top-1/4 left-1/4" 
-            initial={{ scale: 0, rotate: -180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 2, delay: 1.2, ease: "easeOut" }}
-            style={{ animationDelay: '0s' }} 
+            className="nova-particle w-64 h-64 top-1/4 left-1/4" 
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 0.3 }}
+            transition={{ duration: 1, delay: 0.8, ease: "easeOut" }}
           />
           <motion.div 
-            className="nova-particle w-80 h-80 top-3/4 right-1/4" 
-            initial={{ scale: 0, rotate: 180 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 2, delay: 1.6, ease: "easeOut" }}
-            style={{ animationDelay: '2s' }} 
-          />
-          <motion.div 
-            className="nova-particle w-64 h-64 bottom-1/4 left-1/3" 
-            initial={{ scale: 0, rotate: -90 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 2, delay: 2, ease: "easeOut" }}
-            style={{ animationDelay: '4s' }} 
-          />
-          <motion.div 
-            className="nova-particle w-48 h-48 top-1/2 right-1/3" 
-            initial={{ scale: 0, rotate: 90 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 2, delay: 2.4, ease: "easeOut" }}
-            style={{ animationDelay: '6s' }} 
-          />
-          <motion.div 
-            className="nova-particle w-32 h-32 bottom-1/3 right-1/2" 
-            initial={{ scale: 0, rotate: -45 }}
-            animate={{ scale: 1, rotate: 0 }}
-            transition={{ duration: 2, delay: 2.8, ease: "easeOut" }}
-            style={{ animationDelay: '8s' }} 
+            className="nova-particle w-48 h-48 bottom-1/3 right-1/4" 
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 0.3 }}
+            transition={{ duration: 1, delay: 1.2, ease: "easeOut" }}
           />
           
-          {/* Musical Notes Floating */}
+          {/* Simplified Musical Notes */}
           <motion.div 
-            className="music-note text-4xl top-20 left-20 advanced-float" 
-            initial={{ opacity: 0, y: 100, rotate: -30 }}
-            animate={{ opacity: 0.6, y: 0, rotate: 0 }}
-            transition={{ duration: 1.5, delay: 2, ease: "easeOut" }}
-            style={{ animationDelay: '0s' }}
+            className="music-note text-3xl top-20 left-20 opacity-30" 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.3 }}
+            transition={{ duration: 1, delay: 1.5 }}
           >♪</motion.div>
           <motion.div 
-            className="music-note text-3xl top-40 right-32 advanced-float" 
-            initial={{ opacity: 0, x: 100, rotate: 30 }}
-            animate={{ opacity: 0.6, x: 0, rotate: 0 }}
-            transition={{ duration: 1.5, delay: 2.2, ease: "easeOut" }}
-            style={{ animationDelay: '2s' }}
+            className="music-note text-2xl bottom-20 right-20 opacity-30" 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.3 }}
+            transition={{ duration: 1, delay: 2 }}
           >♫</motion.div>
-          <motion.div 
-            className="music-note text-5xl bottom-32 left-40 advanced-float" 
-            initial={{ opacity: 0, y: -100, rotate: 45 }}
-            animate={{ opacity: 0.6, y: 0, rotate: 0 }}
-            transition={{ duration: 1.5, delay: 2.4, ease: "easeOut" }}
-            style={{ animationDelay: '4s' }}
-          >♬</motion.div>
-          <motion.div 
-            className="music-note text-2xl bottom-20 right-20 advanced-float" 
-            initial={{ opacity: 0, x: -100, rotate: -45 }}
-            animate={{ opacity: 0.6, x: 0, rotate: 0 }}
-            transition={{ duration: 1.5, delay: 2.6, ease: "easeOut" }}
-            style={{ animationDelay: '6s' }}
-          >♩</motion.div>
-          <motion.div 
-            className="music-note text-6xl top-60 left-1/2 advanced-float" 
-            initial={{ opacity: 0, scale: 0, rotate: 180 }}
-            animate={{ opacity: 0.6, scale: 1, rotate: 0 }}
-            transition={{ duration: 1.5, delay: 2.8, ease: "easeOut" }}
-            style={{ animationDelay: '8s' }}
-          >♪</motion.div>
-          
-          {/* Sound Waves */}
-          <motion.div 
-            className="sound-wave w-32 h-32 top-1/3 left-10" 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.3 }}
-            transition={{ duration: 1, delay: 3, ease: "easeOut" }}
-            style={{ animationDelay: '1s' }} 
-          />
-          <motion.div 
-            className="sound-wave w-24 h-24 bottom-1/3 right-16" 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.3 }}
-            transition={{ duration: 1, delay: 3.2, ease: "easeOut" }}
-            style={{ animationDelay: '3s' }} 
-          />
-          <motion.div 
-            className="sound-wave w-40 h-40 top-1/2 right-1/3" 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.3 }}
-            transition={{ duration: 1, delay: 3.4, ease: "easeOut" }}
-            style={{ animationDelay: '5s' }} 
-          />
-          
-          {/* Ethereal Glows */}
-          <motion.div 
-            className="ethereal-glow w-64 h-64 top-10 right-10" 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.4 }}
-            transition={{ duration: 2, delay: 1.5, ease: "easeOut" }}
-            style={{ animationDelay: '2s' }} 
-          />
-          <motion.div 
-            className="ethereal-glow w-48 h-48 bottom-20 left-10" 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.4 }}
-            transition={{ duration: 2, delay: 2, ease: "easeOut" }}
-            style={{ animationDelay: '7s' }} 
-          />
-          
-          {/* Cosmic Sparkles */}
-          <motion.div 
-            className="cosmic-sparkle top-16 left-1/4" 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 3.5 }}
-            style={{ animationDelay: '1s' }} 
-          />
-          <motion.div 
-            className="cosmic-sparkle top-1/3 right-1/4" 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 3.7 }}
-            style={{ animationDelay: '3s' }} 
-          />
-          <motion.div 
-            className="cosmic-sparkle bottom-1/4 left-1/2" 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 3.9 }}
-            style={{ animationDelay: '5s' }} 
-          />
-          <motion.div 
-            className="cosmic-sparkle bottom-16 right-1/3" 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 4.1 }}
-            style={{ animationDelay: '7s' }} 
-          />
-          
-          {/* Wave Ripples */}
-          <motion.div 
-            className="wave-ripple w-20 h-20 top-1/4 left-1/2" 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.8 }}
-            transition={{ duration: 1.5, delay: 3.3 }}
-            style={{ animationDelay: '2s' }} 
-          />
-          <motion.div 
-            className="wave-ripple w-16 h-16 bottom-1/3 right-1/2" 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 0.8 }}
-            transition={{ duration: 1.5, delay: 3.8 }}
-            style={{ animationDelay: '6s' }} 
-          />
-          
-          {/* Frequency Waves */}
-          <motion.div 
-            className="frequency-wave w-full top-1/3" 
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ duration: 2, delay: 4 }}
-            style={{ animationDelay: '1s' }} 
-          />
-          <motion.div 
-            className="frequency-wave w-full bottom-1/3" 
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 1 }}
-            transition={{ duration: 2, delay: 4.5 }}
-            style={{ animationDelay: '4s' }} 
-          />
-          
-          {/* Melodic Trails */}
-          <motion.div 
-            className="melodic-trail w-96 h-1 top-1/2 left-0" 
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 0.6 }}
-            transition={{ duration: 2.5, delay: 5 }}
-            style={{ animationDelay: '3s' }} 
-          />
-          <motion.div 
-            className="melodic-trail w-80 h-1 bottom-1/4 right-0" 
-            initial={{ scaleX: 0, opacity: 0 }}
-            animate={{ scaleX: 1, opacity: 0.6 }}
-            transition={{ duration: 2.5, delay: 5.5 }}
-            style={{ animationDelay: '7s' }} 
-          />
         </motion.div>
 
         <motion.div 
@@ -381,33 +222,33 @@ const Home: React.FC = () => {
           transition={{ duration: 1.5, delay: 1, ease: "easeOut" }}
         >
           <motion.div
-            className="mb-8 particle-system"
-            initial={{ scale: 0.5, opacity: 0, rotateX: 45 }}
-            animate={{ scale: 1, opacity: 1, rotateX: 0 }}
-            transition={{ delay: 1.5, duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="mb-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.8 }}
           >
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-black font-display mb-8 leading-tight">
               <motion.span 
-                className="block text-gradient animate-gradient smooth-glow"
-                initial={{ opacity: 0, y: 80, rotateX: 45 }}
-                animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                transition={{ delay: 2, duration: 1, ease: "easeOut" }}
+                className="block text-gradient"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 0.6 }}
               >
                 WHERE
               </motion.span>
               <motion.span 
-                className="block text-accent rhythm-pulse"
-                initial={{ opacity: 0, scale: 0.5, rotateY: 90 }}
-                animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                transition={{ delay: 2.3, duration: 1, ease: "easeOut" }}
+                className="block text-accent"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2, duration: 0.6 }}
               >
                 MUSIC
               </motion.span>
               <motion.span 
-                className="block text-gradient animate-gradient smooth-glow"
-                initial={{ opacity: 0, y: -80, rotateX: -45 }}
-                animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                transition={{ delay: 2.6, duration: 1, ease: "easeOut" }}
+                className="block text-gradient"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.4, duration: 0.6 }}
               >
                 COMES ALIVE
               </motion.span>
@@ -415,86 +256,48 @@ const Home: React.FC = () => {
           </motion.div>
           
           <motion.p 
-            className="text-xl md:text-3xl lg:text-4xl text-gray-text mb-16 font-light leading-relaxed max-w-4xl mx-auto text-reveal"
-            initial={{ opacity: 0, y: 50, filter: "blur(20px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ delay: 3, duration: 1.2, ease: "easeOut" }}
+            className="text-xl md:text-3xl lg:text-4xl text-gray-text mb-16 font-light leading-relaxed max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.6, duration: 0.8 }}
           >
-            Join the <motion.span 
-              className="text-nova-neon font-medium smooth-glow"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 3.3, duration: 0.8 }}
-            >musical community</motion.span> at your university with <motion.span 
-              className="text-accent font-bold rhythm-pulse"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 3.6, duration: 0.8 }}
-            >NOVA MUSIC CLUB</motion.span>
+            Join the <span className="text-nova-neon font-medium">musical community</span> at your university with <span className="text-accent font-bold">NOVA MUSIC CLUB</span>
           </motion.p>
           
           <motion.div 
             className="flex flex-col md:flex-row gap-8 justify-center items-center"
-            initial={{ opacity: 0, y: 60, scale: 0.8 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 4, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2, duration: 0.8 }}
           >
-            <motion.div
-              initial={{ opacity: 0, x: -50, rotateY: -20 }}
-              animate={{ opacity: 1, x: 0, rotateY: 0 }}
-              transition={{ delay: 4.2, duration: 0.8, ease: "easeOut" }}
-            >
-              <Link to="/events" className="group">
-                <Button size="large" className="text-lg px-12 py-5 shimmer-effect rhythm-pulse dreamy-float button-advanced musical-hover-lift">
-                  <FaCalendarAlt className="text-xl group-hover:animate-pulse mr-3" />
-                  Join Activities
-                </Button>
-              </Link>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 50, rotateY: 20 }}
-              animate={{ opacity: 1, x: 0, rotateY: 0 }}
-              transition={{ delay: 4.4, duration: 0.8, ease: "easeOut" }}
-            >
-              <Link to="/contact" className="group">
-                <Button variant="outline" size="large" className="text-lg px-12 py-5 rhythm-pulse dreamy-float button-advanced musical-hover-lift">
-                  <FaUsers className="text-xl group-hover:animate-pulse mr-3" />
-                  <span className="group-hover:animate-pulse">Become a Member</span>
-                </Button>
-              </Link>
-            </motion.div>
+            <Link to="/events" className="group">
+              <Button size="large" className="text-lg px-12 py-5">
+                <FaCalendarAlt className="text-xl mr-3" />
+                Join Activities
+              </Button>
+            </Link>
+            <Link to="/contact" className="group">
+              <Button variant="outline" size="large" className="text-lg px-12 py-5">
+                <FaUsers className="text-xl mr-3" />
+                Become a Member
+              </Button>
+            </Link>
           </motion.div>
         </motion.div>
 
         {/* Scroll Indicator */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 group cursor-pointer"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 5, duration: 1, ease: "easeOut" }}
-          whileHover={{ scale: 1.1, y: -5 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.5, duration: 0.8 }}
           onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
         >
-          <div className="flex flex-col items-center text-accent/60 group-hover:text-nova-neon transition-colors duration-500">
-            <motion.span 
-              className="text-sm font-medium mb-2 dreamy-float"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 5.2, duration: 0.8 }}
-            >
-              Scroll Down
-            </motion.span>
-            <motion.div 
-              className="w-6 h-10 border-2 border-current rounded-full flex justify-center relative group-hover:shadow-glow transition-all duration-500"
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 5.4, duration: 0.8 }}
-            >
-              <div className="w-1 h-3 bg-current rounded-full animate-bounce mt-2 group-hover:animate-pulse" />
-              
-              {/* Musical note on hover */}
-              <div className="absolute -top-8 left-1/2 -translate-x-1/2 music-note text-xs opacity-0 group-hover:opacity-80 transition-all duration-500">♪</div>
-            </motion.div>
+          <div className="flex flex-col items-center text-accent/60 hover:text-nova-neon transition-colors duration-300">
+            <span className="text-sm font-medium mb-2">Scroll Down</span>
+            <div className="w-6 h-10 border-2 border-current rounded-full flex justify-center">
+              <div className="w-1 h-3 bg-current rounded-full animate-bounce mt-2" />
+            </div>
           </div>
         </motion.div>
       </section>
@@ -564,10 +367,9 @@ const Home: React.FC = () => {
                 }}
                 viewport={{ once: true }}
                 whileHover={{ 
-                  y: -20, 
-                  scale: 1.05, 
-                  rotateY: 5,
-                  transition: { duration: 0.5, ease: "easeOut" } 
+                  y: -4, 
+                  scale: 1.02,
+                  transition: { duration: 0.2, ease: "easeOut" } 
                 }}
                 style={{ animationDelay: `${index * 200}ms` }}
               >
@@ -577,10 +379,8 @@ const Home: React.FC = () => {
                   whileInView={{ scale: 1, rotate: 0 }}
                   transition={{ delay: index * 0.3 + 0.5, duration: 0.8, ease: "easeOut" }}
                   whileHover={{ 
-                    scale: 1.3, 
-                    rotate: 10,
-                    filter: "brightness(1.3)",
-                    transition: { duration: 0.4 }
+                    scale: 1.1,
+                    transition: { duration: 0.2 }
                   }}
                   viewport={{ once: true }}
                 >
@@ -632,108 +432,468 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Upcoming Events */}
-      <section className="py-32 relative">
-        <div className="absolute inset-0 bg-gradient-to-t from-dark-bg to-transparent" />
+      {/* About Us Section */}
+      <section className="py-32 relative overflow-hidden particle-system">
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-br from-dark-bg via-nova-darkPurple/30 via-primary/15 to-dark-secondary"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          viewport={{ once: true }}
+        />
         
-        <div className="container-custom relative">
+        {/* Enhanced animated background mesh */}
+        <motion.div
+          className="absolute inset-0 opacity-20"
+          initial={{ scale: 1.2, rotate: 0 }}
+          animate={{ scale: 1, rotate: 360 }}
+          transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-nova-neon/10 via-primary/20 to-nova-neon/10 blur-3xl" />
+        </motion.div>
+        
+        {/* Enhanced floating musical elements in background */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 2, delay: 0.5 }}
+          viewport={{ once: true }}
+        >
           <motion.div 
-            className="text-center mb-20 relative"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            className="music-note text-6xl text-nova-neon opacity-20 absolute top-20 left-1/6 advanced-float filter drop-shadow-lg"
+            style={{ animationDelay: '0s' }}
+            animate={{ 
+              textShadow: [
+                "0 0 20px rgba(232, 145, 255, 0.5)",
+                "0 0 40px rgba(232, 145, 255, 0.8)", 
+                "0 0 20px rgba(232, 145, 255, 0.5)"
+              ]
+            }}
+            transition={{ duration: 3, repeat: Infinity }}
+          >♪</motion.div>
+          <motion.div 
+            className="music-note text-4xl text-primary opacity-25 absolute top-1/3 right-1/5 advanced-float filter drop-shadow-lg"
+            style={{ animationDelay: '3s' }}
+            animate={{ 
+              textShadow: [
+                "0 0 15px rgba(180, 92, 240, 0.6)",
+                "0 0 30px rgba(180, 92, 240, 0.9)", 
+                "0 0 15px rgba(180, 92, 240, 0.6)"
+              ]
+            }}
+            transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+          >♫</motion.div>
+          <motion.div 
+            className="music-note text-5xl text-accent opacity-18 absolute bottom-1/4 left-1/4 advanced-float filter drop-shadow-lg"
+            style={{ animationDelay: '6s' }}
+            animate={{ 
+              textShadow: [
+                "0 0 25px rgba(255, 255, 255, 0.4)",
+                "0 0 50px rgba(255, 255, 255, 0.7)", 
+                "0 0 25px rgba(255, 255, 255, 0.4)"
+              ]
+            }}
+            transition={{ duration: 5, repeat: Infinity, delay: 2 }}
+          >♬</motion.div>
+          
+          {/* Enhanced ethereal glows with color variations */}
+          <motion.div 
+            className="w-48 h-48 absolute top-1/4 right-1/6 rounded-full blur-3xl"
+            style={{ 
+              background: 'radial-gradient(circle, rgba(232, 145, 255, 0.3) 0%, rgba(180, 92, 240, 0.2) 50%, transparent 100%)',
+              animationDelay: '2s' 
+            }}
+            animate={{ 
+              scale: [1, 1.3, 1],
+              opacity: [0.3, 0.6, 0.3]
+            }}
+            transition={{ duration: 6, repeat: Infinity }}
+          />
+          <motion.div 
+            className="w-32 h-32 absolute bottom-1/3 left-1/2 rounded-full blur-2xl"
+            style={{ 
+              background: 'radial-gradient(circle, rgba(180, 92, 240, 0.4) 0%, rgba(232, 145, 255, 0.2) 50%, transparent 100%)',
+              animationDelay: '5s' 
+            }}
+            animate={{ 
+              scale: [1, 1.5, 1],
+              opacity: [0.4, 0.7, 0.4]
+            }}
+            transition={{ duration: 8, repeat: Infinity, delay: 2 }}
+          />
+          
+          {/* Enhanced sound waves with gradients */}
+          <motion.div 
+            className="w-40 h-40 absolute top-1/2 left-10 rounded-full opacity-30"
+            style={{ 
+              background: 'conic-gradient(from 0deg, transparent, rgba(232, 145, 255, 0.5), transparent)',
+              animationDelay: '1s' 
+            }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div 
+            className="w-32 h-32 absolute bottom-1/4 right-16 rounded-full opacity-25"
+            style={{ 
+              background: 'conic-gradient(from 180deg, transparent, rgba(180, 92, 240, 0.6), transparent)',
+              animationDelay: '4s' 
+            }}
+            animate={{ rotate: -360 }}
+            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+          />
+          
+          {/* Enhanced frequency waves with animated gradients */}
+          <motion.div 
+            className="w-full h-1 absolute top-1/3"
+            style={{ animationDelay: '3s' }}
+            animate={{
+              background: [
+                'linear-gradient(90deg, transparent, rgba(232, 145, 255, 0.4), transparent)',
+                'linear-gradient(90deg, transparent, rgba(180, 92, 240, 0.6), transparent)',
+                'linear-gradient(90deg, transparent, rgba(232, 145, 255, 0.4), transparent)'
+              ]
+            }}
+            transition={{ duration: 4, repeat: Infinity }}
+          />
+          <motion.div 
+            className="w-full h-1 absolute bottom-1/3"
+            style={{ animationDelay: '7s' }}
+            animate={{
+              background: [
+                'linear-gradient(90deg, transparent, rgba(180, 92, 240, 0.3), transparent)',
+                'linear-gradient(90deg, transparent, rgba(232, 145, 255, 0.5), transparent)',
+                'linear-gradient(90deg, transparent, rgba(180, 92, 240, 0.3), transparent)'
+              ]
+            }}
+            transition={{ duration: 6, repeat: Infinity, delay: 2 }}
+          />
+          
+          {/* Floating particle effects */}
+          <motion.div
+            className="absolute inset-0"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          >
+            {[...Array(8)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 bg-nova-neon rounded-full opacity-40"
+                style={{
+                  left: `${20 + i * 10}%`,
+                  top: `${15 + i * 8}%`,
+                }}
+                animate={{
+                  y: [-20, 20, -20],
+                  opacity: [0.2, 0.8, 0.2],
+                  scale: [0.5, 1.2, 0.5]
+                }}
+                transition={{
+                  duration: 3 + i * 0.5,
+                  repeat: Infinity,
+                  delay: i * 0.3
+                }}
+              />
+            ))}
+          </motion.div>
+        </motion.div>
+        
+        <div className="container-custom relative z-10">
+          <motion.div 
+            className="text-center mb-16 relative"
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             viewport={{ once: true }}
           >
-            <h2 className="text-5xl md:text-6xl font-bold font-display text-gradient mb-6 rhythm-pulse">
-              This Week's Activities
-            </h2>
-            <p className="text-xl text-gray-text max-w-3xl mx-auto leading-relaxed">
-              Join us for weekly sessions, workshops, and campus performances
-            </p>
+            {/* Music visualizer */}
+            <motion.div 
+              className="music-visualizer mb-8 scale-75"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <div className="visualizer-bar w-2" style={{ animationDelay: '0s' }} />
+              <div className="visualizer-bar w-2" style={{ animationDelay: '0.1s' }} />
+              <div className="visualizer-bar w-2" style={{ animationDelay: '0.2s' }} />
+              <div className="visualizer-bar w-2" style={{ animationDelay: '0.3s' }} />
+              <div className="visualizer-bar w-2" style={{ animationDelay: '0.4s' }} />
+              <div className="visualizer-bar w-2" style={{ animationDelay: '0.5s' }} />
+              <div className="visualizer-bar w-2" style={{ animationDelay: '0.6s' }} />
+              <div className="visualizer-bar w-2" style={{ animationDelay: '0.7s' }} />
+            </motion.div>
             
-            {/* Floating frequency waves */}
-            <div className="frequency-wave w-64 h-1 absolute top-1/2 left-0" style={{ animationDelay: '2s' }} />
-            <div className="frequency-wave w-64 h-1 absolute top-1/2 right-0" style={{ animationDelay: '4s' }} />
+            <motion.h2
+              className="text-5xl md:text-6xl font-bold font-display text-gradient mb-8 smooth-glow"
+              initial={{ opacity: 0, y: 30, rotateX: 45 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.05 }}
+            >
+              About Us
+            </motion.h2>
             
-            {/* Musical notes around title */}
-            <div className="absolute -top-6 left-1/3 music-note text-xl" style={{ animationDelay: '1s' }}>♬</div>
-            <div className="absolute -top-6 right-1/3 music-note text-xl" style={{ animationDelay: '3s' }}>♩</div>
+            {/* Musical elements around title */}
+            <motion.div 
+              className="absolute -top-8 left-1/4 music-note text-2xl advanced-float"
+              initial={{ opacity: 0, scale: 0, rotate: -180 }}
+              whileInView={{ opacity: 0.6, scale: 1, rotate: 0 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+              viewport={{ once: true }}
+              style={{ animationDelay: '2s' }}
+            >♪</motion.div>
+            <motion.div 
+              className="absolute -top-8 right-1/4 music-note text-2xl advanced-float"
+              initial={{ opacity: 0, scale: 0, rotate: 180 }}
+              whileInView={{ opacity: 0.6, scale: 1, rotate: 0 }}
+              transition={{ delay: 1, duration: 0.8 }}
+              viewport={{ once: true }}
+              style={{ animationDelay: '5s' }}
+            >♬</motion.div>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-16">
-            {upcomingEvents.map((event, index) => (
-              <motion.div
-                key={event.id}
-                className="group modern-card overflow-hidden hover:shadow-glow-lg transition-all duration-500 relative dreamy-float"
-                initial={{ opacity: 0, y: 50, rotateY: -15 }}
-                whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
-                transition={{ delay: index * 0.2, duration: 0.8, ease: "easeOut" }}
-                viewport={{ once: true }}
-                whileHover={{ y: -15, rotateY: 5, transition: { duration: 0.4 } }}
-              >
-                <div className="relative overflow-hidden">
-                  <motion.div 
-                    className="h-64 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${event.image})` }}
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/20" />
-                    <div className="absolute top-6 right-6 glass px-4 py-2 rounded-full">
-                      <span className="text-nova-neon font-bold text-sm">{event.date}</span>
-                    </div>
-                    
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-nova-neon/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  </motion.div>
-                </div>
-                
-                <div className="p-8">
-                  <h3 className="text-2xl font-bold font-heading mb-3 text-accent group-hover:text-nova-neon transition-colors duration-300">
-                    {event.title}
-                  </h3>
-                  <p className="text-nova-neon font-medium text-lg mb-6">
-                    {event.artist} • {event.time}
-                  </p>
-                  <Link to={`/events/${event.id}`} className="block">
-                    <Button className="w-full group-hover:animate-pulse">
-                      <FaTicketAlt className="group-hover:animate-bounce" />
-                      Get Tickets
-                    </Button>
-                  </Link>
-                </div>
-
-                {/* Musical Elements */}
-                <div className="absolute top-6 left-6 music-note text-lg opacity-50" style={{ animationDelay: `${index * 1.5}s` }}>♪</div>
-                <div className="absolute bottom-6 right-6 cosmic-sparkle" style={{ animationDelay: `${index * 2}s` }} />
-                
-                {/* Wave Ripple Effect on Hover */}
-                <div className="absolute inset-0 pointer-events-none">
-                  <div className="wave-ripple w-24 h-24 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style={{ animationDelay: `${index * 0.3}s` }} />
-                </div>
-                
-                {/* Shine Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-              </motion.div>
-            ))}
-          </div>
-
           <motion.div 
-            className="text-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.8 }}
+            className="max-w-5xl mx-auto"
+            initial={{ opacity: 0, y: 60, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ delay: 0.7, duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
             viewport={{ once: true }}
           >
-            <Link to="/events">
-              <Button size="large" className="text-xl px-16 py-6 shimmer-effect rhythm-pulse dreamy-float relative overflow-hidden">
-                <span className="mr-3">View All Events</span>
-                <FaCalendarAlt className="animate-pulse" />
-                
-                {/* Musical trail effect */}
-                <div className="melodic-trail w-full h-full absolute inset-0" style={{ animationDelay: '2s' }} />
-              </Button>
-            </Link>
+            <motion.div 
+              className="modern-card p-12 md:p-16 text-center relative overflow-hidden group"
+              style={{
+                background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(30, 30, 40, 0.95) 50%, rgba(10, 10, 10, 0.9) 100%)',
+                backdropFilter: 'blur(20px)',
+                border: '1px solid rgba(232, 145, 255, 0.2)',
+                boxShadow: '0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+              }}
+              whileHover={{ 
+                y: -4, 
+                scale: 1.01,
+                transition: { duration: 0.3, ease: "easeOut" } 
+              }}
+            >
+              {/* Enhanced animated border */}
+              <motion.div
+                className="absolute inset-0 rounded-3xl"
+                style={{
+                  background: 'linear-gradient(45deg, transparent, rgba(232, 145, 255, 0.3), transparent, rgba(180, 92, 240, 0.3), transparent)',
+                  backgroundSize: '400% 400%'
+                }}
+                animate={{
+                  backgroundPosition: ['0% 50%', '100% 50%', '0% 50%']
+                }}
+                transition={{
+                  duration: 8,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              />
+              
+              {/* Enhanced floating sparkles around the card */}
+              <motion.div
+                className="absolute inset-0 pointer-events-none opacity-60 group-hover:opacity-100"
+                transition={{ duration: 0.5 }}
+              >
+                {[...Array(12)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 bg-nova-neon rounded-full"
+                    style={{
+                      left: `${10 + (i * 8)}%`,
+                      top: `${15 + (i * 6)}%`,
+                    }}
+                    animate={{
+                      scale: [0.5, 1.5, 0.5],
+                      opacity: [0.3, 1, 0.3],
+                      rotate: [0, 180, 360]
+                    }}
+                    transition={{
+                      duration: 2 + i * 0.2,
+                      repeat: Infinity,
+                      delay: i * 0.1
+                    }}
+                  />
+                ))}
+              </motion.div>
+              
+              {/* Main content with enhanced styling */}
+              <motion.p 
+                className="text-xl md:text-2xl leading-relaxed mb-8 group-hover:text-gray-light transition-colors duration-500"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(232, 145, 255, 0.8) 50%, rgba(255, 255, 255, 0.9) 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                }}
+                initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))" }}
+                transition={{ delay: 1, duration: 1 }}
+                viewport={{ once: true }}
+              >
+                <motion.span 
+                  className="font-bold text-2xl md:text-3xl"
+                  style={{
+                    background: 'linear-gradient(45deg, #E891FF 0%, #B45CF0 50%, #E891FF 100%)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    filter: 'drop-shadow(0 0 20px rgba(232, 145, 255, 0.6))'
+                  }}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 1.2, duration: 0.8 }}
+                  viewport={{ once: true }}
+                  animate={{
+                    textShadow: [
+                      '0 0 20px rgba(232, 145, 255, 0.6)',
+                      '0 0 40px rgba(232, 145, 255, 0.9)',
+                      '0 0 20px rgba(232, 145, 255, 0.6)'
+                    ]
+                  }}
+                  whileHover={{
+                    scale: 1.1,
+                    filter: 'drop-shadow(0 0 30px rgba(232, 145, 255, 0.8))'
+                  }}
+                >
+                  NOVA
+                </motion.span>
+                <motion.span 
+                  className="italic opacity-80"
+                  style={{
+                    background: 'linear-gradient(45deg, rgba(180, 92, 240, 0.9) 0%, rgba(232, 145, 255, 0.7) 100%)',
+                    backgroundClip: 'text',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 0.8 }}
+                  transition={{ delay: 1.4, duration: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  {" "}Music Club{" "}
+                </motion.span>
+                is a music club based in the Faculty of Sciences Rabat, gathering ambitious and music enthusiasts that want to showcase their talent and do what they love...
+              </motion.p>
+              
+              <motion.p 
+                className="text-2xl md:text-3xl font-bold font-heading rhythm-pulse"
+                style={{
+                  background: 'linear-gradient(135deg, #FFFFFF 0%, #E891FF 30%, #B45CF0 70%, #FFFFFF 100%)',
+                  backgroundClip: 'text',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  filter: 'drop-shadow(0 4px 8px rgba(232, 145, 255, 0.4))'
+                }}
+                initial={{ opacity: 0, scale: 0.8, y: 30 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ 
+                  delay: 1.6, 
+                  duration: 1, 
+                  ease: "easeOut",
+                  textShadow: { duration: 3, repeat: Infinity }
+                }}
+                viewport={{ once: true }}
+                animate={{
+                  textShadow: [
+                    '0 0 30px rgba(232, 145, 255, 0.6)',
+                    '0 0 60px rgba(232, 145, 255, 0.9)',
+                    '0 0 30px rgba(232, 145, 255, 0.6)'
+                  ]
+                }}
+                whileHover={{ 
+                  scale: 1.15,
+                  filter: 'drop-shadow(0 6px 12px rgba(232, 145, 255, 0.8))'
+                }}
+              >
+                Music, what unites us!
+              </motion.p>
+              
+              {/* Enhanced musical notes with glowing effects */}
+              <motion.div 
+                className="absolute top-4 right-4 text-lg text-nova-neon opacity-60 advanced-float"
+                style={{ 
+                  animationDelay: '1s',
+                  filter: 'drop-shadow(0 0 10px rgba(232, 145, 255, 0.8))'
+                }}
+                animate={{ 
+                  rotate: 360,
+                  textShadow: [
+                    '0 0 10px rgba(232, 145, 255, 0.8)',
+                    '0 0 20px rgba(232, 145, 255, 1)',
+                    '0 0 10px rgba(232, 145, 255, 0.8)'
+                  ]
+                }}
+                transition={{ 
+                  rotate: { duration: 8, repeat: Infinity, ease: "linear" },
+                  textShadow: { duration: 2, repeat: Infinity }
+                }}
+              >♪</motion.div>
+              <motion.div 
+                className="absolute bottom-4 left-4 text-xl text-primary opacity-70 advanced-float"
+                style={{ 
+                  animationDelay: '3s',
+                  filter: 'drop-shadow(0 0 12px rgba(180, 92, 240, 0.9))'
+                }}
+                animate={{ 
+                  rotate: -360,
+                  textShadow: [
+                    '0 0 12px rgba(180, 92, 240, 0.9)',
+                    '0 0 24px rgba(180, 92, 240, 1)',
+                    '0 0 12px rgba(180, 92, 240, 0.9)'
+                  ]
+                }}
+                transition={{ 
+                  rotate: { duration: 10, repeat: Infinity, ease: "linear" },
+                  textShadow: { duration: 2.5, repeat: Infinity }
+                }}
+              >♫</motion.div>
+              
+              {/* Enhanced sound wave effect with gradient */}
+              <motion.div 
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full opacity-0 group-hover:opacity-40"
+                style={{
+                  background: 'conic-gradient(from 0deg, transparent, rgba(232, 145, 255, 0.6), transparent, rgba(180, 92, 240, 0.8), transparent)'
+                }}
+                animate={{ rotate: 360 }}
+                transition={{ 
+                  duration: 8, 
+                  repeat: Infinity, 
+                  ease: "linear" 
+                }}
+              />
+              
+              {/* Enhanced shimmer effect with rainbow gradient */}
+              <motion.div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 -skew-x-12"
+                style={{
+                  background: 'linear-gradient(90deg, transparent, rgba(232, 145, 255, 0.3), rgba(180, 92, 240, 0.4), rgba(232, 145, 255, 0.3), transparent)'
+                }}
+                initial={{ x: '-200%' }}
+                whileHover={{ x: '200%' }}
+                transition={{ duration: 1.8, ease: "easeInOut" }}
+              />
+              
+              {/* Enhanced glow effect with pulsing */}
+              <motion.div 
+                className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100"
+                style={{
+                  background: 'radial-gradient(circle at center, rgba(232, 145, 255, 0.1) 0%, rgba(180, 92, 240, 0.05) 50%, transparent 100%)'
+                }}
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0, 0.3, 0]
+                }}
+                transition={{ 
+                  duration: 3, 
+                  repeat: Infinity,
+                  ease: "easeInOut" 
+                }}
+              />
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -763,6 +923,7 @@ const Home: React.FC = () => {
           </motion.div>
 
           {/* Gallery Carousel */}
+          {galleryImages.length > 0 ? (
           <motion.div 
             className="relative max-w-6xl mx-auto"
             initial={{ opacity: 0, scale: 0.9, rotateX: 45 }}
@@ -773,9 +934,8 @@ const Home: React.FC = () => {
             <motion.div 
               className="overflow-hidden rounded-3xl modern-card relative particle-system"
               whileHover={{ 
-                scale: 1.02, 
-                rotateY: 2,
-                transition: { duration: 0.6 }
+                scale: 1.01,
+                transition: { duration: 0.3 }
               }}
             >
               <motion.div 
@@ -795,8 +955,8 @@ const Home: React.FC = () => {
                     <motion.div 
                       className="aspect-video bg-cover bg-center relative overflow-hidden"
                       style={{ backgroundImage: `url(${image.image})` }}
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.8 }}
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.3 }}
                     >
                       <motion.div 
                         className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"
@@ -969,6 +1129,31 @@ const Home: React.FC = () => {
               ))}
             </motion.div>
           </motion.div>
+          ) : (
+            <motion.div 
+              className="text-center py-20"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <div className="glass border border-primary/20 rounded-3xl p-12 max-w-2xl mx-auto backdrop-blur-xl">
+                <div className="w-20 h-20 bg-nova-gradient rounded-full flex items-center justify-center mx-auto mb-8">
+                  <FaMusic className="text-3xl text-accent" />
+                </div>
+                
+                <h3 className="text-2xl font-bold text-accent mb-4">
+                  Gallery Coming Soon
+                </h3>
+                <p className="text-xl text-gray-text leading-relaxed">
+                  We're preparing an amazing collection of moments from our musical journey.<br />
+                  Check back soon for photos and videos!
+                </p>
+                
+                <div className="w-16 h-1 bg-nova-gradient rounded-full mx-auto mt-8" />
+              </div>
+            </motion.div>
+          )}
         </div>
       </section>
 
@@ -1023,7 +1208,7 @@ const Home: React.FC = () => {
               transition={{ delay: 0.4, duration: 0.8 }}
               viewport={{ once: true }}
             >
-              The passionate students who make NOVA Music Club the amazing community it is
+              The passionate staff who make NOVA Music Club the amazing community it is
             </motion.p>
             
             {/* Enhanced Staff section musical elements */}
@@ -1085,11 +1270,9 @@ const Home: React.FC = () => {
                 }}
                 viewport={{ once: true }}
                 whileHover={{ 
-                  y: -25, 
-                  scale: 1.05,
-                  rotateY: index % 2 === 0 ? 8 : -8,
-                  rotateX: 5,
-                  transition: { duration: 0.6, ease: "easeOut" } 
+                  y: -4, 
+                  scale: 1.02,
+                  transition: { duration: 0.3, ease: "easeOut" } 
                 }}
                 style={{ 
                   transformStyle: 'preserve-3d',
@@ -1127,19 +1310,18 @@ const Home: React.FC = () => {
                   <motion.div 
                     className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 relative"
                     whileHover={{ 
-                      scale: 1.15,
-                      rotateY: 10,
-                      transition: { duration: 0.4 }
+                      scale: 1.05,
+                      transition: { duration: 0.2 }
                     }}
                   >
                     <motion.img 
                       src={member.image} 
                       alt={member.name}
+                      loading="lazy"
                       className="w-full h-full object-cover"
                       whileHover={{ 
-                        scale: 1.2,
-                        filter: "brightness(1.1) saturate(1.2)",
-                        transition: { duration: 0.4 }
+                        scale: 1.1,
+                        transition: { duration: 0.3 }
                       }}
                     />
                     

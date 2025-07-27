@@ -28,138 +28,11 @@ const Artists: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('members');
 
   const tabs: Tab[] = [
-    { key: 'members', label: 'Club Members' },
-    { key: 'featured', label: 'Featured Musicians' },
-    { key: 'alumni', label: 'Alumni Artists' }
+    { key: 'members', label: 'Group Members' }
   ];
 
   const artists: Record<string, Artist[]> = {
-    members: [
-      {
-        id: 1,
-        name: "Alex Chen",
-        genre: "Classical Piano",
-        image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3",
-        bio: "Music Theory major specializing in classical piano composition. Leading our music theory workshops and arranging pieces for the club ensemble.",
-        rating: 4.9,
-        instrument: "Piano",
-        year: "Junior",
-        social: {
-          instagram: "#",
-          spotify: "#",
-          youtube: "#"
-        }
-      },
-      {
-        id: 2,
-        name: "Maya Rodriguez",
-        genre: "Acoustic Guitar",
-        image: "https://images.unsplash.com/photo-1571266028243-e4733b0f0bb0?ixlib=rb-4.0.3",
-        bio: "Music Education student with a passion for songwriting. Hosts our weekly acoustic sessions and leads the songwriting circle.",
-        rating: 4.8,
-        instrument: "Guitar",
-        year: "Senior",
-        social: {
-          instagram: "#",
-          spotify: "#",
-          website: "#"
-        }
-      },
-      {
-        id: 3,
-        name: "Jordan Kim",
-        genre: "Audio Engineering",
-        image: "https://images.unsplash.com/photo-1466232373731-46205f0b668e?ixlib=rb-4.0.3",
-        bio: "Audio Engineering major handling our sound setup and teaching production techniques. Expert in mixing and recording.",
-        rating: 4.7,
-        instrument: "Production",
-        year: "Sophomore",
-        social: {
-          instagram: "#",
-          spotify: "#",
-          youtube: "#"
-        }
-      }
-    ],
-    featured: [
-      {
-        id: 4,
-        name: "The Campus Collective",
-        genre: "Indie Folk",
-        image: "https://images.unsplash.com/photo-1598387993441-a364f854c3e1?ixlib=rb-4.0.3",
-        bio: "Student band formed through NOVA Music Club jam sessions. Known for their original compositions and campus performances.",
-        rating: 4.6,
-        instrument: "Ensemble",
-        year: "Mixed",
-        social: {
-          instagram: "#",
-          spotify: "#",
-          youtube: "#"
-        }
-      },
-      {
-        id: 5,
-        name: "Sarah Chen",
-        genre: "Vocal Performance",
-        image: "https://images.unsplash.com/photo-1546528377-9049b2b6a9b7?ixlib=rb-4.0.3",
-        bio: "Music major with exceptional vocal range. Regular performer at open mic nights and featured in university concerts.",
-        rating: 4.8,
-        instrument: "Vocals",
-        year: "Senior",
-        social: {
-          instagram: "#",
-          spotify: "#",
-          website: "#"
-        }
-      },
-      {
-        id: 6,
-        name: "Marcus Johnson",
-        genre: "Jazz Drums",
-        image: "https://images.unsplash.com/photo-1493225333253-ee3e176e7e83?ixlib=rb-4.0.3",
-        bio: "Percussion student bringing rhythm to every club session. Leads our jazz ensemble and teaches drumming fundamentals.",
-        rating: 4.7,
-        instrument: "Drums",
-        year: "Junior",
-        social: {
-          instagram: "#",
-          spotify: "#",
-          youtube: "#"
-        }
-      }
-    ],
-    alumni: [
-      {
-        id: 7,
-        name: "Elena Vasquez",
-        genre: "Professional Violinist",
-        image: "https://images.unsplash.com/photo-1520872024865-3ff2805d8bb3?ixlib=rb-4.0.3",
-        bio: "NOVA Music Club alumna now performing with the city symphony. Returns as guest mentor for string players.",
-        rating: 4.9,
-        instrument: "Violin",
-        year: "Alumni '20",
-        social: {
-          instagram: "#",
-          spotify: "#",
-          youtube: "#"
-        }
-      },
-      {
-        id: 8,
-        name: "David Park",
-        genre: "Music Producer",
-        image: "https://images.unsplash.com/photo-1549213783-8284d0336c4f?ixlib=rb-4.0.3",
-        bio: "Former club president now working in music production. Occasionally returns to share industry insights and career guidance.",
-        rating: 4.8,
-        instrument: "Producer",
-        year: "Alumni '19",
-        social: {
-          instagram: "#",
-          spotify: "#",
-          website: "#"
-        }
-      }
-    ]
+    members: []
   };
 
   const currentArtists = artists[activeTab] || [];
@@ -244,7 +117,7 @@ const Artists: React.FC = () => {
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
-            Meet the talented students and alumni who make NOVA Music Club special
+            Our dedicated group members who make NOVA Music Club special
           </motion.p>
           
           {/* Musical elements around title */}
@@ -312,226 +185,55 @@ const Artists: React.FC = () => {
           ))}
         </motion.div>
 
-        {/* Enhanced Artists Grid */}
+        {/* Recruitment Message */}
         <motion.div 
-          className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          className="flex justify-center items-center min-h-96"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.8, duration: 0.8 }}
         >
-          {currentArtists.map((artist, index) => (
-            <motion.div
-              key={artist.id}
-              className="group modern-card overflow-hidden transition-all duration-700 relative musical-hover-lift"
-              initial={{ 
-                opacity: 0, 
-                y: 80, 
-                scale: 0.8, 
-                rotateY: index % 2 === 0 ? -20 : 20 
-              }}
-              animate={{ 
-                opacity: 1, 
-                y: 0, 
-                scale: 1, 
-                rotateY: 0 
-              }}
-              transition={{ 
-                delay: 2 + index * 0.15, 
-                duration: 0.8, 
-                ease: [0.25, 0.46, 0.45, 0.94] 
-              }}
-              whileHover={{ 
-                y: -15, 
-                scale: 1.02,
-                rotateY: index % 2 === 0 ? 5 : -5,
-                transition: { duration: 0.5, ease: "easeOut" } 
-              }}
-              style={{ transformStyle: 'preserve-3d' }}
+          <motion.div
+            className="glass border border-primary/20 rounded-3xl p-16 max-w-2xl mx-auto backdrop-blur-xl text-center"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 2, duration: 0.8 }}
+            whileHover={{ scale: 1.02, y: -5 }}
+          >
+            <motion.div 
+              className="w-24 h-24 bg-nova-gradient rounded-full flex items-center justify-center mx-auto mb-8"
+              initial={{ rotate: -180, scale: 0 }}
+              animate={{ rotate: 0, scale: 1 }}
+              transition={{ delay: 2.2, duration: 0.8 }}
             >
-              {/* Enhanced Image Section */}
-              <motion.div 
-                className="h-64 bg-cover bg-center relative overflow-hidden"
-                style={{ backgroundImage: `url(${artist.image})` }}
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.6 }}
-              >
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20"
-                  initial={{ opacity: 0.8 }}
-                  whileHover={{ opacity: 0.6 }}
-                  transition={{ duration: 0.5 }}
-                />
-                
-                {/* Rating Badge */}
-                <motion.div 
-                  className="absolute top-4 left-4"
-                  initial={{ scale: 0, rotate: -180 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ delay: 2.2 + index * 0.15, duration: 0.6 }}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                >
-                  <span className="px-4 py-2 rounded-full text-sm font-semibold bg-nova-gradient text-accent shadow-glow flex items-center gap-2">
-                    <FaStar />
-                    {artist.rating}
-                  </span>
-                </motion.div>
-                
-                {/* Year Badge */}
-                <motion.div 
-                  className="absolute top-4 right-4"
-                  initial={{ scale: 0, rotate: 180 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ delay: 2.3 + index * 0.15, duration: 0.6 }}
-                  whileHover={{ scale: 1.1, rotate: -5 }}
-                >
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-primary/80 text-accent">
-                    {artist.year}
-                  </span>
-                </motion.div>
-                
-                {/* Instrument Icon */}
-                <motion.div 
-                  className="absolute bottom-4 right-4 text-3xl text-nova-neon opacity-80 advanced-float"
-                  style={{ animationDelay: `${index * 0.5}s` }}
-                  whileHover={{ scale: 1.3, rotate: 15 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {getInstrumentIcon(artist.instrument)}
-                </motion.div>
-                
-                {/* Sound wave effects */}
-                <motion.div 
-                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 sound-wave w-32 h-32 opacity-0 group-hover:opacity-40"
-                  transition={{ duration: 0.5 }}
-                  style={{ animationDelay: `${index * 0.2}s` }}
-                />
-                
-                {/* Shimmer effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-nova-neon/20 to-transparent -skew-x-12 opacity-0 group-hover:opacity-100"
-                  initial={{ x: '-200%' }}
-                  whileHover={{ x: '200%' }}
-                  transition={{ duration: 1, ease: "easeInOut" }}
-                />
-              </motion.div>
-              
-              {/* Enhanced Content Section */}
-              <motion.div 
-                className="p-8 relative"
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 2.3 + index * 0.15, duration: 0.6 }}
-              >
-                <motion.div 
-                  className="flex justify-between items-start mb-6"
-                  initial={{ y: 15, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 2.4 + index * 0.15, duration: 0.5 }}
-                >
-                  <div>
-                    <motion.h3 
-                      className="text-2xl font-bold font-heading mb-2 text-accent group-hover:text-nova-neon transition-colors duration-500"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      {artist.name}
-                    </motion.h3>
-                    <motion.p 
-                      className="text-nova-neon font-medium text-lg smooth-glow"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      {artist.genre}
-                    </motion.p>
-                    <motion.p 
-                      className="text-primary font-semibold mt-1"
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      {artist.instrument}
-                    </motion.p>
-                  </div>
-                </motion.div>
-                
-                {/* Description */}
-                <motion.p 
-                  className="text-gray-text mb-8 leading-relaxed group-hover:text-gray-light transition-colors duration-500"
-                  initial={{ y: 10, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 2.5 + index * 0.15, duration: 0.5 }}
-                >
-                  {artist.bio}
-                </motion.p>
-                
-                {/* Enhanced Social Links */}
-                <motion.div 
-                  className="flex gap-4 justify-center"
-                  initial={{ y: 15, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 2.6 + index * 0.15, duration: 0.5 }}
-                >
-                  {artist.social.instagram && (
-                    <motion.a
-                      href={artist.social.instagram}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 glass rounded-full flex items-center justify-center text-accent hover:text-nova-neon musical-hover-lift relative overflow-hidden"
-                      whileHover={{ scale: 1.2, rotate: 15 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <FaInstagram />
-                      <div className="melodic-trail w-full h-full absolute inset-0 opacity-0 group-hover:opacity-100" />
-                    </motion.a>
-                  )}
-                  {artist.social.spotify && (
-                    <motion.a
-                      href={artist.social.spotify}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 glass rounded-full flex items-center justify-center text-accent hover:text-nova-neon musical-hover-lift relative overflow-hidden"
-                      whileHover={{ scale: 1.2, rotate: -15 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <FaSpotify />
-                      <div className="melodic-trail w-full h-full absolute inset-0 opacity-0 group-hover:opacity-100" />
-                    </motion.a>
-                  )}
-                  {artist.social.youtube && (
-                    <motion.a
-                      href={artist.social.youtube}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 glass rounded-full flex items-center justify-center text-accent hover:text-nova-neon musical-hover-lift relative overflow-hidden"
-                      whileHover={{ scale: 1.2, rotate: 15 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <FaYoutube />
-                      <div className="melodic-trail w-full h-full absolute inset-0 opacity-0 group-hover:opacity-100" />
-                    </motion.a>
-                  )}
-                  {artist.social.website && (
-                    <motion.a
-                      href={artist.social.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 glass rounded-full flex items-center justify-center text-accent hover:text-nova-neon musical-hover-lift relative overflow-hidden"
-                      whileHover={{ scale: 1.2, rotate: -15 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <FaGlobe />
-                      <div className="melodic-trail w-full h-full absolute inset-0 opacity-0 group-hover:opacity-100" />
-                    </motion.a>
-                  )}
-                </motion.div>
-                
-                {/* Floating sparkles */}
-                <motion.div
-                  className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
-                  transition={{ duration: 0.5 }}
-                >
-                  <div className="absolute top-4 right-4 cosmic-sparkle" style={{ animationDelay: '0.1s' }} />
-                  <div className="absolute bottom-4 left-4 cosmic-sparkle" style={{ animationDelay: '0.3s' }} />
-                </motion.div>
-              </motion.div>
+              <FaMusic className="text-3xl text-accent" />
             </motion.div>
-          ))}
+            
+            <motion.h3 
+              className="text-4xl font-bold text-accent mb-6"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 2.4, duration: 0.6 }}
+            >
+              We Are Recruiting Soon!
+            </motion.h3>
+            
+            <motion.p 
+              className="text-xl text-gray-text leading-relaxed mb-8"
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 2.6, duration: 0.6 }}
+            >
+              Stay tuned for updates on our upcoming recruitment process.<br />
+              Join NOVA Music Club and become part of our musical family!
+            </motion.p>
+            
+            <motion.div 
+              className="w-20 h-1 bg-nova-gradient rounded-full mx-auto"
+              initial={{ width: 0 }}
+              animate={{ width: 80 }}
+              transition={{ delay: 2.8, duration: 0.8 }}
+            />
+          </motion.div>
         </motion.div>
       </div>
     </div>

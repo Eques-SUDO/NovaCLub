@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { motion } from 'framer-motion';
 
 interface ButtonProps {
@@ -11,7 +11,7 @@ interface ButtonProps {
   className?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({
+const Button: React.FC<ButtonProps> = memo(({
   children,
   variant = 'primary',
   size = 'default',
@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   type = 'button',
   className = '',
 }) => {
-  const baseClasses = 'relative inline-flex items-center justify-center gap-3 font-semibold font-heading rounded-2xl transition-all duration-500 hover:-translate-y-1 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none overflow-hidden group';
+  const baseClasses = 'relative inline-flex items-center justify-center gap-3 font-semibold font-heading rounded-2xl transition-all duration-300 hover:-translate-y-1 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none overflow-hidden group';
   
   const variantClasses = {
     primary: 'bg-gradient-to-r from-primary via-jamhouse-navy to-jamhouse-darkNavy text-accent hover:shadow-glow',
@@ -45,7 +45,7 @@ const Button: React.FC<ButtonProps> = ({
       transition={{ duration: 0.2 }}
     >
       {/* Shimmer Effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-600" />
       
       {/* Content */}
       <span className="relative z-10 flex items-center gap-3">
@@ -53,6 +53,8 @@ const Button: React.FC<ButtonProps> = ({
       </span>
     </motion.button>
   );
-};
+});
+
+Button.displayName = 'Button';
 
 export default Button;
