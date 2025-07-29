@@ -15,8 +15,8 @@ const HeroSection: React.FC<HeroSectionProps> = memo(({ onJoinClick }) => {
       
       <div className="container-custom relative z-10 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
           <div className="flex items-center justify-center gap-4 mb-8">

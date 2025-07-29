@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useMemo, useCallback } from 'react';
 import { FaInstagram, FaSpotify, FaYoutube, FaGlobe, FaStar, FaMusic, FaGuitar, FaMicrophone, FaDrum, FaCompactDisc } from 'react-icons/fa';
 
 interface Artist {
@@ -24,20 +23,47 @@ interface Tab {
   label: string;
 }
 
+// Memoized tab button component
+const TabButton = React.memo(({ tab, isActive, onClick }: {
+  tab: Tab;
+  isActive: boolean;
+  onClick: (key: string) => void;
+}) => (
+  <button
+    onClick={() => onClick(tab.key)}
+    className={`px-6 md:px-8 py-3 md:py-4 rounded-full font-semibold text-base md:text-lg relative overflow-hidden transition-all duration-300 hover:scale-105 ${
+      isActive
+        ? 'bg-gradient-to-r from-nova-neon to-primary text-white shadow-lg shadow-nova-neon/30'
+        : 'modern-card border border-primary/30 text-accent hover:border-nova-neon hover:shadow-lg hover:bg-primary/10'
+    }`}
+  >
+    {tab.label}
+    
+    {/* Active indicator */}
+    {isActive && (
+      <div className="absolute -top-1 -right-1 w-2 h-2 bg-white rounded-full animate-pulse" />
+    )}
+  </button>
+));
+
 const Artists: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('members');
 
-  const tabs: Tab[] = [
+  const tabs: Tab[] = useMemo(() => [
     { key: 'members', label: 'Group Members' }
-  ];
+  ], []);
 
-  const artists: Record<string, Artist[]> = {
+  const artists: Record<string, Artist[]> = useMemo(() => ({
     members: []
-  };
+  }), []);
 
   const currentArtists = artists[activeTab] || [];
 
-  const getInstrumentIcon = (instrument: string) => {
+  const handleTabChange = useCallback((key: string) => {
+    setActiveTab(key);
+  }, []);
+
+  const getInstrumentIcon = useCallback((instrument: string) => {
     switch (instrument.toLowerCase()) {
       case 'piano': return <FaMusic />;
       case 'guitar': return <FaGuitar />;
@@ -46,195 +72,177 @@ const Artists: React.FC = () => {
       case 'production': return <FaCompactDisc />;
       default: return <FaMusic />;
     }
-  };
+  }, []);
 
   return (
-    <div className="min-h-screen relative overflow-hidden particle-system">
-      {/* Background Elements */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-dark-bg via-nova-darkPurple/20 to-dark-bg"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-      />
-      
-      {/* Floating Musical Elements */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2, delay: 0.5 }}
-      >
-        <div className="music-note text-6xl opacity-10 absolute top-20 left-1/4 advanced-float" style={{ animationDelay: '0s' }}>♪</div>
-        <div className="music-note text-4xl opacity-15 absolute top-1/3 right-1/4 advanced-float" style={{ animationDelay: '2s' }}>♫</div>
-        <div className="music-note text-5xl opacity-8 absolute bottom-1/4 left-1/6 advanced-float" style={{ animationDelay: '4s' }}>♬</div>
-        <div className="ethereal-glow w-40 h-40 absolute top-1/4 right-1/6" style={{ animationDelay: '1s' }} />
-        <div className="ethereal-glow w-32 h-32 absolute bottom-1/3 left-1/3" style={{ animationDelay: '3s' }} />
-        
-        {/* Frequency waves */}
-        <div className="frequency-wave w-full absolute top-1/4" style={{ animationDelay: '2s' }} />
-        <div className="frequency-wave w-full absolute bottom-1/4" style={{ animationDelay: '5s' }} />
-      </motion.div>
+    <div className="min-h-screen bg-gradient-to-b from-dark-bg via-dark-secondary/20 to-dark-secondary/40 py-8 md:py-16 relative overflow-hidden">
+      {/* Subtle background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute w-96 h-96 -top-48 -left-48 bg-nova-neon/10 rounded-full blur-3xl" />
+        <div className="absolute w-96 h-96 -bottom-48 -right-48 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-mesh-gradient opacity-5" />
+      </div>
 
-      <div className="container-custom py-8 relative z-10">
+      <div className="container-custom relative z-10">
         {/* Enhanced Page Header */}
-        <motion.div 
-          className="text-center mb-20 relative"
-          initial={{ opacity: 0, y: 50, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          {/* Music visualizer */}
-          <motion.div 
-            className="music-visualizer mb-8"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-          >
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.1s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.2s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.3s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.4s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.5s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.6s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.7s' }} />
-          </motion.div>
+        <div className="text-center mb-12 md:mb-20 px-4">
+          <div className="inline-flex items-center gap-2 md:gap-3 mb-6 px-4 md:px-6 py-2 md:py-3 glass rounded-full border border-primary/20">
+            <FaMusic className="text-nova-neon text-sm md:text-base" />
+            <span className="text-nova-neon font-medium text-sm md:text-base">NOVA Music Club</span>
+          </div>
           
-          <motion.h1
-            className="text-5xl md:text-7xl font-bold font-display text-gradient mb-6 smooth-glow"
-            initial={{ opacity: 0, y: 30, rotateX: 45 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
-            whileHover={{ scale: 1.05 }}
-          >
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display text-transparent bg-clip-text bg-gradient-to-r from-nova-neon via-white to-primary mb-4 md:mb-6 leading-tight">
             Our Musicians
-          </motion.h1>
-          
-          <motion.p
-            className="text-xl md:text-2xl text-gray-text max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-          >
+          </h1>
+          <p className="text-lg md:text-xl lg:text-2xl text-gray-text max-w-3xl mx-auto leading-relaxed">
             Our dedicated group members who make NOVA Music Club special
-          </motion.p>
+          </p>
           
-          {/* Musical elements around title */}
-          <motion.div 
-            className="absolute -top-8 left-1/4 music-note text-xl advanced-float"
-            initial={{ opacity: 0, scale: 0, rotate: -180 }}
-            animate={{ opacity: 0.6, scale: 1, rotate: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            style={{ animationDelay: '1s' }}
-          >♪</motion.div>
-          <motion.div 
-            className="absolute -top-8 right-1/4 music-note text-xl advanced-float"
-            initial={{ opacity: 0, scale: 0, rotate: 180 }}
-            animate={{ opacity: 0.6, scale: 1, rotate: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            style={{ animationDelay: '3s' }}
-          >♬</motion.div>
-        </motion.div>
+          {/* Decorative elements */}
+          <div className="flex items-center justify-center gap-2 mt-6 md:mt-8">
+            <div className="h-px w-8 md:w-12 bg-gradient-to-r from-transparent to-nova-neon/50" />
+            <FaMusic className="text-nova-neon/60 text-xs" />
+            <div className="h-px w-8 md:w-12 bg-gradient-to-l from-transparent to-nova-neon/50" />
+          </div>
+        </div>
 
         {/* Enhanced Tabs */}
-        <motion.div 
-          className="flex flex-wrap justify-center gap-4 mb-16 relative"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-        >
-          {tabs.map((tab, index) => (
-            <motion.button
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4 mb-12 md:mb-16 px-4">
+          {tabs.map((tab) => (
+            <TabButton
               key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
-              className={`px-8 py-4 rounded-full font-semibold text-lg relative overflow-hidden musical-hover-lift transition-all duration-700 ${
-                activeTab === tab.key
-                  ? 'bg-nova-gradient text-accent shadow-glow'
-                  : 'glass border border-primary/30 text-accent hover:border-nova-neon hover:shadow-neon'
-              }`}
-              initial={{ opacity: 0, y: 20, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: 1.4 + index * 0.1, duration: 0.6 }}
-              whileHover={{ 
-                scale: 1.1, 
-                y: -3,
-                transition: { duration: 0.3 }
-              }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {tab.label}
-              
-              {/* Musical note on active */}
-              {activeTab === tab.key && (
-                <motion.div
-                  className="absolute -top-2 -right-2 music-note text-xs opacity-80"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                >♪</motion.div>
-              )}
-              
-              {/* Shimmer effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-nova-neon/20 to-transparent -skew-x-12 opacity-0 hover:opacity-100"
-                initial={{ x: '-200%' }}
-                whileHover={{ x: '200%' }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-              />
-            </motion.button>
-          ))}
-        </motion.div>
-
-        {/* Recruitment Message */}
-        <motion.div 
-          className="flex justify-center items-center min-h-96"
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 0.8 }}
-        >
-          <motion.div
-            className="glass border border-primary/20 rounded-3xl p-16 max-w-2xl mx-auto backdrop-blur-xl text-center"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 2, duration: 0.8 }}
-            whileHover={{ scale: 1.02, y: -5 }}
-          >
-            <motion.div 
-              className="w-24 h-24 bg-nova-gradient rounded-full flex items-center justify-center mx-auto mb-8"
-              initial={{ rotate: -180, scale: 0 }}
-              animate={{ rotate: 0, scale: 1 }}
-              transition={{ delay: 2.2, duration: 0.8 }}
-            >
-              <FaMusic className="text-3xl text-accent" />
-            </motion.div>
-            
-            <motion.h3 
-              className="text-4xl font-bold text-accent mb-6"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 2.4, duration: 0.6 }}
-            >
-              We Are Recruiting Soon!
-            </motion.h3>
-            
-            <motion.p 
-              className="text-xl text-gray-text leading-relaxed mb-8"
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 2.6, duration: 0.6 }}
-            >
-              Stay tuned for updates on our upcoming recruitment process.<br />
-              Join NOVA Music Club and become part of our musical family!
-            </motion.p>
-            
-            <motion.div 
-              className="w-20 h-1 bg-nova-gradient rounded-full mx-auto"
-              initial={{ width: 0 }}
-              animate={{ width: 80 }}
-              transition={{ delay: 2.8, duration: 0.8 }}
+              tab={tab}
+              isActive={activeTab === tab.key}
+              onClick={handleTabChange}
             />
-          </motion.div>
-        </motion.div>
+          ))}
+        </div>
+
+        {/* Content Area */}
+        {currentArtists.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4">
+            {currentArtists.map((artist, index) => (
+              <div
+                key={artist.id}
+                className="modern-card p-6 md:p-8 text-center relative overflow-hidden group hover:shadow-2xl transition-all duration-300 opacity-0 animate-fadeIn"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-t from-nova-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                
+                <div className="relative mb-6">
+                  <div className="w-24 h-24 mx-auto rounded-full overflow-hidden mb-4 relative bg-gray-800 ring-4 ring-primary/20 group-hover:ring-nova-neon/40 transition-all duration-300">
+                    <img 
+                      src={artist.image} 
+                      alt={artist.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    />
+                  </div>
+                  
+                  <div className="flex items-center justify-center gap-2 mb-2">
+                    <div className="text-nova-neon text-lg">
+                      {getInstrumentIcon(artist.instrument)}
+                    </div>
+                    <span className="text-nova-neon/80 text-sm uppercase tracking-wider">
+                      {artist.instrument}
+                    </span>
+                  </div>
+                </div>
+                
+                <h3 className="text-xl font-bold font-heading mb-2 text-accent group-hover:text-nova-neon transition-colors duration-300">
+                  {artist.name}
+                </h3>
+                
+                <p className="text-primary/80 font-medium text-sm mb-3">
+                  {artist.genre} • {artist.year}
+                </p>
+                
+                <p className="text-gray-text leading-relaxed text-sm mb-4">
+                  {artist.bio}
+                </p>
+                
+                {/* Rating */}
+                <div className="flex items-center justify-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <FaStar
+                      key={i}
+                      className={`text-sm ${
+                        i < artist.rating ? 'text-nova-neon' : 'text-gray-600'
+                      }`}
+                    />
+                  ))}
+                </div>
+                
+                {/* Social Links */}
+                <div className="flex justify-center gap-3">
+                  {artist.social.instagram && (
+                    <a
+                      href={artist.social.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-600 text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-200"
+                    >
+                      <FaInstagram className="text-sm" />
+                    </a>
+                  )}
+                  {artist.social.spotify && (
+                    <a
+                      href={artist.social.spotify}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-200"
+                    >
+                      <FaSpotify className="text-sm" />
+                    </a>
+                  )}
+                  {artist.social.youtube && (
+                    <a
+                      href={artist.social.youtube}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-200"
+                    >
+                      <FaYoutube className="text-sm" />
+                    </a>
+                  )}
+                  {artist.social.website && (
+                    <a
+                      href={artist.social.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 bg-gradient-to-br from-nova-neon to-primary text-white rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-200"
+                    >
+                      <FaGlobe className="text-sm" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex justify-center items-center min-h-96">
+            <div className="modern-card p-12 md:p-16 max-w-2xl mx-auto text-center hover:shadow-2xl transition-shadow duration-300">
+              <div className="w-20 md:w-24 h-20 md:h-24 bg-gradient-to-br from-nova-neon to-primary rounded-full flex items-center justify-center mx-auto mb-6 md:mb-8 shadow-lg shadow-nova-neon/30">
+                <FaMusic className="text-3xl md:text-4xl text-white" />
+              </div>
+              
+              <h3 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary mb-4 md:mb-6">
+                We Are Recruiting Soon!
+              </h3>
+              
+              <p className="text-lg md:text-xl text-gray-text leading-relaxed mb-6 md:mb-8">
+                Stay tuned for updates on our upcoming recruitment process.<br />
+                Join NOVA Music Club and become part of our musical family!
+              </p>
+              
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-nova-neon animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-nova-neon animate-pulse" style={{ animationDelay: '0.2s' }} />
+                <div className="w-2 h-2 rounded-full bg-nova-neon animate-pulse" style={{ animationDelay: '0.4s' }} />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useMemo, useCallback } from 'react';
 import { FaTimes, FaChevronLeft, FaChevronRight, FaExpand, FaMusic, FaCamera, FaUsers, FaGuitar, FaMicrophone, FaCalendarAlt } from 'react-icons/fa';
 
 interface GalleryImage {
@@ -17,41 +16,34 @@ interface Category {
   label: string;
 }
 
-const Gallery: React.FC = () => {
-  const [category, setCategory] = useState<string>('all');
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+// Memoized category button component
+const CategoryButton = React.memo(({ cat, category, index, onClick, getCategoryIcon }: {
+  cat: Category;
+  category: string;
+  index: number;
+  onClick: (value: string) => void;
+  getCategoryIcon: (cat: string) => React.ReactNode;
+}) => (
+  <button
+    onClick={() => onClick(cat.value)}
+    className={`px-4 md:px-6 py-2 md:py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 active:scale-95 text-sm md:text-base flex items-center gap-2 md:gap-3 ${
+      category === cat.value
+        ? 'bg-gradient-to-r from-nova-neon to-primary text-white shadow-lg shadow-nova-neon/30 border-2 border-nova-neon/50'
+        : 'glass border border-primary/30 text-accent hover:border-nova-neon hover:shadow-lg hover:bg-primary/10'
+    }`}
+  >
+    <span className="text-nova-neon text-sm md:text-base">{getCategoryIcon(cat.value)}</span>
+    {cat.label}
+  </button>
+));
 
-  const images: GalleryImage[] = [];
-
-  const categories: Category[] = [
-    { value: 'all', label: 'All Photos' },
-    { value: 'events', label: 'Concert Events' },
-    { value: 'sessions', label: 'Jam Sessions' },
-    { value: 'workshops', label: 'Workshops' },
-    { value: 'campus', label: 'Campus Life' },
-    { value: 'practice', label: 'Practice & Recording' },
-    { value: 'social', label: 'Social Events' }
-  ];
-
-  const filteredImages = category === 'all' 
-    ? images 
-    : images.filter(img => img.category === category);
-
-  const handlePrevious = () => {
-    if (!selectedImage) return;
-    const currentIndex = filteredImages.findIndex(img => img.id === selectedImage.id);
-    const prevIndex = currentIndex === 0 ? filteredImages.length - 1 : currentIndex - 1;
-    setSelectedImage(filteredImages[prevIndex]);
-  };
-
-  const handleNext = () => {
-    if (!selectedImage) return;
-    const currentIndex = filteredImages.findIndex(img => img.id === selectedImage.id);
-    const nextIndex = currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1;
-    setSelectedImage(filteredImages[nextIndex]);
-  };
-
-  const getCategoryIcon = (cat: string) => {
+// Memoized gallery card component
+const GalleryCard = React.memo(({ image, index, onClick }: {
+  image: GalleryImage;
+  index: number;
+  onClick: (image: GalleryImage) => void;
+}) => {
+  const getCategoryIcon = useCallback((cat: string) => {
     switch (cat) {
       case 'events': return <FaMusic />;
       case 'sessions': return <FaUsers />;
@@ -61,379 +53,286 @@ const Gallery: React.FC = () => {
       case 'social': return <FaCalendarAlt />;
       default: return <FaMusic />;
     }
-  };
+  }, []);
 
   return (
-    <div className="min-h-screen relative overflow-hidden particle-system">
-      {/* Background Elements */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-dark-bg via-nova-darkPurple/20 to-dark-bg"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.5 }}
-      />
-      
-      {/* Floating Musical Elements */}
-      <motion.div
-        className="absolute inset-0 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2, delay: 0.5 }}
-      >
-        <div className="music-note text-6xl opacity-10 absolute top-20 left-1/4 advanced-float" style={{ animationDelay: '0s' }}>♪</div>
-        <div className="music-note text-4xl opacity-15 absolute top-1/3 right-1/4 advanced-float" style={{ animationDelay: '2s' }}>♫</div>
-        <div className="music-note text-5xl opacity-8 absolute bottom-1/4 left-1/6 advanced-float" style={{ animationDelay: '4s' }}>♬</div>
-        <div className="ethereal-glow w-40 h-40 absolute top-1/4 right-1/6" style={{ animationDelay: '1s' }} />
-        <div className="ethereal-glow w-32 h-32 absolute bottom-1/3 left-1/3" style={{ animationDelay: '3s' }} />
+    <div
+      className={`group relative overflow-hidden rounded-2xl cursor-pointer transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] opacity-0 animate-fadeIn ${
+        index % 7 === 0 ? 'lg:col-span-2 lg:row-span-2' : 
+        index % 5 === 0 ? 'lg:row-span-2' : ''
+      }`}
+      style={{ animationDelay: `${index * 100}ms` }}
+      onClick={() => onClick(image)}
+    >
+      <div className={`${index % 7 === 0 ? 'aspect-video' : 'aspect-square'} overflow-hidden relative`}>
+        <img
+          src={image.src}
+          alt={image.title}
+          loading="lazy"
+          className="w-full h-full object-cover transition-all duration-300 group-hover:scale-110"
+        />
         
-        {/* Frequency waves */}
-        <div className="frequency-wave w-full absolute top-1/4" style={{ animationDelay: '2s' }} />
-        <div className="frequency-wave w-full absolute bottom-1/4" style={{ animationDelay: '5s' }} />
-      </motion.div>
+        {/* Enhanced Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
+          {/* Category badge */}
+          <div className="absolute top-3 md:top-4 left-3 md:left-4">
+            <span className="px-2 md:px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-nova-neon to-primary text-white shadow-lg flex items-center gap-1 md:gap-2">
+              {getCategoryIcon(image.category)}
+              <span className="hidden md:inline">{image.category}</span>
+            </span>
+          </div>
+          
+          {/* Expand icon */}
+          <div className="absolute top-3 md:top-4 right-3 md:right-4 w-8 h-8 md:w-10 md:h-10 glass rounded-full flex items-center justify-center text-nova-neon opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110">
+            <FaExpand className="text-xs md:text-sm" />
+          </div>
+          
+          {/* Content overlay */}
+          <div className="absolute bottom-3 md:bottom-4 left-3 md:left-4 right-3 md:right-4">
+            <h3 className="text-base md:text-lg font-bold font-heading mb-1 md:mb-2 text-white group-hover:text-nova-neon transition-colors duration-300">
+              {image.title}
+            </h3>
+            <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4 text-xs md:text-sm text-gray-300">
+              <span className="flex items-center gap-1">
+                <FaCalendarAlt className="text-nova-neon" />
+                {image.date}
+              </span>
+              <span className="flex items-center gap-1">
+                <FaCamera className="text-nova-neon" />
+                {image.location}
+              </span>
+            </div>
+            <p className="text-gray-light text-xs md:text-sm mt-1 md:mt-2 opacity-90 line-clamp-2">
+              {image.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+});
 
-      <div className="container-custom py-8 relative z-10">
+const Gallery: React.FC = () => {
+  const [category, setCategory] = useState<string>('all');
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+
+  const images: GalleryImage[] = useMemo(() => [], []);
+
+  const categories: Category[] = useMemo(() => [
+    { value: 'all', label: 'All Photos' },
+    { value: 'events', label: 'Concert Events' },
+    { value: 'sessions', label: 'Jam Sessions' },
+    { value: 'workshops', label: 'Workshops' },
+    { value: 'campus', label: 'Campus Life' },
+    { value: 'practice', label: 'Practice & Recording' },
+    { value: 'social', label: 'Social Events' }
+  ], []);
+
+  const filteredImages = useMemo(() => {
+    return category === 'all' 
+      ? images 
+      : images.filter(img => img.category === category);
+  }, [category, images]);
+
+  const handlePrevious = useCallback(() => {
+    if (!selectedImage) return;
+    const currentIndex = filteredImages.findIndex(img => img.id === selectedImage.id);
+    const prevIndex = currentIndex === 0 ? filteredImages.length - 1 : currentIndex - 1;
+    setSelectedImage(filteredImages[prevIndex]);
+  }, [selectedImage, filteredImages]);
+
+  const handleNext = useCallback(() => {
+    if (!selectedImage) return;
+    const currentIndex = filteredImages.findIndex(img => img.id === selectedImage.id);
+    const nextIndex = currentIndex === filteredImages.length - 1 ? 0 : currentIndex + 1;
+    setSelectedImage(filteredImages[nextIndex]);
+  }, [selectedImage, filteredImages]);
+
+  const getCategoryIcon = useCallback((cat: string) => {
+    switch (cat) {
+      case 'events': return <FaMusic />;
+      case 'sessions': return <FaUsers />;
+      case 'workshops': return <FaGuitar />;
+      case 'campus': return <FaCamera />;
+      case 'practice': return <FaMicrophone />;
+      case 'social': return <FaCalendarAlt />;
+      default: return <FaMusic />;
+    }
+  }, []);
+
+  const handleCategoryChange = useCallback((newCategory: string) => {
+    setCategory(newCategory);
+  }, []);
+
+  const handleImageClick = useCallback((image: GalleryImage) => {
+    setSelectedImage(image);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setSelectedImage(null);
+  }, []);
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-dark-bg via-dark-secondary/20 to-dark-secondary/40 py-8 md:py-16 relative overflow-hidden">
+      {/* Subtle background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute w-96 h-96 -top-48 -left-48 bg-nova-neon/10 rounded-full blur-3xl" />
+        <div className="absolute w-96 h-96 -bottom-48 -right-48 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute inset-0 bg-mesh-gradient opacity-5" />
+      </div>
+
+      <div className="container-custom relative z-10">
         {/* Enhanced Page Header */}
-        <motion.div 
-          className="text-center mb-20 relative"
-          initial={{ opacity: 0, y: 50, scale: 0.9 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          {/* Music visualizer */}
-          <motion.div 
-            className="music-visualizer mb-8"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.8 }}
-          >
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.1s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.2s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.3s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.4s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.5s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.6s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.7s' }} />
-          </motion.div>
+        <div className="text-center mb-12 md:mb-20 px-4">
+          <div className="inline-flex items-center gap-2 md:gap-3 mb-6 px-4 md:px-6 py-2 md:py-3 glass rounded-full border border-primary/20">
+            <FaMusic className="text-nova-neon text-sm md:text-base" />
+            <span className="text-nova-neon font-medium text-sm md:text-base">NOVA Music Club</span>
+          </div>
           
-          <motion.h1
-            className="text-5xl md:text-7xl font-bold font-display text-gradient mb-6 smooth-glow"
-            initial={{ opacity: 0, y: 30, rotateX: 45 }}
-            animate={{ opacity: 1, y: 0, rotateX: 0 }}
-            transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
-            whileHover={{ scale: 1.05 }}
-          >
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display text-transparent bg-clip-text bg-gradient-to-r from-nova-neon via-white to-primary mb-4 md:mb-6 leading-tight">
             Photo Gallery
-          </motion.h1>
-          
-          <motion.p
-            className="text-xl md:text-2xl text-gray-text max-w-3xl mx-auto leading-relaxed"
-            initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ delay: 0.6, duration: 0.8 }}
-          >
+          </h1>
+          <p className="text-lg md:text-xl lg:text-2xl text-gray-text max-w-3xl mx-auto leading-relaxed">
             Capturing memories from our musical journey at the university
-          </motion.p>
+          </p>
           
-          {/* Musical elements around title */}
-          <motion.div 
-            className="absolute -top-8 left-1/4 music-note text-xl advanced-float"
-            initial={{ opacity: 0, scale: 0, rotate: -180 }}
-            animate={{ opacity: 0.6, scale: 1, rotate: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            style={{ animationDelay: '1s' }}
-          >♪</motion.div>
-          <motion.div 
-            className="absolute -top-8 right-1/4 music-note text-xl advanced-float"
-            initial={{ opacity: 0, scale: 0, rotate: 180 }}
-            animate={{ opacity: 0.6, scale: 1, rotate: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            style={{ animationDelay: '3s' }}
-          >♬</motion.div>
-        </motion.div>
+          {/* Decorative elements */}
+          <div className="flex items-center justify-center gap-2 mt-6 md:mt-8">
+            <div className="h-px w-8 md:w-12 bg-gradient-to-r from-transparent to-nova-neon/50" />
+            <FaMusic className="text-nova-neon/60 text-xs" />
+            <div className="h-px w-8 md:w-12 bg-gradient-to-l from-transparent to-nova-neon/50" />
+          </div>
+        </div>
 
         {/* Enhanced Category Filter */}
-        <motion.div 
-          className="flex flex-wrap justify-center gap-4 mb-16 relative"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-        >
-          {categories.map((cat, index) => (
-            <motion.button
-              key={cat.value}
-              onClick={() => setCategory(cat.value)}
-              className={`px-6 py-3 rounded-full font-semibold text-lg relative overflow-hidden musical-hover-lift transition-all duration-700 flex items-center gap-3 ${
-                category === cat.value
-                  ? 'bg-nova-gradient text-accent shadow-glow'
-                  : 'glass border border-primary/30 text-accent hover:border-nova-neon hover:shadow-neon'
-              }`}
-              initial={{ opacity: 0, y: 20, scale: 0.8 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: 1.4 + index * 0.1, duration: 0.6 }}
-              whileHover={{ 
-                scale: 1.1, 
-                y: -3,
-                transition: { duration: 0.3 }
-              }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="text-nova-neon">{getCategoryIcon(cat.value)}</span>
-              {cat.label}
-              
-              {/* Musical note on active */}
-              {category === cat.value && (
-                <motion.div
-                  className="absolute -top-2 -right-2 music-note text-xs opacity-80"
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                >♪</motion.div>
-              )}
-              
-              {/* Shimmer effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-nova-neon/20 to-transparent -skew-x-12 opacity-0 hover:opacity-100"
-                initial={{ x: '-200%' }}
-                whileHover={{ x: '200%' }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
+        <div className="modern-card p-4 md:p-6 mb-12 md:mb-16 mx-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+            <div className="flex items-center gap-2 md:gap-3 text-nova-neon">
+              <FaCamera className="text-base md:text-lg" />
+              <span className="font-semibold text-base md:text-lg">Filter Photos:</span>
+            </div>
+            
+            <div className="flex flex-wrap gap-2 md:gap-3 justify-center">
+              {categories.map((cat, index) => (
+                <CategoryButton
+                  key={cat.value}
+                  cat={cat}
+                  category={category}
+                  index={index}
+                  onClick={handleCategoryChange}
+                  getCategoryIcon={getCategoryIcon}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Enhanced Gallery Grid */}
+        {filteredImages.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 px-4">
+            {filteredImages.map((image, index) => (
+              <GalleryCard
+                key={image.id}
+                image={image}
+                index={index}
+                onClick={handleImageClick}
               />
-            </motion.button>
-          ))}
-        </motion.div>
-
-        {/* Enhanced Gallery Grid with 3D Effects */}
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 perspective-1000"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.8, duration: 0.8 }}
-          style={{ perspective: '1200px' }}
-        >
-          {filteredImages.map((image, index) => (
-            <motion.div
-              key={image.id}
-              className={`group relative overflow-hidden rounded-3xl cursor-pointer musical-hover-lift ${
-                index % 7 === 0 ? 'lg:col-span-2 lg:row-span-2' : 
-                index % 5 === 0 ? 'lg:row-span-2' : ''
-              }`}
-              initial={{ 
-                opacity: 0, 
-                y: 100, 
-                scale: 0.8,
-                rotateX: 30,
-                rotateY: index % 2 === 0 ? -15 : 15
-              }}
-              animate={{ 
-                opacity: 1, 
-                y: 0, 
-                scale: 1,
-                rotateX: 0,
-                rotateY: 0
-              }}
-              transition={{ 
-                delay: 2 + index * 0.1, 
-                duration: 0.8, 
-                ease: [0.25, 0.46, 0.45, 0.94] 
-              }}
-              whileHover={{ 
-                y: -20, 
-                scale: 1.05,
-                rotateX: index % 2 === 0 ? 5 : -5,
-                rotateY: index % 2 === 0 ? 10 : -10,
-                z: 100,
-                transition: { duration: 0.6, ease: "easeOut" } 
-              }}
-              onClick={() => setSelectedImage(image)}
-              style={{ transformStyle: 'preserve-3d' }}
-            >
-              <div className={`${index % 7 === 0 ? 'aspect-video' : 'aspect-square'} overflow-hidden relative`}>
-                <motion.img
-                  src={image.src}
-                  alt={image.title}
-                  className="w-full h-full object-cover transition-all duration-700"
-                  whileHover={{ scale: 1.1 }}
-                />
-                
-                {/* Enhanced Overlay with 3D depth */}
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"
-                  style={{ transform: 'translateZ(20px)' }}
-                >
-                  {/* Category badge */}
-                  <motion.div 
-                    className="absolute top-4 left-4"
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ delay: 2.2 + index * 0.1, duration: 0.6 }}
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                  >
-                    <span className="px-3 py-1 rounded-full text-xs font-semibold bg-nova-gradient text-accent shadow-glow flex items-center gap-2">
-                      {getCategoryIcon(image.category)}
-                      {image.category}
-                    </span>
-                  </motion.div>
-                  
-                  {/* Expand icon */}
-                  <motion.div 
-                    className="absolute top-4 right-4 w-12 h-12 glass rounded-full flex items-center justify-center text-nova-neon opacity-0 group-hover:opacity-100 transition-all duration-500"
-                    whileHover={{ scale: 1.2, rotate: 15 }}
-                    style={{ transform: 'translateZ(30px)' }}
-                  >
-                    <FaExpand />
-                  </motion.div>
-                  
-                  {/* Content overlay */}
-                  <motion.div 
-                    className="absolute bottom-4 left-4 right-4"
-                    style={{ transform: 'translateZ(25px)' }}
-                  >
-                    <motion.h3 
-                      className="text-xl font-bold font-heading mb-2 text-accent group-hover:text-nova-neon transition-colors duration-500"
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      {image.title}
-                    </motion.h3>
-                    <motion.div className="flex items-center gap-4 text-sm text-gray-text">
-                      <span className="flex items-center gap-1">
-                        <FaCalendarAlt className="text-nova-neon" />
-                        {image.date}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <FaCamera className="text-nova-neon" />
-                        {image.location}
-                      </span>
-                    </motion.div>
-                    <motion.p 
-                      className="text-gray-light text-sm mt-2 opacity-90"
-                      initial={{ opacity: 0, y: 10 }}
-                      whileHover={{ opacity: 1, y: 0 }}
-                    >
-                      {image.description}
-                    </motion.p>
-                  </motion.div>
-                  
-                  {/* Shimmer effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-nova-neon/20 to-transparent -skew-x-12 opacity-0 group-hover:opacity-100"
-                    initial={{ x: '-200%' }}
-                    whileHover={{ x: '200%' }}
-                    transition={{ duration: 1.2, ease: "easeInOut" }}
-                  />
-                  
-                  {/* Floating sparkles */}
-                  <motion.div
-                    className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100"
-                    transition={{ duration: 0.5 }}
-                  >
-                    <div className="absolute top-8 right-8 cosmic-sparkle" style={{ animationDelay: '0.1s' }} />
-                    <div className="absolute bottom-8 left-8 cosmic-sparkle" style={{ animationDelay: '0.3s' }} />
-                    <div className="absolute top-1/2 left-1/2 cosmic-sparkle" style={{ animationDelay: '0.5s' }} />
-                  </motion.div>
-                </motion.div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16 md:py-20 relative px-4">
+            <div className="modern-card p-8 md:p-12 max-w-2xl mx-auto hover:shadow-2xl transition-shadow duration-300">
+              <div className="w-16 md:w-20 h-16 md:h-20 bg-gradient-to-br from-nova-neon to-primary rounded-full flex items-center justify-center mx-auto mb-6 md:mb-8 shadow-lg shadow-nova-neon/30">
+                <FaCamera className="text-2xl md:text-3xl text-white" />
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              
+              <h3 className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary mb-4 md:mb-6">
+                Gallery Coming Soon
+              </h3>
+              <p className="text-lg md:text-xl text-gray-text leading-relaxed mb-6 md:mb-8">
+                We're preparing an amazing collection of moments from our musical journey.<br />
+                Check back soon for photos and videos!
+              </p>
+              
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-nova-neon animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-nova-neon animate-pulse" style={{ animationDelay: '0.2s' }} />
+                <div className="w-2 h-2 rounded-full bg-nova-neon animate-pulse" style={{ animationDelay: '0.4s' }} />
+              </div>
+            </div>
+          </div>
+        )}
 
-        {/* Enhanced Lightbox with 3D effects */}
-        <AnimatePresence>
-          {selectedImage && (
-            <motion.div
-              className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 backdrop-blur-xl"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-              onClick={() => setSelectedImage(null)}
+        {/* Enhanced Lightbox */}
+        {selectedImage && (
+          <div
+            className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 backdrop-blur-xl transition-all duration-300"
+            onClick={handleCloseModal}
+          >
+            <div
+              className="relative max-w-6xl max-h-full transition-all duration-300"
+              onClick={(e) => e.stopPropagation()}
             >
-              <motion.div
-                className="relative max-w-6xl max-h-full"
-                initial={{ rotateY: -90, z: -200 }}
-                animate={{ rotateY: 0, z: 0 }}
-                exit={{ rotateY: 90, z: -200 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                style={{ transformStyle: 'preserve-3d' }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <motion.img
-                  src={selectedImage.src}
-                  alt={selectedImage.title}
-                  className="max-w-full max-h-full object-contain rounded-2xl shadow-cosmic"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                />
-                
-                {/* Enhanced image info */}
-                <motion.div 
-                  className="absolute bottom-0 left-0 right-0 glass-dark rounded-b-2xl p-6"
-                  initial={{ y: 100, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
+              <img
+                src={selectedImage.src}
+                alt={selectedImage.title}
+                className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+              />
+              
+              {/* Enhanced image info */}
+              <div className="absolute bottom-0 left-0 right-0 glass bg-dark-secondary/90 rounded-b-2xl p-4 md:p-6">
+                <h3 className="text-xl md:text-2xl font-bold font-heading mb-2 text-white">{selectedImage.title}</h3>
+                <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-6 text-gray-300 mb-3">
+                  <span className="flex items-center gap-2">
+                    <FaCalendarAlt className="text-nova-neon" />
+                    {selectedImage.date}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <FaCamera className="text-nova-neon" />
+                    {selectedImage.location}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <span className="text-nova-neon">{getCategoryIcon(selectedImage.category)}</span>
+                    {selectedImage.category}
+                  </span>
+                </div>
+                <p className="text-gray-light leading-relaxed text-sm md:text-base">{selectedImage.description}</p>
+              </div>
+            </div>
+            
+            {/* Enhanced Controls */}
+            <button
+              onClick={handleCloseModal}
+              className="absolute top-4 md:top-6 right-4 md:right-6 w-10 h-10 md:w-12 md:h-12 glass rounded-full flex items-center justify-center text-white text-lg md:text-xl hover:scale-110 hover:text-nova-neon transition-all duration-200"
+            >
+              <FaTimes />
+            </button>
+            
+            {filteredImages.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePrevious();
+                  }}
+                  className="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 glass rounded-full flex items-center justify-center text-white text-lg md:text-xl hover:scale-110 hover:text-nova-neon transition-all duration-200"
                 >
-                  <h3 className="text-2xl font-bold font-heading mb-2 text-accent">{selectedImage.title}</h3>
-                  <div className="flex items-center gap-6 text-gray-text mb-3">
-                    <span className="flex items-center gap-2">
-                      <FaCalendarAlt className="text-nova-neon" />
-                      {selectedImage.date}
-                    </span>
-                    <span className="flex items-center gap-2">
-                      <FaCamera className="text-nova-neon" />
-                      {selectedImage.location}
-                    </span>
-                    <span className="flex items-center gap-2">
-                      {getCategoryIcon(selectedImage.category)}
-                      {selectedImage.category}
-                    </span>
-                  </div>
-                  <p className="text-gray-light leading-relaxed">{selectedImage.description}</p>
-                </motion.div>
-              </motion.div>
-              
-              {/* Enhanced Controls */}
-              <motion.button
-                onClick={() => setSelectedImage(null)}
-                className="absolute top-6 right-6 w-14 h-14 glass rounded-full flex items-center justify-center text-accent text-xl musical-hover-lift"
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-                whileHover={{ scale: 1.1, rotate: 15 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <FaTimes />
-              </motion.button>
-              
-              <motion.button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handlePrevious();
-                }}
-                className="absolute left-6 top-1/2 -translate-y-1/2 w-14 h-14 glass rounded-full flex items-center justify-center text-accent text-xl musical-hover-lift"
-                initial={{ x: -100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                whileHover={{ scale: 1.1, x: -5 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <FaChevronLeft />
-              </motion.button>
-              
-              <motion.button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleNext();
-                }}
-                className="absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 glass rounded-full flex items-center justify-center text-accent text-xl musical-hover-lift"
-                initial={{ x: 100, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                whileHover={{ scale: 1.1, x: 5 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <FaChevronRight />
-              </motion.button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                  <FaChevronLeft />
+                </button>
+                
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNext();
+                  }}
+                  className="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 glass rounded-full flex items-center justify-center text-white text-lg md:text-xl hover:scale-110 hover:text-nova-neon transition-all duration-200"
+                >
+                  <FaChevronRight />
+                </button>
+              </>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
