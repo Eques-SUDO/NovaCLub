@@ -242,7 +242,7 @@ const Home: React.FC = () => {
             <div className="flex items-center justify-center gap-2 mb-8 opacity-80">
               <div className="h-px w-12 bg-gradient-to-r from-transparent to-nova-neon" />
               <FaMusic className="text-nova-neon text-lg" />
-              <span className="text-nova-neon/80 text-sm font-medium tracking-widest uppercase">Nova Music Club</span>
+              <span className="text-nova-neon/80 text-sm font-medium tracking-widest uppercase">ETERNOTE Music Club</span>
               <FaMusic className="text-nova-neon text-lg" />
               <div className="h-px w-12 bg-gradient-to-l from-transparent to-nova-neon" />
             </div>
@@ -377,7 +377,7 @@ const Home: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-nova-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               <p className="text-xl md:text-2xl leading-relaxed mb-8 text-gray-light relative z-10">
-                <span className="font-bold text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary">NOVA</span>
+                <span className="font-bold text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary">ETERNOTE</span>
                 <span className="italic opacity-90"> Music Club </span>
                 is a vibrant community based in the Faculty of Sciences Rabat, bringing together passionate musicians and music enthusiasts who want to showcase their talent and share their love for music...
               </p>
@@ -455,7 +455,7 @@ const Home: React.FC = () => {
             </h2>
             
             <p className="text-xl text-gray-text max-w-3xl mx-auto leading-relaxed">
-              The passionate staff who make NOVA Music Club the amazing community it is
+              The passionate staff who make ETERNOTE Music Club the amazing community it is
             </p>
           </div>
 

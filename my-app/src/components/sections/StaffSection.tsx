@@ -67,7 +67,7 @@ const StaffSection: React.FC<StaffSectionProps> = memo(({ staffMembers }) => {
           </div>
           
           <h2 className="text-4xl md:text-6xl font-bold font-display text-gradient mb-6">
-            Meet the NOVA Family
+            Meet the ETERNOTE Family
           </h2>
           
           <p className="text-xl text-gray-text max-w-3xl mx-auto">

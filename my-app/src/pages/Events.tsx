@@ -1,6 +1,7 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { FaFilter, FaMusic } from 'react-icons/fa';
 import EventCard from '../components/EventCard';
+// import { api } from '../services/api';
 
 interface Event {
   id: number;
@@ -40,8 +41,11 @@ const FilterButton = React.memo(({ category, isActive, onClick }: {
 
 const Events: React.FC = () => {
   const [filter, setFilter] = useState<string>('all');
+  const [events, setEvents] = useState<Event[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const events: Event[] = useMemo(() => [
+  const hardcodedEvents: Event[] = [
     {
       id: 1,
       title: "Weekly Jam Session",
@@ -57,7 +61,7 @@ const Events: React.FC = () => {
     {
       id: 2,
       title: "Music Theory Classes",
-      artist: "NOVA Music Club Instructors",
+      artist: "ETERNOTE Music Club Instructors",
       date: new Date('2025-01-01'),
       time: "TBA",
       price: 0,
@@ -69,7 +73,7 @@ const Events: React.FC = () => {
     {
       id: 3,
       title: "Guitar Classes",
-      artist: "NOVA Music Club Instructors",
+      artist: "ETERNOTE Music Club Instructors",
       date: new Date('2025-01-01'),
       time: "TBA",
       price: 0,
@@ -81,7 +85,7 @@ const Events: React.FC = () => {
     {
       id: 4,
       title: "Choir Practice",
-      artist: "NOVA Music Club Choir",
+      artist: "ETERNOTE Music Club Choir",
       date: new Date('2025-01-01'),
       time: "TBA",
       price: 0,
@@ -90,7 +94,36 @@ const Events: React.FC = () => {
       location: "TBA",
       soldOut: false
     }
-  ], []);
+  ];
+
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
+  const fetchEvents = async () => {
+    try {
+      setLoading(true);
+      // const response = await api.events.getAll();
+      // // Handle new API response format
+      // const eventsData = response.success ? response.data.events : (response.events || response);
+      // const eventsList = Array.isArray(eventsData) ? eventsData : [];
+      
+      // Using hardcoded data for demo
+      const eventsList = hardcodedEvents;
+      
+      // Transform date strings to Date objects
+      const transformedData = eventsList.map((event: any) => ({
+        ...event,
+        date: new Date(event.date)
+      }));
+      setEvents(transformedData);
+    } catch (err: any) {
+      setError(err.message || 'Failed to load events');
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   const categories: Category[] = useMemo(() => [
     { value: 'all', label: 'All Activities' },
@@ -123,7 +156,7 @@ const Events: React.FC = () => {
         <div className="text-center mb-12 md:mb-16 px-4">
           <div className="inline-flex items-center gap-2 md:gap-3 mb-6 px-4 md:px-6 py-2 md:py-3 glass rounded-full border border-primary/20">
             <FaMusic className="text-nova-neon text-sm md:text-base" />
-            <span className="text-nova-neon font-medium text-sm md:text-base">NOVA Music Club</span>
+            <span className="text-nova-neon font-medium text-sm md:text-base">ETERNOTE Music Club</span>
           </div>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display text-transparent bg-clip-text bg-gradient-to-r from-nova-neon via-white to-primary mb-4 md:mb-6 leading-tight">
@@ -163,7 +196,24 @@ const Events: React.FC = () => {
         </div>
 
         {/* Enhanced Events Grid */}
-        {filteredEvents.length > 0 ? (
+        {loading ? (
+          <div className="text-center py-20">
+            <div className="inline-flex items-center gap-3 text-nova-neon">
+              <div className="w-8 h-8 border-4 border-nova-neon border-t-transparent rounded-full animate-spin"></div>
+              <span className="text-xl">Loading events...</span>
+            </div>
+          </div>
+        ) : error ? (
+          <div className="text-center py-20">
+            <p className="text-red-500 text-xl mb-4">{error}</p>
+            <button
+              onClick={fetchEvents}
+              className="btn-primary"
+            >
+              Try Again
+            </button>
+          </div>
+        ) : filteredEvents.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8 px-4">
             {filteredEvents.map((event, index) => (
               <div

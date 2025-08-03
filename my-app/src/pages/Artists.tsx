@@ -1,5 +1,6 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { FaInstagram, FaSpotify, FaYoutube, FaGlobe, FaStar, FaMusic, FaGuitar, FaMicrophone, FaDrum, FaCompactDisc } from 'react-icons/fa';
+// import { api } from '../services/api';
 
 interface Artist {
   id: number;
@@ -48,16 +49,34 @@ const TabButton = React.memo(({ tab, isActive, onClick }: {
 
 const Artists: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>('members');
+  const [artists, setArtists] = useState<Artist[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const tabs: Tab[] = useMemo(() => [
     { key: 'members', label: 'Group Members' }
   ], []);
 
-  const artists: Record<string, Artist[]> = useMemo(() => ({
-    members: []
-  }), []);
+  useEffect(() => {
+    fetchArtists();
+  }, []);
 
-  const currentArtists = artists[activeTab] || [];
+  const fetchArtists = async () => {
+    try {
+      setLoading(true);
+      // const response = await api.artists.getAll();
+      // // Handle new API response format
+      // const artistsData = response.success ? response.data.artists : (response.artists || response);
+      // Using empty array for demo - will show recruitment message
+      setArtists([]);
+    } catch (err: any) {
+      setError(err.message || 'Failed to load artists');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const currentArtists = artists;
 
   const handleTabChange = useCallback((key: string) => {
     setActiveTab(key);
@@ -88,14 +107,14 @@ const Artists: React.FC = () => {
         <div className="text-center mb-12 md:mb-20 px-4">
           <div className="inline-flex items-center gap-2 md:gap-3 mb-6 px-4 md:px-6 py-2 md:py-3 glass rounded-full border border-primary/20">
             <FaMusic className="text-nova-neon text-sm md:text-base" />
-            <span className="text-nova-neon font-medium text-sm md:text-base">NOVA Music Club</span>
+            <span className="text-nova-neon font-medium text-sm md:text-base">ETERNOTE Music Club</span>
           </div>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display text-transparent bg-clip-text bg-gradient-to-r from-nova-neon via-white to-primary mb-4 md:mb-6 leading-tight">
             Our Musicians
           </h1>
           <p className="text-lg md:text-xl lg:text-2xl text-gray-text max-w-3xl mx-auto leading-relaxed">
-            Our dedicated group members who make NOVA Music Club special
+            Our dedicated group members who make ETERNOTE Music Club special
           </p>
           
           {/* Decorative elements */}
@@ -119,7 +138,24 @@ const Artists: React.FC = () => {
         </div>
 
         {/* Content Area */}
-        {currentArtists.length > 0 ? (
+        {loading ? (
+          <div className="text-center py-20">
+            <div className="inline-flex items-center gap-3 text-nova-neon">
+              <div className="w-8 h-8 border-4 border-nova-neon border-t-transparent rounded-full animate-spin"></div>
+              <span className="text-xl">Loading artists...</span>
+            </div>
+          </div>
+        ) : error ? (
+          <div className="text-center py-20">
+            <p className="text-red-500 text-xl mb-4">{error}</p>
+            <button
+              onClick={fetchArtists}
+              className="btn-primary"
+            >
+              Try Again
+            </button>
+          </div>
+        ) : currentArtists.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 px-4">
             {currentArtists.map((artist, index) => (
               <div
@@ -232,7 +268,7 @@ const Artists: React.FC = () => {
               
               <p className="text-lg md:text-xl text-gray-text leading-relaxed mb-6 md:mb-8">
                 Stay tuned for updates on our upcoming recruitment process.<br />
-                Join NOVA Music Club and become part of our musical family!
+                Join ETERNOTE Music Club and become part of our musical family!
               </p>
               
               <div className="flex items-center justify-center gap-2">

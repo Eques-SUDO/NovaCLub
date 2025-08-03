@@ -15,7 +15,7 @@ interface ContactInfo {
 
 const Footer: React.FC = () => {
   const socialLinks: SocialLink[] = [
-    { href: "https://www.instagram.com/jamhouse.fsr/#", icon: <FaInstagram />, label: "Instagram" },
+    { href: "https://www.instagram.com/jamhouse.fsr/", icon: <FaInstagram />, label: "Instagram" },
   ];
 
   const contactInfo: ContactInfo[] = [
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
           {/* About Section */}
           <div className="space-y-4">
             <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary text-xl font-semibold mb-6">
-              About NOVA
+              About ETERNOTE
             </h3>
             <p className="text-gray-text/80 mb-4 leading-relaxed">
               Your university music community for collaborative sessions, workshops, musical growth and having the best vibes and experiences.
@@ -130,11 +130,11 @@ const Footer: React.FC = () => {
           <div className="pt-8 text-center space-y-4">
             <div className="flex items-center justify-center gap-2 text-nova-neon/60">
               <FaMusic className="text-sm" />
-              <span className="text-xs uppercase tracking-widest">Nova Music Club</span>
+              <span className="text-xs uppercase tracking-widest">ETERNOTE Music Club</span>
               <FaMusic className="text-sm" />
             </div>
             <p className="text-gray-text/60 text-sm">
-              &copy; {new Date().getFullYear()} NOVA. All rights reserved. Made with ♪ in Rabat
+              &copy; {new Date().getFullYear()} ETERNOTE. All rights reserved. Made with ♪ in Rabat
             </p>
           </div>
         </div>
