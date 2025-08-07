@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaInstagram, FaEnvelope, FaPhone, FaMapMarkerAlt, FaMusic } from 'react-icons/fa';
 
 interface SocialLink {
   href: string;
@@ -15,7 +15,7 @@ interface ContactInfo {
 
 const Footer: React.FC = () => {
   const socialLinks: SocialLink[] = [
-    { href: "https://www.instagram.com/jamhouse.fsr/#", icon: <FaInstagram />, label: "Instagram" },
+    { href: "https://www.instagram.com/jamhouse.fsr/", icon: <FaInstagram />, label: "Instagram" },
   ];
 
   const contactInfo: ContactInfo[] = [
@@ -25,17 +25,35 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-dark-secondary pt-12 pb-4 mt-20">
-      <div className="container-custom">
+    <footer className="relative pt-20 pb-8 overflow-hidden">
+      {/* Smooth gradient transition from content */}
+      <div className="absolute inset-0 bg-gradient-to-b from-dark-secondary via-dark-secondary/95 to-dark-bg" />
+      
+      {/* Decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute w-96 h-96 -bottom-48 -left-48 bg-nova-neon/10 rounded-full blur-3xl" />
+        <div className="absolute w-96 h-96 -bottom-48 -right-48 bg-primary/10 rounded-full blur-3xl" />
+      </div>
+      
+      <div className="container-custom relative z-10">
+        {/* Top Divider */}
+        <div className="flex items-center justify-center gap-3 mb-12">
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-nova-neon/30 to-transparent" />
+          <FaMusic className="text-nova-neon/60 text-lg flex-shrink-0" />
+          <div className="h-px w-full bg-gradient-to-l from-transparent via-nova-neon/30 to-transparent" />
+        </div>
+        
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           {/* About Section */}
-          <div>
-            <h3 className="text-nova-neon text-xl font-semibold mb-6">About NOVA</h3>
-            <p className="text-gray-text mb-4 leading-relaxed">
+          <div className="space-y-4">
+            <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary text-xl font-semibold mb-6">
+              About ETERNOTE
+            </h3>
+            <p className="text-gray-text/80 mb-4 leading-relaxed">
               Your university music community for collaborative sessions, workshops, musical growth and having the best vibes and experiences.
             </p>
-            <blockquote className="text-primary italic text-sm mb-6 border-l-2 border-nova-neon pl-4">
+            <blockquote className="text-primary/80 italic text-sm mb-6 border-l-2 border-nova-neon/50 pl-4">
               "Music is a higher revelation than all wisdom and philosophy." - Ludwig van Beethoven
             </blockquote>
             <div className="flex gap-4">
@@ -45,7 +63,7 @@ const Footer: React.FC = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 bg-dark-bg text-accent rounded-full flex items-center justify-center hover:bg-nova-neon hover:text-dark-bg transition-all duration-200"
+                  className="w-12 h-12 bg-gradient-to-br from-dark-bg to-dark-secondary text-accent rounded-full flex items-center justify-center hover:from-nova-neon hover:to-primary hover:text-white transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-nova-neon/30"
                   aria-label={social.label}
                 >
                   {social.icon}
@@ -55,31 +73,37 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="text-nova-neon text-xl font-semibold mb-6">Quick Links</h3>
+          <div className="space-y-4">
+            <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary text-xl font-semibold mb-6">
+              Quick Links
+            </h3>
             <div className="space-y-3">
-              <Link to="/events" className="block text-gray-text hover:text-accent transition-colors duration-200">
-                Upcoming Events
+              <Link to="/events" className="block text-gray-text/80 hover:text-nova-neon hover:translate-x-1 transition-all duration-200">
+                → Upcoming Events
               </Link>
-              <Link to="/artists" className="block text-gray-text hover:text-accent transition-colors duration-200">
-                Featured Artists
+              <Link to="/artists" className="block text-gray-text/80 hover:text-nova-neon hover:translate-x-1 transition-all duration-200">
+                → Featured Artists
               </Link>
-              <Link to="/gallery" className="block text-gray-text hover:text-accent transition-colors duration-200">
-                Photo Gallery
+              <Link to="/gallery" className="block text-gray-text/80 hover:text-nova-neon hover:translate-x-1 transition-all duration-200">
+                → Photo Gallery
               </Link>
-              <Link to="/contact" className="block text-gray-text hover:text-accent transition-colors duration-200">
-                Join Our Club
+              <Link to="/contact" className="block text-gray-text/80 hover:text-nova-neon hover:translate-x-1 transition-all duration-200">
+                → Join Our Club
               </Link>
             </div>
           </div>
 
           {/* Contact Info */}
-          <div>
-            <h3 className="text-nova-neon text-xl font-semibold mb-6">Contact Us</h3>
+          <div className="lg:col-span-2 space-y-4">
+            <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary text-xl font-semibold mb-6">
+              Contact Us
+            </h3>
             <div className="space-y-4">
               {contactInfo.map((info, index) => (
-                <div key={index} className="flex items-start gap-3 text-gray-text">
-                  <div className="text-nova-neon mt-1 flex-shrink-0">{info.icon}</div>
+                <div key={index} className="flex items-start gap-4 text-gray-text/80 group">
+                  <div className="text-nova-neon/80 mt-1 flex-shrink-0 group-hover:text-nova-neon transition-colors duration-200">
+                    {info.icon}
+                  </div>
                   {index === 1 ? (
                     <a 
                       href="https://wa.me/212617478471" 
@@ -90,7 +114,9 @@ const Footer: React.FC = () => {
                       {info.content}
                     </a>
                   ) : (
-                    <span className="leading-relaxed">{info.content}</span>
+                    <span className="leading-relaxed group-hover:text-gray-light transition-colors duration-200">
+                      {info.content}
+                    </span>
                   )}
                 </div>
               ))}
@@ -98,9 +124,19 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Copyright */}
-        <div className="border-t border-white/10 pt-6 text-center text-gray-text text-sm">
-          &copy; {new Date().getFullYear()} NOVA. All rights reserved. 
+        {/* Bottom Section */}
+        <div className="relative">
+          <div className="absolute inset-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+          <div className="pt-8 text-center space-y-4">
+            <div className="flex items-center justify-center gap-2 text-nova-neon/60">
+              <FaMusic className="text-sm" />
+              <span className="text-xs uppercase tracking-widest">ETERNOTE Music Club</span>
+              <FaMusic className="text-sm" />
+            </div>
+            <p className="text-gray-text/60 text-sm">
+              &copy; {new Date().getFullYear()} ETERNOTE. All rights reserved. Made with ♪ in Rabat
+            </p>
+          </div>
         </div>
       </div>
     </footer>

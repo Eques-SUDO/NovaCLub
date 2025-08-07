@@ -6,31 +6,70 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#B45CF0', // Bright purple from NOVA logo
-        secondary: '#8B2FD6', // Deeper purple
-        accent: '#FFFFFF', // Pure white for contrast
+        // Primary Palette - Purple gradient family
+        primary: {
+          DEFAULT: '#9B4DE0', // Main brand purple (balanced)
+          light: '#B66FEA',   // Lighter variation
+          dark: '#7B3DB0',    // Darker variation
+          50: '#F3E8FF',      // Lightest tint
+          100: '#E4CCFF',
+          200: '#CFA6FF',
+          300: '#B87FFF',
+          400: '#A05BF5',
+          500: '#9B4DE0',     // Main
+          600: '#7B3DB0',
+          700: '#5D2E85',
+          800: '#3F1F5A',
+          900: '#1F0F2D',     // Darkest shade
+        },
+        
+        // Accent colors - Complementary
+        accent: {
+          purple: '#A855F7',  // Vibrant purple
+          pink: '#EC4899',    // Harmonious pink
+          blue: '#6366F1',    // Deep blue
+          cyan: '#06B6D4',    // Cyan accent
+          white: '#FFFFFF',   // Pure white
+        },
+        
+        // Background colors - Dark theme
         dark: {
-          bg: '#0A0A0A', // Deep black background
-          secondary: '#1A0A1A', // Dark purple tint
-          tertiary: '#2D1B35', // Purple-tinted dark
+          bg: '#0A0A0F',      // Rich black with slight blue
+          card: '#12121A',    // Card background
+          elevated: '#1A1A25', // Elevated surfaces
+          border: '#2A2A3E',  // Border color
+        },
+        
+        // Text colors - Better contrast
+        text: {
+          primary: '#FFFFFF',   // Primary text
+          secondary: '#B8BCC8', // Secondary text
+          muted: '#6B7280',     // Muted text
+          accent: '#A855F7',    // Accent text
+        },
+        
+        // Semantic colors
+        success: '#10B981',
+        warning: '#F59E0B',
+        error: '#EF4444',
+        info: '#3B82F6',
+        
+        // Legacy mappings for backward compatibility
+        primary: '#9B4DE0',
+        secondary: '#7B3DB0',
+        accent: '#FFFFFF',
+        nova: {
+          purple: '#9B4DE0',
+          deepPurple: '#7B3DB0',
+          darkPurple: '#5D2E85',
+          glowPurple: '#B66FEA',
+          neon: '#A855F7',
+          cosmic: '#6366F1',
         },
         gray: {
-          text: '#E0E0E0', // Light gray for text
-          light: '#F5F5F5', // Light gray
-          dark: '#333333', // Dark gray
-        },
-        nova: {
-          purple: '#B45CF0', // Main NOVA purple
-          deepPurple: '#8B2FD6', // Deep purple
-          darkPurple: '#4A1B5C', // Dark purple accent
-          glowPurple: '#D575FF', // Glow purple
-          neon: '#E891FF', // Neon purple
-          cosmic: '#6B46C1', // Cosmic purple
-        },
-        neon: {
-          purple: '#E891FF',
-          pink: '#FF6EC7',
-          blue: '#00D9FF',
+          text: '#B8BCC8',
+          light: '#E5E7EB',
+          dark: '#374151',
         },
       },
       fontFamily: {

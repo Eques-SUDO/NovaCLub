@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo, memo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { FaBars, FaTimes, FaMusic } from 'react-icons/fa';
 
 interface NavItem {
   path: string;
@@ -18,11 +18,12 @@ const Navigation: React.FC = memo(() => {
     const currentScrollY = window.scrollY;
     
     // Show/hide based on scroll direction
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
-      setIsVisible(false);
-    } else {
-      setIsVisible(true);
-    }
+    setIsVisible(prevVisible => {
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        return false;
+      }
+      return true;
+    });
     
     setScrolled(currentScrollY > 50);
     setLastScrollY(currentScrollY);
@@ -62,71 +63,62 @@ const Navigation: React.FC = memo(() => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 transform ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 transform ${
       isVisible ? 'translate-y-0' : '-translate-y-full'
     } ${
-      scrolled ? 'glass-dark shadow-cosmic backdrop-blur-2xl' : 'bg-transparent'
+      scrolled 
+        ? 'bg-gradient-to-r from-dark-bg/95 via-dark-card/90 to-dark-bg/95 backdrop-blur-xl shadow-2xl border-b border-primary/20' 
+        : 'bg-gradient-to-r from-black/10 via-black/20 to-black/10 backdrop-blur-md'
     }`}>
       <div className="container-custom">
-        <div className="flex justify-between items-center py-6">
+        <div className="flex justify-between items-center py-3 md:py-4">
           {/* Logo */}
           <Link 
             to="/" 
-            className="flex items-center group transition-all duration-500 hover:scale-105 relative"
+            className="flex items-center group transition-all duration-300 hover:scale-105 relative z-10"
           >
-            {/* Musical Elements Around Logo */}
-            <div className="absolute -top-2 -left-2 music-note text-xs opacity-60" style={{ animationDelay: '0s' }}>♪</div>
-            <div className="absolute -bottom-2 -right-2 cosmic-sparkle" style={{ animationDelay: '2s' }} />
-            
-            <div className="relative overflow-hidden rounded-full">
+            <div className="relative overflow-hidden rounded-full mr-2 md:mr-3">
               <img 
-                src="/nova logo.png" 
-                alt="NOVA MUSIC Logo" 
-                className="h-16 w-16 object-contain mr-4 logo-nova animate-float transition-all duration-700"
+                src="/etern-logo.PNG" 
+                alt="ETERNOTE Logo" 
+                className="h-12 w-12 md:h-16 md:w-16 object-contain transition-all duration-300 group-hover:rotate-12"
               />
               
               {/* Enhanced Glow Effects */}
-              <div className="absolute inset-0 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-all duration-700 -z-10 animate-pulse-glow"></div>
-              <div className="absolute inset-0 bg-nova-neon/10 rounded-full blur-2xl opacity-30 animate-particle-float"></div>
-              
-              {/* Sound Wave Ripples */}
-              <div className="absolute inset-0 wave-ripple w-full h-full opacity-0 group-hover:opacity-60 transition-opacity duration-500" style={{ animationDelay: '0.2s' }} />
+              <div className="absolute inset-0 bg-gradient-to-br from-nova-neon/30 to-primary/30 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-300 -z-10 scale-150"></div>
             </div>
             
             <div className="relative">
-              <span className="text-2xl font-bold font-heading text-accent group-hover:nova-text-glow transition-all duration-500 dreamy-float">
-                NOVA MUSIC
+              <span className="text-lg md:text-xl font-bold font-heading text-transparent bg-clip-text bg-gradient-to-r from-white via-nova-neon to-primary group-hover:from-nova-neon group-hover:to-white transition-all duration-300">
+                ETERNOTE
               </span>
               
-              {/* Music Visualizer Next to Text */}
-              <div className="absolute -right-8 top-1/2 -translate-y-1/2 music-visualizer scale-50 opacity-0 group-hover:opacity-100 transition-all duration-500">
-                <div className="visualizer-bar w-1 h-2" style={{ animationDelay: '0s' }} />
-                <div className="visualizer-bar w-1 h-3" style={{ animationDelay: '0.1s' }} />
-                <div className="visualizer-bar w-1 h-2" style={{ animationDelay: '0.2s' }} />
-              </div>
+              {/* Decorative line under text */}
+              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-nova-neon to-primary group-hover:w-full transition-all duration-500"></div>
             </div>
           </Link>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-10 items-center relative">
-            {/* Background Musical Elements */}
-            <div className="absolute -top-8 left-1/4 music-note text-xs opacity-30" style={{ animationDelay: '3s' }}>♫</div>
-            <div className="absolute -bottom-8 right-1/4 cosmic-sparkle" style={{ animationDelay: '5s' }} />
-            
+          <div className="hidden md:flex gap-8 lg:gap-10 items-center">
             {navItems.map((item, index) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`nav-link font-heading font-medium text-lg px-4 py-2 rounded-xl focus-ring micro-bounce ${
-                  location.pathname === item.path ? 'active' : ''
+                className={`relative font-heading font-medium text-base lg:text-lg px-4 py-2 rounded-xl transition-all duration-300 group ${
+                  location.pathname === item.path 
+                    ? 'text-nova-neon bg-gradient-to-r from-nova-neon/10 to-primary/10 shadow-lg' 
+                    : 'text-gray-300 hover:text-white'
                 }`}
-                style={{ animationDelay: `${index * 100}ms` }}
               >
                 {item.label}
-                <div className="nav-indicator"></div>
                 
-                {/* Musical Note on Hover */}
-                <div className="absolute -top-6 left-1/2 -translate-x-1/2 music-note text-xs opacity-0 group-hover:opacity-80 transition-all duration-500" style={{ animationDelay: '0.1s' }}>♪</div>
+                {/* Hover indicator */}
+                <div className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-nova-neon to-primary transition-all duration-300 ${
+                  location.pathname === item.path ? 'w-full' : 'group-hover:w-full'
+                }`}></div>
+                
+                {/* Background glow on hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-nova-neon/5 to-primary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
               </Link>
             ))}
           </div>
@@ -134,69 +126,81 @@ const Navigation: React.FC = memo(() => {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden text-accent text-xl p-3 hover:text-nova-neon transition-all duration-500 hover:scale-110 interactive-hover relative rhythm-pulse"
+            className="md:hidden relative text-white text-xl p-3 rounded-full hover:text-nova-neon transition-all duration-300 hover:scale-110 hover:bg-primary/10"
             aria-label="Toggle menu"
           >
-            {/* Musical Elements */}
-            <div className="absolute -top-1 -right-1 music-note text-xs opacity-50" style={{ animationDelay: '1s' }}>♪</div>
-            
-            <div className="relative">
-              {isOpen ? <FaTimes className="dreamy-float" /> : <FaBars className="dreamy-float" />}
-              <div className="absolute inset-0 bg-primary/20 rounded-full blur-md opacity-0 hover:opacity-100 transition-opacity duration-500 -z-10" />
-              
-              {/* Sound Wave Effect */}
-              <div className="absolute inset-0 sound-wave w-full h-full opacity-0 hover:opacity-40 transition-opacity duration-500" />
+            <div className="relative z-10">
+              {isOpen ? <FaTimes /> : <FaBars />}
             </div>
+            
+            {/* Button glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-br from-nova-neon/20 to-primary/20 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300 blur-md"></div>
           </button>
         </div>
       </div>
       
       {/* Mobile Navigation */}
-      <div className={`md:hidden fixed top-0 right-0 h-full w-80 max-w-[70%] glass-dark shadow-cosmic transform transition-all duration-700 ${
+      <div className={`md:hidden fixed top-0 right-0 h-screen w-full max-w-sm bg-gradient-to-b from-dark-bg via-dark-secondary/95 to-dark-bg backdrop-blur-2xl shadow-2xl transform transition-all duration-500 ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
-      } overflow-hidden`}>
-        {/* Background Musical Elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="music-note text-2xl opacity-20 absolute top-20 left-8" style={{ animationDelay: '1s' }}>♪</div>
-          <div className="music-note text-xl opacity-15 absolute top-40 right-12" style={{ animationDelay: '3s' }}>♫</div>
-          <div className="music-note text-3xl opacity-10 absolute bottom-40 left-12" style={{ animationDelay: '5s' }}>♬</div>
-          <div className="cosmic-sparkle absolute top-32 right-8" style={{ animationDelay: '2s' }} />
-          <div className="cosmic-sparkle absolute bottom-32 left-8" style={{ animationDelay: '4s' }} />
+      } overflow-hidden border-l border-primary/20`}>
+        
+        {/* Mobile header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-primary/20">
+          <div className="flex items-center gap-1">
+            <img 
+              src="/etern-logo.PNG" 
+              alt="ETERNOTE MUSIC Logo" 
+              className="h-16 w-16 object-contain"
+            />
+            <span className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary">
+              ETERNOTE
+            </span>
+          </div>
           
-          {/* Ethereal Glows */}
-          <div className="ethereal-glow w-32 h-32 absolute top-16 right-4" style={{ animationDelay: '6s' }} />
-          <div className="ethereal-glow w-24 h-24 absolute bottom-20 left-4" style={{ animationDelay: '8s' }} />
+          <button
+            onClick={toggleMenu}
+            className="text-white p-2 hover:text-nova-neon transition-colors duration-200"
+          >
+            <FaTimes />
+          </button>
         </div>
         
-        <div className="flex flex-col justify-center items-center h-full gap-12 relative z-10">
-          {navItems.map((item, index) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`text-2xl font-heading font-medium transition-all duration-500 hover:text-nova-neon hover:scale-110 interactive-hover dreamy-float relative ${
-                location.pathname === item.path ? 'nova-text-glow animate-neon-pulse rhythm-pulse' : 'text-accent'
-              }`}
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              {item.label}
-              
-              {/* Musical Note for Each Link */}
-              <div className="absolute -left-8 top-1/2 -translate-y-1/2 music-note text-sm opacity-60" style={{ animationDelay: `${index * 0.5}s` }}>♪</div>
-              
-              {/* Sound Wave on Active */}
-              {location.pathname === item.path && (
-                <div className="absolute inset-0 sound-wave w-full h-full opacity-30" style={{ animationDelay: `${index * 0.2}s` }} />
-              )}
-            </Link>
-          ))}
+        {/* Mobile menu content */}
+        <div className="flex flex-col justify-center h-full px-6 pb-20">
+          <div className="space-y-6">
+            {navItems.map((item, index) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`block text-2xl font-heading font-medium transition-all duration-300 py-3 px-4 rounded-xl relative group ${
+                  location.pathname === item.path 
+                    ? 'text-nova-neon bg-gradient-to-r from-nova-neon/10 to-primary/10 shadow-lg border-l-4 border-nova-neon' 
+                    : 'text-gray-300 hover:text-white hover:bg-primary/5'
+                }`}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="flex items-center gap-3">
+                  <FaMusic className={`text-lg ${
+                    location.pathname === item.path ? 'text-nova-neon' : 'text-primary/60'
+                  }`} />
+                  {item.label}
+                </div>
+                
+                {/* Mobile hover effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-nova-neon/5 to-primary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+              </Link>
+            ))}
+          </div>
           
-          {/* Mobile Menu Visualizer */}
-          <div className="music-visualizer mt-8 scale-75">
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.1s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.2s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.3s' }} />
-            <div className="visualizer-bar w-2" style={{ animationDelay: '0.4s' }} />
+          {/* Mobile menu footer */}
+          <div className="absolute bottom-6 left-6 right-6">
+            <div className="flex items-center justify-center gap-2 text-nova-neon/60 text-sm">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-nova-neon/30"></div>
+              <FaMusic className="text-xs" />
+              <span className="uppercase tracking-widest">ETERNOTE Music Club</span>
+              <FaMusic className="text-xs" />
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-nova-neon/30"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -204,16 +208,9 @@ const Navigation: React.FC = memo(() => {
       {/* Mobile Overlay */}
       {isOpen && (
         <div 
-          className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-all duration-500"
+          className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-all duration-300"
           onClick={toggleMenu}
-        >
-          {/* Subtle Musical Elements in Overlay */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="music-note text-lg opacity-10 absolute top-1/4 left-1/4" style={{ animationDelay: '2s' }}>♪</div>
-            <div className="music-note text-xl opacity-5 absolute bottom-1/3 right-1/3" style={{ animationDelay: '4s' }}>♫</div>
-            <div className="cosmic-sparkle absolute top-1/2 left-1/2" style={{ animationDelay: '3s' }} />
-          </div>
-        </div>
+        />
       )}
     </nav>
   );

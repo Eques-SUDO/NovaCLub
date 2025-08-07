@@ -2,7 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://NOVA.github.io/NovaClub",
+  "homepage": ".",
   "dependencies": {
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -44,13 +44,14 @@
     ]
   },
   "devDependencies": {
-    "@types/node": "^24.1.0",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
+    "@types/node": "^18.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "ajv": "^8.17.1",
     "autoprefixer": "^10.4.21",
     "gh-pages": "^6.3.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.8.3"
+    "typescript": "^4.9.5"
   }
 }
