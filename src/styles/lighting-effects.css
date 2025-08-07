@@ -1,21 +1,23 @@
-/* Dynamic Lighting Effects */
+/* Optimized Dynamic Lighting Effects */
 
-/* Animated Light Beams */
+/* Performance-optimized animations using only transform and opacity */
 .light-beam {
   position: absolute;
   width: 2px;
   height: 100vh;
   background: linear-gradient(180deg, 
     transparent 0%, 
-    rgba(168, 85, 247, 0.6) 20%, 
-    rgba(155, 77, 224, 0.4) 50%, 
-    rgba(168, 85, 247, 0.6) 80%, 
+    rgba(168, 85, 247, 0.4) 20%, 
+    rgba(155, 77, 224, 0.3) 50%, 
+    rgba(168, 85, 247, 0.4) 80%, 
     transparent 100%
   );
-  opacity: 0.3;
+  opacity: 0.2;
   pointer-events: none;
   animation: lightBeamSweep 8s infinite ease-in-out;
-  filter: blur(1px);
+  /* Remove expensive filters on lower-end devices */
+  transform: translateZ(0); /* Force GPU layer */
+  will-change: transform, opacity;
 }
 
 .light-beam:nth-child(2) {
@@ -159,20 +161,22 @@
   }
 }
 
-/* Floating Light Orbs */
+/* Optimized Floating Light Orbs */
 .light-orb {
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background: radial-gradient(circle, 
-    rgba(168, 85, 247, 0.8) 0%, 
-    rgba(168, 85, 247, 0.4) 50%, 
+    rgba(168, 85, 247, 0.6) 0%, 
+    rgba(168, 85, 247, 0.3) 50%, 
     transparent 100%
   );
   pointer-events: none;
   animation: lightOrbFloat 12s infinite ease-in-out;
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+  /* Reduce expensive box-shadow */
+  transform: translateZ(0);
+  will-change: transform, opacity;
 }
 
 .light-orb:nth-child(even) {

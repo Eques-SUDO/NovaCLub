@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import MusicDecorations from './components/decorations/MusicDecorations';
-import LightingEffects from './components/background/LightingEffects';
+import OptimizedLightingEffects from './components/background/OptimizedLightingEffects';
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home'));
@@ -24,8 +24,8 @@ const PageLoader = () => (
 const App: React.FC = () => {
   return (
     <Router>
-      {/* Dynamic Lighting Effects */}
-      <LightingEffects />
+      {/* Optimized Dynamic Lighting Effects */}
+      <OptimizedLightingEffects />
       
       {/* Musical Decorations */}
       <MusicDecorations />
