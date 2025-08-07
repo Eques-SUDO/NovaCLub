@@ -1,6 +1,6 @@
 [build]
   # Build command
-  command = "npm install --legacy-peer-deps && npm run build"
+  command = "npm ci --legacy-peer-deps && npm run build"
   
   # Directory to publish (your Vite config builds to 'build')
   publish = "build"
@@ -9,8 +9,8 @@
   base = "."
 
 [build.environment]
-  # Node.js version
-  NODE_VERSION = "18"
+  # Node.js version (required for Vite 7.x)
+  NODE_VERSION = "20"
   
   # Disable CI warnings that can break builds
   CI = "false"
