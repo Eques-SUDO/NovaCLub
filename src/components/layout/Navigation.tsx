@@ -17,9 +17,18 @@ const Navigation: React.FC = memo(() => {
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
     
-    // Show/hide based on scroll direction
+    // Show/hide based on scroll direction with mobile-optimized thresholds
     setIsVisible(prevVisible => {
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      const isMobile = window.innerWidth <= 768;
+      const threshold = isMobile ? 80 : 100; // Lower threshold for mobile
+      const scrollDelta = Math.abs(currentScrollY - lastScrollY);
+      
+      // Reduce sensitivity on mobile for smoother scrolling
+      if (isMobile && scrollDelta < 5) {
+        return prevVisible;
+      }
+      
+      if (currentScrollY > lastScrollY && currentScrollY > threshold) {
         return false;
       }
       return true;

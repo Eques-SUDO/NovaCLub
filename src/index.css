@@ -11,6 +11,13 @@
     @apply border-dark-border;
   }
   
+  html {
+    /* Enhanced mobile scrolling */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+  }
+  
   body {
     @apply bg-dark-bg text-text-primary overflow-x-hidden font-sans;
     background: 
@@ -20,6 +27,12 @@
     background-size: 800px 800px, 600px 600px, 100% 100%;
     background-attachment: fixed;
     line-height: 1.6;
+    
+    /* Mobile scrolling optimizations */
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+    touch-action: pan-y;
   }
   
   h1 {
@@ -186,6 +199,90 @@
     }
   }
   
+  /* Mobile optimizations - Enhanced for smooth scrolling */
+  @media (max-width: 767px) {
+    /* Optimize background attachment for mobile */
+    body {
+      background-attachment: scroll !important; /* Better mobile performance */
+    }
+    
+    /* Mobile-optimized cards */
+    .modern-card {
+      backdrop-filter: blur(8px);
+      @apply bg-dark-card/95 p-4;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+    
+    .elevated-card {
+      backdrop-filter: blur(8px);
+      @apply bg-dark-elevated/95 p-4;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+    
+    /* Optimized animations for mobile */
+    .text-gradient-aurora,
+    .text-gradient-cosmic {
+      animation-duration: 4s; /* Slightly slower for mobile performance */
+    }
+    
+    /* Reduce motion intensity on smaller screens */
+    .animate-fadeIn {
+      animation-duration: 0.6s; /* Faster fade-in for mobile */
+    }
+    
+    /* Enhanced touch targets */
+    button, 
+    a,
+    [role="button"] {
+      min-height: 44px;
+      min-width: 44px;
+      touch-action: manipulation;
+    }
+    
+    /* Optimize scrolling containers */
+    .container-custom {
+      -webkit-overflow-scrolling: touch;
+      overflow-scrolling: touch;
+    }
+    
+    /* Reduce gradient complexity on mobile for better performance */
+    .text-gradient-aurora {
+      background-size: 150% 100%; /* Smaller gradient size */
+    }
+    
+    .text-gradient-cosmic {
+      background-size: 200% 200%; /* Reduced from 300% */
+    }
+    
+    /* Optimize heavy animations on mobile */
+    .animate-pulse {
+      animation-duration: 2s; /* Slower pulse for better performance */
+    }
+    
+    /* Reduce backdrop blur on mobile for better scrolling */
+    .backdrop-blur-xl {
+      backdrop-filter: blur(12px); /* Reduced from default */
+    }
+    
+    /* Optimize hero section animations for mobile */
+    .animate-bounce {
+      animation-duration: 2s; /* Slower bounce */
+      animation-timing-function: ease-in-out;
+    }
+    
+    /* Mobile-specific gradient optimizations */
+    .text-gradient-neon {
+      filter: drop-shadow(0 0 15px rgba(139, 93, 255, 0.4)); /* Reduced glow */
+    }
+    
+    .text-glow-purple,
+    .text-glow-cyan {
+      text-shadow: 0 0 8px currentColor; /* Simplified glow */
+    }
+  }
+  
   /* Tablet optimizations */
   @media (min-width: 768px) and (max-width: 1023px) {
     .modern-card {
@@ -265,6 +362,32 @@
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+  }
+  
+  /* Viewport-based animation controls for mobile optimization */
+  .mobile-optimized-animation {
+    /* Pause animations when not visible to save performance */
+    animation-play-state: running;
+  }
+  
+  @media (max-width: 767px) {
+    /* Reduce animation complexity when device is in power-saving mode */
+    @media (prefers-reduced-motion: reduce) {
+      .text-gradient-aurora,
+      .text-gradient-cosmic {
+        animation: none;
+        background: linear-gradient(135deg, #8B5DFF 0%, #A855F7 100%);
+      }
+    }
+    
+    /* Optimize animations based on device capabilities */
+    @media (hover: none) and (pointer: coarse) {
+      /* Touch devices - reduce hover effects complexity */
+      .group:hover .text-gradient-aurora,
+      .group:hover .text-gradient-cosmic {
+        animation-duration: 2s; /* Faster for touch interactions */
+      }
+    }
   }
   
   /* Artist name special effects */

@@ -22,16 +22,27 @@ export const useIntersectionObserver = (
       ([entry]) => {
         const isVisible = entry.isIntersecting;
         
-        if (isVisible && (!triggerOnce || !hasTriggered)) {
-          setIsIntersecting(true);
-          if (triggerOnce) {
-            setHasTriggered(true);
+        // Mobile optimization: Add slight delay to prevent flickering during fast scrolls
+        const isMobile = window.innerWidth <= 768;
+        const delay = isMobile ? 50 : 0;
+        
+        setTimeout(() => {
+          if (isVisible && (!triggerOnce || !hasTriggered)) {
+            setIsIntersecting(true);
+            if (triggerOnce) {
+              setHasTriggered(true);
+            }
+          } else if (!triggerOnce) {
+            setIsIntersecting(isVisible);
           }
-        } else if (!triggerOnce) {
-          setIsIntersecting(isVisible);
-        }
+        }, delay);
       },
-      { threshold, rootMargin }
+      { 
+        threshold, 
+        rootMargin,
+        // Mobile optimization: Use passive observation
+        ...(window.innerWidth <= 768 && { rootMargin: '20px' })
+      }
     );
 
     observer.observe(element);
