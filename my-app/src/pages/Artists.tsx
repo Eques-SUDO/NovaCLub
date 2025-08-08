@@ -107,14 +107,14 @@ const Artists: React.FC = () => {
         <div className="text-center mb-12 md:mb-20 px-4">
           <div className="inline-flex items-center gap-2 md:gap-3 mb-6 px-4 md:px-6 py-2 md:py-3 glass rounded-full border border-primary/20">
             <FaMusic className="text-nova-neon text-sm md:text-base" />
-            <span className="text-nova-neon font-medium text-sm md:text-base">ETERNOTE Music Club</span>
+            <span className="text-nova-neon font-medium text-sm md:text-base">ETERNOTES Music Club</span>
           </div>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display text-transparent bg-clip-text bg-gradient-to-r from-nova-neon via-white to-primary mb-4 md:mb-6 leading-tight">
             Our Musicians
           </h1>
           <p className="text-lg md:text-xl lg:text-2xl text-gray-text max-w-3xl mx-auto leading-relaxed">
-            Our dedicated group members who make ETERNOTE Music Club special
+            Our dedicated group members who make ETERNOTES Music Club special
           </p>
           
           {/* Decorative elements */}
@@ -268,7 +268,7 @@ const Artists: React.FC = () => {
               
               <p className="text-lg md:text-xl text-gray-text leading-relaxed mb-6 md:mb-8">
                 Stay tuned for updates on our upcoming recruitment process.<br />
-                Join ETERNOTE Music Club and become part of our musical family!
+                Join ETERNOTES Music Club and become part of our musical family!
               </p>
               
               <div className="flex items-center justify-center gap-2">

@@ -61,7 +61,7 @@ const FeatureCard = React.memo(({ feature, index }: { feature: Feature; index: n
   
   return (
     <motion.div
-      className="group modern-card text-center p-6 md:p-10 transition-all duration-300 relative overflow-hidden hover:shadow-2xl"
+      className="group relative bg-gradient-to-br from-dark-surface/90 to-dark-card/90 backdrop-blur-xl border border-primary/10 rounded-3xl p-8 md:p-10 text-center transition-all duration-500 hover:shadow-2xl hover:border-primary/30 overflow-hidden"
       initial={{ opacity: 0, y: 50, scale: 0.9 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -72,59 +72,110 @@ const FeatureCard = React.memo(({ feature, index }: { feature: Feature; index: n
         stiffness: 100
       }}
       whileHover={{ 
-        scale: 1.05,
-        rotateZ: 1,
-        transition: { duration: 0.3 }
+        scale: 1.02,
+        y: -5,
+        transition: { duration: 0.3, type: "spring", stiffness: 300 }
       }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
     >
-      {/* Animated gradient background */}
+      {/* Animated gradient overlay */}
       <motion.div 
-        className="absolute inset-0 bg-gradient-to-br from-nova-neon/0 to-primary/0"
+        className="absolute inset-0 rounded-3xl"
         animate={{
           background: isHovered 
-            ? "linear-gradient(135deg, rgba(232,145,255,0.1) 0%, rgba(180,92,240,0.1) 100%)"
-            : "linear-gradient(135deg, rgba(232,145,255,0) 0%, rgba(180,92,240,0) 100%)"
+            ? "linear-gradient(135deg, rgba(139,93,255,0.08) 0%, rgba(168,85,247,0.05) 50%, rgba(139,93,255,0.08) 100%)"
+            : "linear-gradient(135deg, rgba(139,93,255,0) 0%, rgba(168,85,247,0) 50%, rgba(139,93,255,0) 100%)"
+        }}
+        transition={{ duration: 0.7 }}
+      />
+      
+      {/* Glow effect */}
+      <motion.div 
+        className="absolute -inset-1 bg-gradient-to-r from-primary/20 via-accent-purple/20 to-primary/20 rounded-3xl blur-xl"
+        animate={{
+          opacity: isHovered ? 0.5 : 0
         }}
         transition={{ duration: 0.5 }}
       />
       
-      {/* Animated icon */}
-      <motion.div 
-        className="text-3xl md:text-4xl text-nova-neon mb-6 md:mb-8 flex justify-center relative"
-        animate={{
-          scale: isHovered ? 1.2 : 1,
-          rotate: isHovered ? 360 : 0
-        }}
-        transition={{ duration: 0.5 }}
-      >
-        {feature.icon}
+      {/* Modern icon container */}
+      <motion.div className="relative mb-6 z-10">
+        <motion.div 
+          className="w-20 h-20 md:w-24 md:h-24 mx-auto bg-gradient-to-br from-primary/20 to-accent-purple/20 rounded-2xl flex items-center justify-center"
+          animate={{
+            background: isHovered
+              ? "linear-gradient(135deg, rgba(139,93,255,0.3) 0%, rgba(168,85,247,0.3) 100%)"
+              : "linear-gradient(135deg, rgba(139,93,255,0.2) 0%, rgba(168,85,247,0.2) 100%)",
+            rotate: isHovered ? 6 : 0,
+            scale: isHovered ? 1.05 : 1
+          }}
+          transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
+        >
+          <motion.div
+            className="text-3xl md:text-4xl text-primary"
+            animate={{
+              scale: isHovered ? 1.1 : 1,
+              color: isHovered ? "#A855F7" : "#8B5DFF"
+            }}
+            transition={{ duration: 0.3 }}
+          >
+            {feature.icon}
+          </motion.div>
+        </motion.div>
         
-        {/* Pulse ring effect */}
-        <AnimatePresence>
-          {isHovered && (
-            <motion.div
-              className="absolute inset-0 rounded-full border-2 border-nova-neon"
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 2, opacity: 0 }}
-              exit={{ scale: 2, opacity: 0 }}
-              transition={{ duration: 0.8 }}
-            />
-          )}
-        </AnimatePresence>
+        {/* Decorative elements */}
+        <motion.div
+          className="absolute -top-1 -right-1 w-3 h-3 bg-gradient-to-br from-primary to-accent-purple rounded-full"
+          animate={{
+            scale: isHovered ? [1, 1.5, 1] : 1,
+            opacity: isHovered ? [0.5, 1, 0.5] : 0.5
+          }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute -bottom-1 -left-1 w-2 h-2 bg-gradient-to-br from-accent-purple to-primary rounded-full"
+          animate={{
+            scale: isHovered ? [1, 1.5, 1] : 1,
+            opacity: isHovered ? [0.5, 1, 0.5] : 0.5
+          }}
+          transition={{ duration: 2, delay: 0.5, repeat: Infinity }}
+        />
       </motion.div>
       
       <motion.h3 
-        className="text-xl md:text-2xl font-bold font-heading mb-3 md:mb-4 text-accent"
-        animate={{ color: isHovered ? "#E891FF" : "#FFFFFF" }}
+        className="text-xl md:text-2xl font-bold font-heading mb-4 text-text-primary relative z-10"
+        animate={{
+          color: isHovered ? "transparent" : "#F9FAFB"
+        }}
+        style={{
+          backgroundImage: isHovered ? "linear-gradient(135deg, #8B5DFF 0%, #A855F7 100%)" : "none",
+          backgroundClip: isHovered ? "text" : "unset",
+          WebkitBackgroundClip: isHovered ? "text" : "unset"
+        }}
       >
         {feature.title}
       </motion.h3>
       
-      <motion.p className="text-gray-text leading-relaxed text-base md:text-lg">
+      <motion.p 
+        className="text-text-secondary leading-relaxed text-sm md:text-base relative z-10"
+        animate={{
+          color: isHovered ? "#D1D5DB" : "#9CA3AF"
+        }}
+        transition={{ duration: 0.3 }}
+      >
         {feature.description}
       </motion.p>
+      
+      {/* Bottom accent line */}
+      <motion.div 
+        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-primary via-accent-purple to-primary rounded-full"
+        animate={{
+          width: isHovered ? "100%" : "0%",
+          opacity: isHovered ? 1 : 0
+        }}
+        transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+      />
     </motion.div>
   );
 });
@@ -485,7 +536,7 @@ const HomeEnhanced: React.FC = () => {
                 transition={{ duration: 0.5, delay: 0.5 }}
               />
               <FaMusic className="text-nova-neon text-lg" />
-              <span className="text-nova-neon/80 text-sm font-medium tracking-widest uppercase">ETERNOTE Music Club</span>
+              <span className="text-nova-neon/80 text-sm font-medium tracking-widest uppercase">ETERNOTES Music Club</span>
               <FaMusic className="text-nova-neon text-lg" />
               <motion.div 
                 className="h-px w-12 bg-gradient-to-l from-transparent to-nova-neon"
@@ -704,7 +755,7 @@ const HomeEnhanced: React.FC = () => {
                   viewport={{ once: true }}
                   transition={{ delay: 0.3 }}
                 >
-                  ETERNOTE
+                  ETERNOTES
                 </motion.span>
                 <span className="italic opacity-90"> Music Club </span>
                 is a vibrant community based in the Faculty of Sciences Rabat, bringing together passionate musicians and music enthusiasts who want to showcase their talent and share their love for music...
@@ -760,7 +811,7 @@ const HomeEnhanced: React.FC = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              The passionate staff who make ETERNOTE Music Club the amazing community it is
+              The passionate staff who make ETERNOTES Music Club the amazing community it is
             </motion.p>
           </motion.div>
 

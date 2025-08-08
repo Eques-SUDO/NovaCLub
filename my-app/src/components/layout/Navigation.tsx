@@ -80,7 +80,7 @@ const Navigation: React.FC = memo(() => {
             <div className="relative overflow-hidden rounded-full mr-0.5 md:mr-1">
               <img 
                 src="/etern-logo.PNG" 
-                alt="ETERNOTE Logo" 
+                alt="ETERNOTES Logo" 
                 className="h-20 w-20 md:h-24 md:w-24 object-contain transition-all duration-300 group-hover:rotate-12"
               />
               
@@ -90,7 +90,7 @@ const Navigation: React.FC = memo(() => {
             
             <div className="relative">
               <span className="text-xl md:text-2xl font-bold font-heading text-transparent bg-clip-text bg-gradient-to-r from-white via-nova-neon to-primary group-hover:from-nova-neon group-hover:to-white transition-all duration-300">
-                ETERNOTE
+                ETERNOTES
               </span>
               
               {/* Decorative line under text */}
@@ -149,11 +149,11 @@ const Navigation: React.FC = memo(() => {
           <div className="flex items-center gap-1">
             <img 
               src="/etern-logo.PNG" 
-              alt="ETERNOTE MUSIC Logo" 
+              alt="ETERNOTES MUSIC Logo" 
               className="h-16 w-16 object-contain"
             />
             <span className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary">
-              ETERNOTE
+              ETERNOTES
             </span>
           </div>
           
@@ -197,7 +197,7 @@ const Navigation: React.FC = memo(() => {
             <div className="flex items-center justify-center gap-2 text-nova-neon/60 text-sm">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent to-nova-neon/30"></div>
               <FaMusic className="text-xs" />
-              <span className="uppercase tracking-widest">ETERNOTE Music Club</span>
+              <span className="uppercase tracking-widest">ETERNOTES Music Club</span>
               <FaMusic className="text-xs" />
               <div className="h-px flex-1 bg-gradient-to-l from-transparent to-nova-neon/30"></div>
             </div>

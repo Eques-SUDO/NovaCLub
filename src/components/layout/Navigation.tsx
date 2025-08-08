@@ -67,11 +67,11 @@ const Navigation: React.FC = memo(() => {
       isVisible ? 'translate-y-0' : '-translate-y-full'
     } ${
       scrolled 
-        ? 'bg-gradient-to-r from-dark-bg/95 via-dark-card/90 to-dark-bg/95 backdrop-blur-xl shadow-2xl border-b border-primary/20' 
-        : 'bg-gradient-to-r from-black/10 via-black/20 to-black/10 backdrop-blur-md'
+        ? 'bg-gradient-to-r from-dark-bg/98 via-dark-surface/95 to-dark-bg/98 backdrop-blur-xl shadow-xl border-b border-dark-border' 
+        : 'bg-gradient-to-r from-black/5 via-black/10 to-black/5 backdrop-blur-lg'
     }`}>
       <div className="container-custom">
-        <div className="flex justify-between items-center py-3 md:py-4">
+        <div className="flex justify-between items-center py-4 md:py-5">
           {/* Logo */}
           <Link 
             to="/" 
@@ -80,8 +80,8 @@ const Navigation: React.FC = memo(() => {
             <div className="relative overflow-hidden rounded-full mr-2 md:mr-3">
               <img 
                 src="/etern-logo.PNG" 
-                alt="ETERNOTE Logo" 
-                className="h-12 w-12 md:h-16 md:w-16 object-contain transition-all duration-300 group-hover:rotate-12"
+                alt="ETERNOTES Logo" 
+                className="h-14 w-14 md:h-18 md:w-18 object-contain transition-all duration-300 group-hover:rotate-12"
               />
               
               {/* Enhanced Glow Effects */}
@@ -89,36 +89,36 @@ const Navigation: React.FC = memo(() => {
             </div>
             
             <div className="relative">
-              <span className="text-lg md:text-xl font-bold font-heading text-transparent bg-clip-text bg-gradient-to-r from-white via-nova-neon to-primary group-hover:from-nova-neon group-hover:to-white transition-all duration-300">
-                ETERNOTE
+              <span className="text-xl md:text-2xl font-bold font-heading text-gradient-cosmic group-hover:text-gradient-aurora transition-all duration-300">
+                ETERNOTES
               </span>
               
               {/* Decorative line under text */}
-              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-nova-neon to-primary group-hover:w-full transition-all duration-500"></div>
+              <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gradient group-hover:w-full transition-all duration-500"></div>
             </div>
           </Link>
           
           {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-8 lg:gap-10 items-center">
+          <div className="hidden md:flex gap-6 lg:gap-8 xl:gap-10 items-center">
             {navItems.map((item, index) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`relative font-heading font-medium text-base lg:text-lg px-4 py-2 rounded-xl transition-all duration-300 group ${
+                className={`relative font-heading font-semibold text-base lg:text-lg xl:text-xl px-4 py-3 rounded-xl transition-all duration-300 group ${
                   location.pathname === item.path 
-                    ? 'text-nova-neon bg-gradient-to-r from-nova-neon/10 to-primary/10 shadow-lg' 
-                    : 'text-gray-300 hover:text-white'
+                    ? 'text-primary bg-gradient-to-r from-primary/10 to-accent-purple/10 shadow-medium' 
+                    : 'text-text-tertiary hover:text-text-primary'
                 }`}
               >
                 {item.label}
                 
-                {/* Hover indicator */}
-                <div className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-nova-neon to-primary transition-all duration-300 ${
+                {/* Modern hover indicator */}
+                <div className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-brand-gradient rounded-full transition-all duration-300 ${
                   location.pathname === item.path ? 'w-full' : 'group-hover:w-full'
                 }`}></div>
                 
-                {/* Background glow on hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-nova-neon/5 to-primary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                {/* Enhanced background glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/8 to-accent-purple/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
               </Link>
             ))}
           </div>
@@ -126,7 +126,7 @@ const Navigation: React.FC = memo(() => {
           {/* Mobile Menu Button */}
           <button
             onClick={toggleMenu}
-            className="md:hidden relative text-white text-xl p-3 rounded-full hover:text-nova-neon transition-all duration-300 hover:scale-110 hover:bg-primary/10"
+            className="md:hidden relative text-text-primary text-xl p-3 rounded-xl hover:text-primary transition-all duration-300 hover:scale-105 hover:bg-primary/10"
             aria-label="Toggle menu"
           >
             <div className="relative z-10">
@@ -134,34 +134,34 @@ const Navigation: React.FC = memo(() => {
             </div>
             
             {/* Button glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-nova-neon/20 to-primary/20 rounded-full opacity-0 hover:opacity-100 transition-opacity duration-300 blur-md"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent-purple/20 rounded-xl opacity-0 hover:opacity-100 transition-opacity duration-300 blur-sm"></div>
           </button>
         </div>
       </div>
       
       {/* Mobile Navigation */}
-      <div className={`md:hidden fixed top-0 right-0 h-screen w-full max-w-sm bg-gradient-to-b from-dark-bg via-dark-secondary/95 to-dark-bg backdrop-blur-2xl shadow-2xl transform transition-all duration-500 ${
+      <div className={`md:hidden fixed top-0 right-0 h-screen w-full max-w-sm bg-gradient-to-b from-dark-bg via-dark-surface/98 to-dark-bg backdrop-blur-2xl shadow-2xl transform transition-all duration-500 ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
-      } overflow-hidden border-l border-primary/20`}>
+      } overflow-hidden border-l border-dark-border`}>
         
         {/* Mobile header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-primary/20">
-          <div className="flex items-center gap-1">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-dark-border">
+          <div className="flex items-center gap-3">
             <img 
               src="/etern-logo.PNG" 
-              alt="ETERNOTE MUSIC Logo" 
+              alt="ETERNOTES MUSIC Logo" 
               className="h-16 w-16 object-contain"
             />
-            <span className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary">
-              ETERNOTE
+            <span className="text-xl font-bold text-gradient-cosmic">
+              ETERNOTES
             </span>
           </div>
           
           <button
             onClick={toggleMenu}
-            className="text-white p-2 hover:text-nova-neon transition-colors duration-200"
+            className="text-text-primary p-3 hover:text-primary transition-colors duration-200 rounded-lg hover:bg-primary/10"
           >
-            <FaTimes />
+            <FaTimes className="text-xl" />
           </button>
         </div>
         
@@ -172,34 +172,34 @@ const Navigation: React.FC = memo(() => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`block text-2xl font-heading font-medium transition-all duration-300 py-3 px-4 rounded-xl relative group ${
+                className={`block text-2xl font-heading font-semibold transition-all duration-300 py-4 px-5 rounded-xl relative group ${
                   location.pathname === item.path 
-                    ? 'text-nova-neon bg-gradient-to-r from-nova-neon/10 to-primary/10 shadow-lg border-l-4 border-nova-neon' 
-                    : 'text-gray-300 hover:text-white hover:bg-primary/5'
+                    ? 'text-primary bg-gradient-to-r from-primary/15 to-accent-purple/10 shadow-medium border-l-4 border-primary' 
+                    : 'text-text-tertiary hover:text-text-primary hover:bg-primary/8'
                 }`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="flex items-center gap-3">
-                  <FaMusic className={`text-lg ${
-                    location.pathname === item.path ? 'text-nova-neon' : 'text-primary/60'
+                <div className="flex items-center gap-4">
+                  <FaMusic className={`text-xl ${
+                    location.pathname === item.path ? 'text-primary' : 'text-primary/60'
                   }`} />
                   {item.label}
                 </div>
                 
                 {/* Mobile hover effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-nova-neon/5 to-primary/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/8 to-accent-purple/5 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
               </Link>
             ))}
           </div>
           
           {/* Mobile menu footer */}
-          <div className="absolute bottom-6 left-6 right-6">
-            <div className="flex items-center justify-center gap-2 text-nova-neon/60 text-sm">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-nova-neon/30"></div>
-              <FaMusic className="text-xs" />
-              <span className="uppercase tracking-widest">ETERNOTE Music Club</span>
-              <FaMusic className="text-xs" />
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-nova-neon/30"></div>
+          <div className="absolute bottom-8 left-6 right-6">
+            <div className="flex items-center justify-center gap-3 text-primary/70 text-sm">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-primary/30"></div>
+              <FaMusic className="text-sm" />
+              <span className="uppercase tracking-widest font-medium text-gradient-aurora">ETERNOTES Music Club</span>
+              <FaMusic className="text-sm" />
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-primary/30"></div>
             </div>
           </div>
         </div>
@@ -208,7 +208,7 @@ const Navigation: React.FC = memo(() => {
       {/* Mobile Overlay */}
       {isOpen && (
         <div 
-          className="md:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-all duration-300"
+          className="md:hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-40 transition-all duration-300"
           onClick={toggleMenu}
         />
       )}
