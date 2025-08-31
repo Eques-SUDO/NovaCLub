@@ -435,18 +435,30 @@ const Home: React.FC = () => {
             }}>music club</span> on campus
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center items-center opacity-0 animate-fadeIn px-4 mb-12 sm:mb-16 md:mb-20" style={{ animationDelay: '600ms' }}>
-            <Link to="/events" className="group w-full sm:w-auto max-w-xs sm:max-w-none">
-              <Button size="large" className="text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 shadow-lg hover:shadow-nova-neon/30 w-full">
-                <FaCalendarAlt className="text-base sm:text-lg md:text-xl mr-2 md:mr-3" />
+          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center opacity-0 animate-fadeIn px-4 mb-12 sm:mb-16 md:mb-20" style={{ animationDelay: '600ms' }}>
+            <Link to="/events" className="w-full sm:w-auto">
+              <button 
+                className="text-white px-8 md:px-12 py-4 md:py-5 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto text-base md:text-lg"
+                style={{
+                  background: 'linear-gradient(135deg, #00D4FF 0%, #9945FF 50%, #FF45D8 100%)',
+                  boxShadow: '0 4px 15px rgba(0, 212, 255, 0.3)'
+                }}
+              >
+                <FaCalendarAlt className="mr-3" />
                 Join Activities
-              </Button>
+              </button>
             </Link>
-            <Link to="/contact" className="group w-full sm:w-auto max-w-xs sm:max-w-none">
-              <Button variant="outline" size="large" className="text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 w-full">
-                <FaUsers className="text-base sm:text-lg md:text-xl mr-2 md:mr-3" />
+            <Link to="/contact" className="w-full sm:w-auto">
+              <button 
+                className="text-white px-8 md:px-12 py-4 md:py-5 rounded-lg font-semibold transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto text-base md:text-lg"
+                style={{
+                  background: 'linear-gradient(135deg, #00D4FF 0%, #9945FF 50%, #FF45D8 100%)',
+                  boxShadow: '0 4px 15px rgba(0, 212, 255, 0.3)'
+                }}
+              >
+                <FaUsers className="mr-3" />
                 Become a Member
-              </Button>
+              </button>
             </Link>
           </div>
         </div>
