@@ -1,7 +1,8 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { FaCalendarAlt, FaMusic, FaTicketAlt, FaStar, FaChevronLeft, FaChevronRight, FaUsers } from 'react-icons/fa';
+import { FaCalendarAlt, FaMusic, FaTicketAlt, FaStar, FaChevronLeft, FaChevronRight, FaUsers, FaInstagram } from 'react-icons/fa';
 import Button from '../components/common/Button';
+import EternotesSymbols from '../components/common/EternotesSymbols';
 
 interface Feature {
   icon: React.ReactNode;
@@ -16,43 +17,80 @@ interface StaffMember {
   major: string;
   image: string;
   description: string;
+  artistName?: string;
+  colorScheme?: {
+    primary: string;
+    secondary: string;
+    glow: string;
+    gradient: string;
+  };
 }
 
 // Memoized components
 const FeatureCard = React.memo(({ feature, index }: { feature: Feature; index: number }) => (
   <div
-    className="group modern-card text-center p-6 md:p-10 transition-all duration-300 relative overflow-hidden hover:shadow-2xl hover:scale-[1.02] opacity-0 animate-fadeIn"
+    className="group relative bg-gradient-to-br from-dark-surface to-dark-card backdrop-blur-sm border border-primary/10 rounded-2xl p-8 md:p-10 text-center transition-all duration-500 hover:shadow-2xl hover:scale-[1.02] opacity-0 animate-fadeIn hover:border-primary/30 overflow-hidden"
     style={{ animationDelay: `${index * 100}ms` }}
   >
-    <div className="absolute inset-0 bg-gradient-to-br from-nova-neon/0 to-primary/0 group-hover:from-nova-neon/10 group-hover:to-primary/10 transition-all duration-500" />
+    {/* Gradient overlay */}
+    <div className="absolute inset-0 bg-gradient-to-br from-primary/0 via-accent-purple/0 to-primary/0 group-hover:from-primary/5 group-hover:via-accent-purple/3 group-hover:to-primary/5 transition-all duration-700 rounded-2xl" />
     
-    <div className="text-3xl md:text-4xl text-nova-neon mb-6 md:mb-8 flex justify-center relative group-hover:scale-110 transition-transform duration-300">
-      {feature.icon}
+    {/* Glow effect */}
+    <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-accent-purple/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-500" />
+    
+    {/* Icon container with modern styling */}
+    <div className="relative mb-6">
+      <div className="w-20 h-20 md:w-24 md:h-24 mx-auto bg-gradient-to-br from-primary/20 to-accent-purple/20 rounded-2xl flex items-center justify-center group-hover:from-primary/30 group-hover:to-accent-purple/30 transition-all duration-300 group-hover:rotate-3 group-hover:scale-105">
+        <div className="text-3xl md:text-4xl text-primary group-hover:text-accent-purple transition-all duration-300">
+          {feature.icon}
+        </div>
+      </div>
+      {/* Floating particle effect */}
+      <div className="absolute -top-2 -right-2 w-3 h-3 bg-primary/50 rounded-full blur-sm animate-pulse" />
+      <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-accent-purple/50 rounded-full blur-sm animate-pulse animation-delay-200" />
     </div>
     
-    <h3 className="text-xl md:text-2xl font-bold font-heading mb-3 md:mb-4 text-accent group-hover:text-nova-neon transition-colors duration-300">
+    <h3 className="text-xl md:text-2xl font-bold font-heading mb-4 text-text-primary group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent-purple transition-all duration-300">
       {feature.title}
     </h3>
     
-    <p className="text-gray-text leading-relaxed text-base md:text-lg group-hover:text-gray-light transition-colors duration-300">
+    <p className="text-text-secondary leading-relaxed text-sm md:text-base group-hover:text-text-primary transition-colors duration-300">
       {feature.description}
     </p>
+    
+    {/* Bottom accent line */}
+    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r from-primary to-accent-purple group-hover:w-full transition-all duration-500 rounded-full" />
   </div>
 ));
 
 const StaffCard = React.memo(({ member, index }: { member: StaffMember; index: number }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
+  
+  // Default color scheme if none provided
+  const defaultColorScheme = {
+    primary: "text-gradient-cosmic",
+    secondary: "text-primary",
+    glow: "shadow-[0_0_30px_rgba(139,93,255,0.6)]",
+    gradient: "from-primary to-accent-purple"
+  };
+  
+  const colors = member.colorScheme || defaultColorScheme;
 
   return (
     <div
-      className="group text-center p-8 transition-all duration-300 relative overflow-hidden modern-card hover:shadow-2xl opacity-0 animate-fadeIn"
+      className={`group text-center transition-all duration-500 relative overflow-hidden bg-gradient-to-br from-dark-surface/90 to-dark-card/90 backdrop-blur-xl border border-primary/10 rounded-3xl p-6 md:p-8 hover:scale-[1.02] opacity-0 animate-fadeIn hover:border-primary/30 hover:${colors.glow}`}
       style={{ animationDelay: `${index * 100}ms` }}
     >
-      <div className="absolute inset-0 bg-gradient-to-t from-nova-neon/0 to-transparent group-hover:from-nova-neon/10 transition-all duration-500" />
+      {/* Dynamic gradient overlay based on member's color scheme */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${colors.gradient} opacity-0 group-hover:opacity-5 transition-all duration-700 rounded-3xl`} />
       
-      <div className="relative mb-6">
-        <div className="w-28 h-28 mx-auto rounded-full overflow-hidden mb-4 relative bg-gray-800 ring-4 ring-primary/20 group-hover:ring-nova-neon/40 transition-all duration-300">
+      {/* Glow effect */}
+      <div className={`absolute -inset-1 bg-gradient-to-r ${colors.gradient} rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500`} />
+      
+      <div className="relative mb-6 z-10">
+        {/* Image container with member-specific styling */}
+        <div className={`w-32 h-32 md:w-36 md:h-36 mx-auto rounded-full overflow-hidden mb-4 relative bg-dark-elevated ring-4 ring-primary/20 group-hover:ring-4 transition-all duration-300 ${colors.glow} group-hover:scale-105`}>
           {!imageLoaded && !imageError && (
             <div className="absolute inset-0 bg-gray-800 animate-pulse" />
           )}
@@ -70,26 +108,59 @@ const StaffCard = React.memo(({ member, index }: { member: StaffMember; index: n
               <FaMusic className="text-3xl text-gray-600" />
             </div>
           )}
+          
+          {/* Decorative ring effect */}
+          <div className={`absolute -inset-2 rounded-full border-2 border-transparent bg-gradient-to-r ${colors.gradient} opacity-0 group-hover:opacity-60 transition-opacity duration-500 blur-sm`} />
         </div>
+        
+        {/* Member name with unique color */}
+        <h3 className={`text-xl md:text-2xl font-bold font-heading mb-2 ${colors.primary} transition-all duration-300`}>
+          {member.name}
+        </h3>
+        
+        {/* Artist name - prominently displayed */}
+        {member.artistName && (
+          <div className="mb-3">
+            <div className="relative inline-block">
+              <p className={`text-lg md:text-xl font-bold ${colors.primary} opacity-95 tracking-wide artist-name-glow px-3 py-1 rounded-lg transition-all duration-300 group-hover:scale-105`}>
+                "{member.artistName}"
+              </p>
+              {/* Subtle background glow */}
+              <div className={`absolute inset-0 bg-gradient-to-r ${colors.gradient} opacity-10 group-hover:opacity-20 rounded-lg blur-sm transition-opacity duration-300`} />
+            </div>
+            <div className={`w-16 h-0.5 bg-gradient-to-r ${colors.gradient} mx-auto mt-2 opacity-60 group-hover:opacity-100 transition-opacity duration-300`} />
+            {/* Decorative dots */}
+            <div className="flex justify-center gap-1 mt-1">
+              <div className={`w-1 h-1 bg-gradient-to-r ${colors.gradient} rounded-full opacity-40 group-hover:opacity-80 transition-opacity duration-300`} />
+              <div className={`w-1 h-1 bg-gradient-to-r ${colors.gradient} rounded-full opacity-60 group-hover:opacity-100 transition-opacity duration-300`} />
+              <div className={`w-1 h-1 bg-gradient-to-r ${colors.gradient} rounded-full opacity-40 group-hover:opacity-80 transition-opacity duration-300`} />
+            </div>
+          </div>
+        )}
+        
+        {/* Role with member-specific color */}
+        <p className={`font-semibold text-sm md:text-base mb-3 uppercase tracking-wider ${colors.secondary} transition-colors duration-300`}>
+          {member.role}
+        </p>
+        
+        {member.major && (
+          <p className="text-text-tertiary text-sm md:text-base mb-3 italic">
+            {member.major}
+          </p>
+        )}
+        
+        {/* Description */}
+        <p className="text-text-secondary leading-relaxed text-sm md:text-base group-hover:text-text-primary transition-colors duration-300">
+          {member.description}
+        </p>
       </div>
       
-      <h3 className="text-xl font-bold font-heading mb-2 text-accent group-hover:text-nova-neon transition-colors duration-300">
-        {member.name}
-      </h3>
+      {/* Bottom accent line with member's color */}
+      <div className={`absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-1 bg-gradient-to-r ${colors.gradient} group-hover:w-full transition-all duration-500 rounded-full`} />
       
-      <p className="text-nova-neon/80 font-medium text-sm mb-3 uppercase tracking-wider">
-        {member.role}
-      </p>
-      
-      {member.major && (
-        <p className="text-gray-text text-sm mb-3 italic">
-          {member.major}
-        </p>
-      )}
-      
-      <p className="text-gray-text leading-relaxed text-sm">
-        {member.description}
-      </p>
+      {/* Floating particles with member's color theme */}
+      <div className={`absolute top-4 right-4 w-2 h-2 bg-gradient-to-br ${colors.gradient} rounded-full opacity-0 group-hover:opacity-60 animate-pulse transition-opacity duration-500`} />
+      <div className={`absolute bottom-4 left-4 w-1.5 h-1.5 bg-gradient-to-br ${colors.gradient} rounded-full opacity-0 group-hover:opacity-40 animate-pulse transition-opacity duration-700`} style={{ animationDelay: '0.5s' }} />
     </div>
   );
 });
@@ -128,15 +199,28 @@ const Home: React.FC = () => {
       role: "President",
       major: "",
       image: "/images/staff/achraf.jpg",
-      description: "Singer/Records, Masters Songs"
+      description: "Singer/Records, Masters Songs",
+      colorScheme: {
+        primary: "text-gradient-aurora",
+        secondary: "text-glow-cyan",
+        glow: "shadow-[0_0_30px_rgba(34,211,238,0.6)]",
+        gradient: "from-cyan-400 to-blue-500"
+      }
     },
     {
       id: 2,
-      name: "Manal Ahmina (Minnie)",
+      name: "Manal Ahmina",
       role: "Vice President",
       major: "",
       image: "/images/staff/Minnie.jpg",
-      description: "Content Creator, Singer, Song Writer"
+      description: "Content Creator, Singer, Song Writer",
+      artistName: "Minnie",
+      colorScheme: {
+        primary: "text-gradient-purple-pink",
+        secondary: "text-pink-400",
+        glow: "shadow-[0_0_30px_rgba(244,114,182,0.6)]",
+        gradient: "from-pink-400 to-purple-500"
+      }
     },
     {
       id: 3,
@@ -144,7 +228,13 @@ const Home: React.FC = () => {
       role: "Human Resources",
       major: "",
       image: "/images/staff/hiba.jpg",
-      description: "Singer"
+      description: "Singer",
+      colorScheme: {
+        primary: "text-gradient-cosmic",
+        secondary: "text-indigo-400",
+        glow: "shadow-[0_0_30px_rgba(99,102,241,0.6)]",
+        gradient: "from-indigo-400 to-cyan-500"
+      }
     },
     {
       id: 4,
@@ -152,7 +242,13 @@ const Home: React.FC = () => {
       role: "VP of Administration",
       major: "",
       image: "/images/staff/salma.jpg",
-      description: "Singer"
+      description: "Singer",
+      colorScheme: {
+        primary: "text-gradient-neon",
+        secondary: "text-violet-400",
+        glow: "shadow-[0_0_30px_rgba(139,92,246,0.6)]",
+        gradient: "from-violet-400 to-purple-600"
+      }
     },
     {
       id: 5,
@@ -160,7 +256,14 @@ const Home: React.FC = () => {
       role: "Artistic Director",
       major: "",
       image: "/images/staff/Faris.jpg",
-      description: "DJ and Producer"
+      description: "DJ and Producer",
+      artistName: "Eques",
+      colorScheme: {
+        primary: "text-gradient-cosmic",
+        secondary: "text-glow-purple",
+        glow: "shadow-[0_0_30px_rgba(168,85,247,0.6)]",
+        gradient: "from-purple-500 to-pink-500"
+      }
     },
     {
       id: 6,
@@ -168,7 +271,13 @@ const Home: React.FC = () => {
       role: "Artistic Director",
       major: "",
       image: "/images/staff/Nour.JPG",
-      description: "Singer"
+      description: "Singer",
+      colorScheme: {
+        primary: "text-gradient-blue-cyan",
+        secondary: "text-blue-400",
+        glow: "shadow-[0_0_30px_rgba(59,130,246,0.6)]",
+        gradient: "from-blue-400 to-indigo-500"
+      }
     },
     {
       id: 7,
@@ -176,15 +285,13 @@ const Home: React.FC = () => {
       role: "Vocal Coach/Music Theory Tutor",
       major: "",
       image: "/images/staff/hamza.jpg",
-      description: "Singer"
-    },
-    {
-      id: 8,
-      name: "Youssef Loulida",
-      role: "Marketing Leader",
-      major: "",
-      image: "/images/staff/Youffes.jpg",
-      description: "Events Presenter"
+      description: "Singer",
+      colorScheme: {
+        primary: "text-gradient-emerald-cyan",
+        secondary: "text-green-400",
+        glow: "shadow-[0_0_30px_rgba(16,185,129,0.6)]",
+        gradient: "from-emerald-400 to-teal-500"
+      }
     }
   ], []);
 
@@ -193,32 +300,63 @@ const Home: React.FC = () => {
     window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
   }, []);
 
+  const handleJoinClick = useCallback(() => {
+    window.location.href = '/contact';
+  }, []);
+
   return (
     <>
-      {/* Hero Section - Enhanced */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-dark-bg">
+      {/* Hero Section - Mobile Optimized */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-dark-bg pt-20 sm:pt-24 md:pt-0">
         <div 
-          className="absolute inset-0 bg-cover bg-center opacity-35 transition-opacity duration-1000"
+          className="absolute inset-0 bg-cover bg-center opacity-25 transition-opacity duration-1000"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`,
-            filter: 'brightness(0.8) contrast(1.1) saturate(1.2)'
+            filter: 'brightness(0.6) contrast(1.2) saturate(1.1)'
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-dark-bg/70 via-dark-bg/60 to-dark-secondary/70" />
-        <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/90 via-transparent to-dark-bg/40" />
+        <div className="absolute inset-0 bg-hero-gradient" />
+        <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/95 via-transparent to-dark-bg/80" />
         
-        {/* Subtle animated background elements */}
+        {/* ETERNOTES Infinity Symbols */}
+        <EternotesSymbols density="minimal" />
+        
+        {/* Mobile-Optimized Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-96 h-96 -top-48 -left-48 bg-nova-neon/15 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute w-96 h-96 -bottom-48 -right-48 bg-primary/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute w-64 h-64 sm:w-96 sm:h-96 -top-32 -left-32 sm:-top-48 sm:-left-48 bg-nova-neon/15 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute w-64 h-64 sm:w-96 sm:h-96 -bottom-32 -right-32 sm:-bottom-48 sm:-right-48 bg-primary/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
           
-          {/* Floating Musical Notes */}
-          <div className="absolute top-20 left-10 text-nova-neon/20 text-2xl animate-bounce" style={{ animationDelay: '1s', animationDuration: '3s' }}>♪</div>
-          <div className="absolute top-32 right-16 text-primary/20 text-xl animate-bounce" style={{ animationDelay: '2s', animationDuration: '4s' }}>♫</div>
-          <div className="absolute bottom-40 left-20 text-nova-neon/15 text-3xl animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '5s' }}>♬</div>
-          <div className="absolute bottom-64 right-24 text-primary/15 text-lg animate-bounce" style={{ animationDelay: '3s', animationDuration: '3.5s' }}>♩</div>
-          <div className="absolute top-1/3 left-1/4 text-nova-neon/10 text-4xl animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '6s' }}>♭</div>
-          <div className="absolute top-2/3 right-1/3 text-primary/10 text-2xl animate-bounce" style={{ animationDelay: '2.5s', animationDuration: '4.5s' }}>♯</div>
+          {/* Mobile-Optimized Floating Musical Notes */}
+          <div className="hidden sm:block absolute top-20 left-10 text-nova-neon/30 text-2xl animate-bounce" style={{ 
+            animationDelay: '1s', 
+            animationDuration: '3s',
+            filter: 'drop-shadow(0 0 8px rgba(168, 85, 247, 0.4))'
+          }}>♪</div>
+          <div className="absolute top-24 right-6 sm:top-32 sm:right-16 text-primary/25 text-lg sm:text-xl animate-bounce" style={{ 
+            animationDelay: '2s', 
+            animationDuration: '4s',
+            filter: 'drop-shadow(0 0 6px rgba(155, 77, 224, 0.4))'
+          }}>♫</div>
+          <div className="absolute bottom-32 left-6 sm:bottom-40 sm:left-20 text-nova-neon/20 text-xl sm:text-3xl animate-bounce" style={{ 
+            animationDelay: '0.5s', 
+            animationDuration: '5s',
+            filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.3))'
+          }}>♬</div>
+          <div className="hidden sm:block absolute bottom-64 right-24 text-primary/20 text-lg animate-bounce" style={{ 
+            animationDelay: '3s', 
+            animationDuration: '3.5s',
+            filter: 'drop-shadow(0 0 5px rgba(155, 77, 224, 0.3))'
+          }}>♩</div>
+          <div className="hidden md:block absolute top-1/3 left-1/4 text-nova-neon/15 text-4xl animate-bounce" style={{ 
+            animationDelay: '1.5s', 
+            animationDuration: '6s',
+            filter: 'drop-shadow(0 0 12px rgba(168, 85, 247, 0.2))'
+          }}>♭</div>
+          <div className="hidden md:block absolute top-2/3 right-1/3 text-primary/15 text-2xl animate-bounce" style={{ 
+            animationDelay: '2.5s', 
+            animationDuration: '4.5s',
+            filter: 'drop-shadow(0 0 7px rgba(155, 77, 224, 0.2))'
+          }}>♯</div>
           
           {/* Subtle Stars */}
           <div className="absolute top-16 right-1/4 w-1 h-1 bg-nova-neon/40 rounded-full animate-pulse" style={{ animationDelay: '0s', animationDuration: '2s' }}></div>
@@ -237,14 +375,14 @@ const Home: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-radial from-transparent via-dark-bg/30 to-dark-bg/60" />
         </div>
         
-        <div className="relative z-10 text-center max-w-6xl px-8">
+        <div className="relative z-10 text-center max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <div className="flex items-center justify-center gap-2 mb-8 opacity-80">
-              <div className="h-px w-12 bg-gradient-to-r from-transparent to-nova-neon" />
-              <FaMusic className="text-nova-neon text-lg" />
-              <span className="text-nova-neon/80 text-sm font-medium tracking-widest uppercase">ETERNOTE Music Club</span>
-              <FaMusic className="text-nova-neon text-lg" />
-              <div className="h-px w-12 bg-gradient-to-l from-transparent to-nova-neon" />
+            <div className="flex items-center justify-center gap-2 mb-6 sm:mb-8 opacity-80">
+              <div className="h-px w-8 sm:w-12 bg-gradient-to-r from-transparent to-nova-neon" />
+              <FaMusic className="text-nova-neon text-sm sm:text-lg" />
+              <span className="text-gradient-aurora text-xs sm:text-sm font-medium tracking-widest uppercase">ETERNOTES Music Club</span>
+              <FaMusic className="text-nova-neon text-sm sm:text-lg" />
+              <div className="h-px w-8 sm:w-12 bg-gradient-to-l from-transparent to-nova-neon" />
             </div>
             
             <div className="relative">
@@ -260,94 +398,64 @@ const Home: React.FC = () => {
               <div className="absolute -bottom-8 left-1/3 text-nova-neon/30 text-sm animate-bounce opacity-0 animate-fadeIn" style={{ animationDelay: '1400ms', animationDuration: '5s' }}>♬</div>
               <div className="absolute -bottom-6 right-1/3 text-primary/30 text-xs animate-bounce opacity-0 animate-fadeIn" style={{ animationDelay: '1500ms', animationDuration: '3.5s' }}>♩</div>
               
-              <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black font-display mb-6 md:mb-8 leading-tight opacity-0 animate-fadeIn relative">
-                <span className="block text-gradient bg-clip-text text-transparent">WHERE</span>
-                <span className="block text-white text-5xl sm:text-7xl md:text-9xl lg:text-[10rem] my-2 md:my-4 relative">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black font-display mb-8 md:mb-12 leading-tight opacity-0 animate-fadeIn relative">
+                <span className="block text-brand bg-clip-text text-transparent mb-2">WHERE</span>
+                <span className="block text-text-primary text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] my-4 md:my-6 relative font-extrabold tracking-tight">
                   MUSIC
-                  {/* Subtle glow effect behind MUSIC */}
-                  <div className="absolute inset-0 text-white opacity-20 blur-sm -z-10">MUSIC</div>
+                  {/* Enhanced glow effect */}
+                  <div className="absolute inset-0 text-text-primary opacity-30 blur-md -z-10">MUSIC</div>
                 </span>
-                <span className="block text-gradient bg-clip-text text-transparent">COMES ALIVE</span>
+                <span className="block text-brand bg-clip-text text-transparent mt-2">LIVES FOREVER</span>
               </h1>
             </div>
           </div>
           
-          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-text mb-12 md:mb-16 font-light leading-relaxed max-w-4xl mx-auto opacity-0 animate-fadeIn px-4" style={{ animationDelay: '300ms' }}>
-            Join the <span className="text-nova-neon font-medium">musical community</span> at your university with the most vibrant <span className="text-white font-semibold">music club</span> on campus
+          <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-text-secondary mb-12 md:mb-16 font-light leading-relaxed max-w-5xl mx-auto opacity-0 animate-fadeIn px-4" style={{ animationDelay: '300ms' }}>
+            Join the <span className="text-primary font-semibold">musical community</span> at your university with the most vibrant <span className="text-text-primary font-bold">music club</span> on campus
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center items-center opacity-0 animate-fadeIn px-4 mb-16 md:mb-20" style={{ animationDelay: '600ms' }}>
-            <Link to="/events" className="group w-full sm:w-auto">
-              <Button size="large" className="text-base md:text-lg px-8 md:px-12 py-4 md:py-5 shadow-lg hover:shadow-nova-neon/30 w-full sm:w-auto">
-                <FaCalendarAlt className="text-lg md:text-xl mr-2 md:mr-3" />
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center items-center opacity-0 animate-fadeIn px-4 mb-12 sm:mb-16 md:mb-20" style={{ animationDelay: '600ms' }}>
+            <Link to="/events" className="group w-full sm:w-auto max-w-xs sm:max-w-none">
+              <Button size="large" className="text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 shadow-lg hover:shadow-nova-neon/30 w-full">
+                <FaCalendarAlt className="text-base sm:text-lg md:text-xl mr-2 md:mr-3" />
                 Join Activities
               </Button>
             </Link>
-            <Link to="/contact" className="group w-full sm:w-auto">
-              <Button variant="outline" size="large" className="text-base md:text-lg px-8 md:px-12 py-4 md:py-5 w-full sm:w-auto">
-                <FaUsers className="text-lg md:text-xl mr-2 md:mr-3" />
+            <Link to="/contact" className="group w-full sm:w-auto max-w-xs sm:max-w-none">
+              <Button variant="outline" size="large" className="text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 w-full">
+                <FaUsers className="text-base sm:text-lg md:text-xl mr-2 md:mr-3" />
                 Become a Member
               </Button>
             </Link>
           </div>
         </div>
 
-        {/* Enhanced Scroll Indicator */}
-        <div
-          className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer opacity-0 animate-fadeIn hover:scale-110 transition-all duration-500 group z-20"
-          style={{ animationDelay: '2000ms', left: '50%' }}
-          onClick={scrollToNextSection}
-        >
-          {/* Decorative elements around scroll indicator */}
-          <div className="absolute -top-4 -left-2 w-1 h-1 bg-nova-neon/30 rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ animationDelay: '0s', animationDuration: '2s' }}></div>
-          <div className="absolute -top-4 -right-2 w-1 h-1 bg-primary/30 rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ animationDelay: '1s', animationDuration: '2.5s' }}></div>
-          
-          {/* Floating musical notes around scroll indicator */}
-          <div className="absolute -top-6 -left-4 text-nova-neon/30 text-xs animate-bounce opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ animationDelay: '0s', animationDuration: '4s' }}>♪</div>
-          <div className="absolute -top-6 -right-4 text-primary/30 text-xs animate-bounce opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ animationDelay: '1s', animationDuration: '3.5s' }}>♫</div>
-          
-          <div className="flex flex-col items-center relative">            
-            {/* Enhanced text with gradient */}
-            <div className="flex items-center gap-2 mb-3 opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="h-px w-3 bg-gradient-to-r from-transparent to-nova-neon/50"></div>
-              <span className="text-xs font-medium uppercase tracking-widest text-nova-neon/70 group-hover:text-nova-neon transition-colors duration-300">
-                Explore More
-              </span>
-              <div className="h-px w-3 bg-gradient-to-l from-transparent to-primary/50"></div>
-            </div>
-            
-            {/* Enhanced scroll mouse */}
-            <div className="relative">
-              <div className="w-6 h-10 border-2 border-nova-neon/40 group-hover:border-nova-neon rounded-full flex justify-center relative overflow-hidden transition-all duration-300 group-hover:shadow-lg group-hover:shadow-nova-neon/20">
-                {/* Animated dot */}
-                <div className="w-1 h-3 bg-nova-neon/60 group-hover:bg-nova-neon rounded-full mt-2 animate-bounce transition-colors duration-300" />
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
-      {/* Features Section - Enhanced */}
-      <section className="py-16 md:py-32 relative overflow-hidden bg-gradient-to-b from-dark-secondary/80 via-dark-bg to-dark-bg">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-dark-bg/50 to-transparent" />
+      {/* Features Section - Modern */}
+      <section className="py-20 md:py-32 lg:py-40 relative overflow-hidden bg-gradient-to-b from-dark-surface via-dark-bg to-dark-surface">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-dark-bg/30 to-transparent" />
+        
+        {/* Infinity Symbols - Services Section */}
+        <EternotesSymbols density="light" />
         
         <div className="container-custom relative">
           <div className="text-center mb-12 md:mb-20 px-4">
             <div className="flex items-center justify-center gap-3 mb-6">
               <div className="h-px w-8 md:w-16 bg-gradient-to-r from-transparent to-nova-neon/50" />
-              <span className="text-nova-neon/60 text-xs md:text-sm uppercase tracking-widest">Our Services</span>
+              <span className="text-gradient-purple-pink text-xs md:text-sm uppercase tracking-widest font-semibold">Our Services</span>
               <div className="h-px w-8 md:w-16 bg-gradient-to-l from-transparent to-nova-neon/50" />
             </div>
             
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-4 md:mb-6">
-              <span className="text-gradient bg-clip-text text-transparent">What We Offer</span>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display mb-6 md:mb-8">
+              <span className="text-gradient-cosmic">What We Offer</span>
             </h2>
-            <p className="text-lg md:text-xl text-gray-text max-w-3xl mx-auto leading-relaxed px-4">
+            <p className="text-xl md:text-2xl text-gradient-blue-cyan max-w-4xl mx-auto leading-relaxed px-4 font-medium">
               From beginner-friendly sessions to advanced workshops - grow your musical skills with fellow students
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 px-4">
             {features.map((feature, index) => (
               <FeatureCard key={index} feature={feature} index={index} />
             ))}
@@ -355,35 +463,38 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* About Us Section - Enhanced */}
-      <section className="py-16 md:py-32 relative overflow-hidden bg-gradient-to-b from-dark-bg via-dark-secondary/30 to-dark-secondary/60">
+      {/* About Us Section - Mobile Optimized */}
+      <section className="py-12 sm:py-16 md:py-24 lg:py-32 relative overflow-hidden bg-gradient-to-b from-dark-bg via-dark-secondary/30 to-dark-secondary/60">
         <div className="absolute inset-0 bg-gradient-to-br from-nova-darkPurple/10 via-transparent to-primary/5" />
         
+        {/* Infinity Symbols - About Section */}
+        <EternotesSymbols density="minimal" />
+        
         <div className="container-custom relative z-10">
-          <div className="text-center mb-12 md:mb-16 px-4">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="h-px w-8 md:w-16 bg-gradient-to-r from-transparent to-nova-neon/50" />
-              <span className="text-nova-neon/60 text-xs md:text-sm uppercase tracking-widest">Who We Are</span>
-              <div className="h-px w-8 md:w-16 bg-gradient-to-l from-transparent to-nova-neon/50" />
+          <div className="text-center mb-8 sm:mb-12 md:mb-16 px-4">
+            <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+              <div className="h-px w-6 sm:w-8 md:w-16 bg-gradient-to-r from-transparent to-nova-neon/50" />
+              <span className="text-gradient-emerald-cyan text-xs md:text-sm uppercase tracking-widest font-semibold">Who We Are</span>
+              <div className="h-px w-6 sm:w-8 md:w-16 bg-gradient-to-l from-transparent to-nova-neon/50" />
             </div>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-6 md:mb-8">
-              <span className="text-gradient bg-clip-text text-transparent">About Us</span>
+              <span className="text-gradient-neon">About Us</span>
             </h2>
           </div>
 
           <div className="max-w-5xl mx-auto">
-            <div className="modern-card p-8 md:p-12 lg:p-16 text-center relative overflow-hidden group hover:shadow-2xl transition-shadow duration-300">
+            <div className="modern-card p-4 sm:p-6 md:p-8 lg:p-12 text-center relative overflow-hidden group hover:shadow-2xl transition-shadow duration-300">
               <div className="absolute inset-0 bg-gradient-to-t from-nova-neon/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               
               <p className="text-xl md:text-2xl leading-relaxed mb-8 text-gray-light relative z-10">
-                <span className="font-bold text-2xl md:text-3xl text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary">ETERNOTE</span>
+                <span className="font-bold text-2xl md:text-3xl text-gradient-aurora">ETERNOTES</span>
                 <span className="italic opacity-90"> Music Club </span>
                 is a vibrant community based in the Faculty of Sciences Rabat, bringing together passionate musicians and music enthusiasts who want to showcase their talent and share their love for music...
               </p>
               
               <div className="relative">
-                <p className="text-2xl md:text-3xl font-bold font-heading text-transparent bg-clip-text bg-gradient-to-r from-nova-neon via-white to-primary">
+                <p className="text-2xl md:text-3xl font-bold font-heading text-gradient-cosmic">
                   Music, what unites us!
                 </p>
                 <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-nova-neon to-transparent" />
@@ -393,42 +504,46 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Gallery Section - Enhanced */}
-      <section className="py-16 md:py-32 relative overflow-hidden bg-gradient-to-b from-dark-secondary/60 via-dark-secondary/40 to-dark-secondary/80">
+      {/* Gallery Section - Mobile Optimized */}
+      <section className="py-12 sm:py-16 md:py-24 lg:py-32 relative overflow-hidden bg-gradient-to-b from-dark-secondary/60 via-dark-secondary/40 to-dark-secondary/80">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-nova-darkPurple/5 to-transparent" />
         
+        {/* Infinity Symbols - Gallery Section */}
+        <EternotesSymbols density="light" />
+        
         <div className="container-custom relative">
-          <div className="text-center mb-12 md:mb-20 px-4">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="h-px w-8 md:w-16 bg-gradient-to-r from-transparent to-nova-neon/50" />
-              <span className="text-nova-neon/60 text-xs md:text-sm uppercase tracking-widest">Memories</span>
-              <div className="h-px w-8 md:w-16 bg-gradient-to-l from-transparent to-nova-neon/50" />
+          <div className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20 px-4">
+            <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+              <div className="h-px w-6 sm:w-8 md:w-16 bg-gradient-to-r from-transparent to-nova-neon/50" />
+              <span className="text-gradient-pink-orange text-xs md:text-sm uppercase tracking-widest font-semibold">Memories</span>
+              <div className="h-px w-6 sm:w-8 md:w-16 bg-gradient-to-l from-transparent to-nova-neon/50" />
             </div>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-4 md:mb-6">
-              <span className="text-gradient bg-clip-text text-transparent">Campus Gallery</span>
+              <span className="text-gradient-purple-pink">Campus Gallery</span>
             </h2>
             <p className="text-xl text-gray-text max-w-3xl mx-auto leading-relaxed">
               Moments from our musical journey - jam sessions, workshops, and campus performances
             </p>
           </div>
 
-          {/* Coming Soon Placeholder - Enhanced */}
-          <div className="text-center py-20">
-            <div className="glass border border-primary/30 rounded-3xl p-8 md:p-16 max-w-2xl mx-auto backdrop-blur-xl hover:shadow-2xl hover:border-nova-neon/30 transition-all duration-300">
-              <div className="w-24 h-24 bg-gradient-to-br from-nova-neon to-primary rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg shadow-nova-neon/30">
-                <FaMusic className="text-4xl text-white" />
+          {/* Coming Soon Placeholder - Mobile Optimized */}
+          <div className="text-center py-12 sm:py-16 md:py-20">
+            <div className="glass border border-primary/30 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 lg:p-16 max-w-2xl mx-auto backdrop-blur-xl hover:shadow-2xl hover:border-nova-neon/30 transition-all duration-300">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-br from-nova-neon to-primary rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-8 shadow-lg shadow-nova-neon/30">
+                <FaMusic className="text-2xl sm:text-3xl md:text-4xl text-white" />
               </div>
               
               <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary mb-4">
                 Gallery Coming Soon
               </h3>
               <p className="text-xl text-gray-text leading-relaxed">
-                We're preparing an amazing collection of moments from our musical journey.<br />
-                Check back soon for photos and videos!
+                We're preparing an amazing collection of moments from our musical journey.
+                <br className="hidden sm:block" />
+                <span className="block sm:inline">Check back soon for photos and videos!</span>
               </p>
               
-              <div className="flex items-center justify-center gap-2 mt-8">
+              <div className="flex items-center justify-center gap-2 mt-6 sm:mt-8">
                 <div className="w-2 h-2 rounded-full bg-nova-neon animate-pulse" />
                 <div className="w-2 h-2 rounded-full bg-nova-neon animate-pulse" style={{ animationDelay: '0.2s' }} />
                 <div className="w-2 h-2 rounded-full bg-nova-neon animate-pulse" style={{ animationDelay: '0.4s' }} />
@@ -438,28 +553,32 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Staff Section - Enhanced */}
-      <section className="py-16 md:py-32 relative overflow-hidden bg-gradient-to-b from-dark-secondary/80 to-dark-secondary">
+
+      {/* Staff Section - Mobile Optimized */}
+      <section className="py-12 sm:py-16 md:py-24 lg:py-32 relative overflow-hidden bg-gradient-to-b from-dark-secondary/80 to-dark-secondary">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-dark-bg/20 to-dark-secondary/50" />
         
+        {/* Infinity Symbols - Team Section */}
+        <EternotesSymbols density="minimal" />
+        
         <div className="container-custom relative">
-          <div className="text-center mb-12 md:mb-20 px-4">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="h-px w-8 md:w-16 bg-gradient-to-r from-transparent to-nova-neon/50" />
+          <div className="text-center mb-8 sm:mb-12 md:mb-16 lg:mb-20 px-4">
+            <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+              <div className="h-px w-6 sm:w-8 md:w-16 bg-gradient-to-r from-transparent to-nova-neon/50" />
               <span className="text-nova-neon/60 text-xs md:text-sm uppercase tracking-widest">Our Team</span>
-              <div className="h-px w-8 md:w-16 bg-gradient-to-l from-transparent to-nova-neon/50" />
+              <div className="h-px w-6 sm:w-8 md:w-16 bg-gradient-to-l from-transparent to-nova-neon/50" />
             </div>
             
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display mb-4 md:mb-6">
-              <span className="text-gradient bg-clip-text text-transparent">Meet Our Team</span>
+              <span className="text-gradient-cosmic">Meet Our Team</span>
             </h2>
             
-            <p className="text-xl text-gray-text max-w-3xl mx-auto leading-relaxed">
-              The passionate staff who make ETERNOTE Music Club the amazing community it is
+            <p className="text-xl text-gradient-blue-cyan max-w-3xl mx-auto leading-relaxed font-medium">
+              The passionate staff who make ETERNOTES Music Club the amazing community it is
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 md:gap-8 px-4 max-w-6xl mx-auto">
             {staffMembers.map((member, index) => (
               <StaffCard key={member.id} member={member} index={index} />
             ))}

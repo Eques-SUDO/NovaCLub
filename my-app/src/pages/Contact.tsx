@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaEnvelope, FaInstagram, FaMusic, FaUser, FaCalendarAlt, FaGuitar, FaPaperPlane } from 'react-icons/fa';
 import Button from '../components/common/Button';
-// import { api } from '../services/api';
+import { submitToGoogleSheets } from '../utils/googleSheets';
 
 interface FormData {
   name: string;
@@ -76,22 +76,28 @@ const Contact: React.FC = () => {
     }
     
     try {
-      // await api.contact.send(formData);
-      // Simulating success for demo
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setShowSuccess(true);
-      setIsSubmitting(false);
-      setTimeout(() => setShowSuccess(false), 5000);
-      setFormData({
-        name: '',
-        email: '',
-        year: 'freshman',
-        otherYear: '',
-        instrument: '',
-        subject: 'join',
-        message: ''
-      });
-      setErrors({});
+      // Submit to Google Sheets
+      const success = await submitToGoogleSheets(formData);
+      
+      if (success) {
+        setShowSuccess(true);
+        setIsSubmitting(false);
+        setTimeout(() => setShowSuccess(false), 5000);
+        
+        // Reset form on successful submission
+        setFormData({
+          name: '',
+          email: '',
+          year: 'freshman',
+          otherYear: '',
+          instrument: '',
+          subject: 'join',
+          message: ''
+        });
+        setErrors({});
+      } else {
+        throw new Error('Failed to submit to Google Sheets');
+      }
     } catch (error: any) {
       setErrors({ message: error.message || 'Failed to send message. Please try again.' });
       setIsSubmitting(false);
@@ -113,7 +119,7 @@ const Contact: React.FC = () => {
         >
           <div className="inline-flex items-center gap-2 mb-6">
             <FaMusic className="text-nova-neon" />
-            <span className="text-nova-neon font-medium">ETERNOTE Music Club</span>
+            <span className="text-nova-neon font-medium">ETERNOTES Music Club</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold font-display text-white mb-4">
@@ -141,8 +147,8 @@ const Contact: React.FC = () => {
                   <FaEnvelope className="text-nova-neon" />
                   <div>
                     <p className="font-medium text-white">Email</p>
-                    <a href="mailto:elkhouranihiba226@gmail.com" className="hover:text-nova-neon transition-colors">
-                      elkhouranihiba226@gmail.com
+                    <a href="mailto:eternotesmusicclub@gmail.com" className="hover:text-nova-neon transition-colors">
+                      eternotesmusicclub@gmail.com
                     </a>
                   </div>
                 </div>
@@ -155,12 +161,12 @@ const Contact: React.FC = () => {
                   <div>
                     <p className="font-medium text-white">Follow Us</p>
                     <a 
-                      href="https://www.instagram.com/jamhouse.fsr/" 
+                      href="https://www.instagram.com/eternotes.fsr" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="hover:text-nova-neon transition-colors"
                     >
-                      @jamhouse.fsr
+                      @eternotes.fsr
                     </a>
                   </div>
                 </div>
@@ -170,7 +176,7 @@ const Contact: React.FC = () => {
               <div className="p-6 glass rounded-xl border border-primary/20">
                 <h3 className="text-lg font-semibold text-white mb-3">Join Our Community</h3>
                 <p className="text-gray-text text-sm leading-relaxed">
-                  Whether you're a beginner or an experienced musician, ETERNOTE welcomes everyone 
+                  Whether you're a beginner or an experienced musician, ETERNOTES welcomes everyone 
                   who shares a passion for music. Join us for weekly sessions, workshops, and performances!
                 </p>
               </div>

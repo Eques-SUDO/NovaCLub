@@ -1,6 +1,9 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
+import MusicDecorations from './components/decorations/MusicDecorations';
+import OptimizedLightingEffects from './components/background/OptimizedLightingEffects';
+import { PerformanceProvider } from './contexts/PerformanceContext';
 
 // Lazy load pages for better performance
 const Home = lazy(() => import('./pages/Home'));
@@ -21,10 +24,11 @@ const PageLoader = () => (
 
 const App: React.FC = () => {
   return (
-    <Router>
-      {/* Optimized Background Elements */}
+    <PerformanceProvider>
+      <Router>
+      
+      {/* Minimal Background - Performance Optimized */}
       <div className="musical-staff-bg"></div>
-      <div className="nova-constellation"></div>
       
       <Layout>
         <Suspense fallback={<PageLoader />}>
@@ -37,7 +41,8 @@ const App: React.FC = () => {
           </Routes>
         </Suspense>
       </Layout>
-    </Router>
+      </Router>
+    </PerformanceProvider>
   );
 };
 
