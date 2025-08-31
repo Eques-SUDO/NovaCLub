@@ -6,17 +6,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#B45CF0', // Bright purple from ETERNOTES logo
-        secondary: '#8B2FD6', // Deeper purple
-        accent: '#FFFFFF', // Pure white for contrast
+        primary: '#00D4FF', // Cyan from ETERNOTES logo
+        secondary: '#9945FF', // Purple from ETERNOTES logo  
+        accent: '#FF45D8', // Pink from ETERNOTES logo
         dark: {
           bg: '#0A0A0A', // Deep black background
-          secondary: '#1A0A1A', // Dark purple tint
-          tertiary: '#2D1B35', // Purple-tinted dark
-          surface: '#141414', // Dark surface
-          card: '#1A1A1A', // Dark card background
-          elevated: '#2A2A2A', // Elevated dark surface
-          border: '#333333', // Dark border color
+          secondary: '#0F0A1A', // Dark with cyan-purple tint
+          tertiary: '#1A0F2A', // Purple-tinted dark
+          surface: '#141419', // Dark surface with subtle blue
+          card: '#1A1520', // Dark card with purple hint
+          elevated: '#25202A', // Elevated dark surface
+          border: '#2A2A33', // Dark border with subtle cyan
         },
         gray: {
           text: '#E0E0E0', // Light gray for text
@@ -33,12 +33,12 @@ module.exports = {
           pink: '#EC4899', // Accent pink
         },
         nova: {
-          purple: '#B45CF0', // Main ETERNOTES purple
-          deepPurple: '#8B2FD6', // Deep purple
-          darkPurple: '#4A1B5C', // Dark purple accent
-          glowPurple: '#D575FF', // Glow purple
-          neon: '#E891FF', // Neon purple
-          cosmic: '#6B46C1', // Cosmic purple
+          cyan: '#00D4FF', // Cyan from logo
+          purple: '#9945FF', // Purple from logo
+          pink: '#FF45D8', // Pink from logo
+          darkPurple: '#7C3AED', // Dark purple accent
+          neon: '#00FFFF', // Bright cyan
+          cosmic: '#8B5CF6', // Cosmic purple
         },
         neon: {
           purple: '#E891FF',
@@ -68,10 +68,12 @@ module.exports = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'nova-gradient': 'linear-gradient(135deg, #B45CF0 0%, #8B2FD6 25%, #B45CF0 50%, #E891FF 75%, #B45CF0 100%)',
-        'cosmic-gradient': 'linear-gradient(45deg, #0A0A0A 0%, #4A1B5C 35%, #8B2FD6 70%, #B45CF0 100%)',
-        'neon-gradient': 'linear-gradient(90deg, #E891FF 0%, #FF6EC7 50%, #00D9FF 100%)',
-        'aurora': 'linear-gradient(120deg, #B45CF0 0%, #E891FF 25%, #6B46C1 50%, #8B2FD6 75%, #D575FF 100%)',
+        'nova-gradient': 'linear-gradient(135deg, #00D4FF 0%, #9945FF 50%, #FF45D8 100%)',
+        'cosmic-gradient': 'linear-gradient(45deg, #0A0A0A 0%, #001122 35%, #9945FF 70%, #00D4FF 100%)',
+        'neon-gradient': 'linear-gradient(90deg, #00D4FF 0%, #9945FF 50%, #FF45D8 100%)',
+        'aurora': 'linear-gradient(120deg, #00D4FF 0%, #00FFFF 25%, #9945FF 50%, #FF45D8 75%, #FF69B4 100%)',
+        'brand-gradient': 'linear-gradient(135deg, #00D4FF 0%, #9945FF 50%, #FF45D8 100%)',
+        'hero-gradient': 'linear-gradient(135deg, #000511 0%, #001122 25%, #002244 50%, #001133 75%, #000511 100%)',
       },
       animation: {
         'fade-in': 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',

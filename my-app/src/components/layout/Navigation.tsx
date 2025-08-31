@@ -90,7 +90,7 @@ const Navigation: React.FC = memo(() => {
               {/* Logo - Mobile Optimized */}
               <div className="relative flex items-center justify-center mr-2 sm:mr-3 md:mr-4">
                 <img 
-                  src="/etern-logo.PNG" 
+                  src="/logoupdated.png?v=3" 
                   alt="ETERNOTES Logo" 
                   className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14 object-cover object-center transition-all duration-300 group-hover:rotate-3 rounded-full"
                 />
@@ -159,7 +159,7 @@ const Navigation: React.FC = memo(() => {
         <div className="flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5 border-b border-dark-border">
           <div className="flex items-center gap-2 sm:gap-3">
             <img 
-              src="/etern-logo.PNG" 
+              src="/logoupdated.png?v=3" 
               alt="ETERNOTES MUSIC Logo" 
               className="h-10 w-10 sm:h-12 sm:w-12 object-contain rounded-full"
             />

@@ -307,40 +307,45 @@ const Home: React.FC = () => {
   return (
     <>
       {/* Hero Section - Mobile Optimized */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-dark-bg pt-20 sm:pt-24 md:pt-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center opacity-25 transition-opacity duration-1000"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')`,
-            filter: 'brightness(0.6) contrast(1.2) saturate(1.1)'
-          }}
-        />
-        <div className="absolute inset-0 bg-hero-gradient" />
-        <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/95 via-transparent to-dark-bg/80" />
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 sm:pt-24 md:pt-0">
+        {/* Main dark background with subtle ETERNOTES colors */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-black" />
+        
+        {/* ETERNOTES color layers */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/10 via-transparent to-pink-500/8" />
+        <div className="absolute inset-0 bg-gradient-to-bl from-purple-500/8 via-transparent to-cyan-500/8" />
+        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-purple-500/5 to-transparent" />
+        
+        {/* Radial gradients for depth */}
+        <div className="absolute inset-0" style={{
+          background: `
+            radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.15) 0%, transparent 40%),
+            radial-gradient(circle at 80% 20%, rgba(255, 69, 216, 0.12) 0%, transparent 40%),
+            radial-gradient(circle at 40% 80%, rgba(153, 69, 255, 0.10) 0%, transparent 40%)
+          `
+        }} />
         
         {/* ETERNOTES Infinity Symbols */}
         <EternotesSymbols density="minimal" />
         
-        {/* Mobile-Optimized Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-64 h-64 sm:w-96 sm:h-96 -top-32 -left-32 sm:-top-48 sm:-left-48 bg-nova-neon/15 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute w-64 h-64 sm:w-96 sm:h-96 -bottom-32 -right-32 sm:-bottom-48 sm:-right-48 bg-primary/15 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+        {/* Clean background for musical notes */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           
           {/* Mobile-Optimized Floating Musical Notes */}
-          <div className="hidden sm:block absolute top-20 left-10 text-nova-neon/30 text-2xl animate-bounce" style={{ 
+          <div className="hidden sm:block absolute top-20 left-10 text-primary/30 text-2xl animate-bounce" style={{ 
             animationDelay: '1s', 
             animationDuration: '3s',
-            filter: 'drop-shadow(0 0 8px rgba(168, 85, 247, 0.4))'
+            filter: 'drop-shadow(0 0 8px rgba(0, 212, 255, 0.4))'
           }}>♪</div>
-          <div className="absolute top-24 right-6 sm:top-32 sm:right-16 text-primary/25 text-lg sm:text-xl animate-bounce" style={{ 
+          <div className="absolute top-24 right-6 sm:top-32 sm:right-16 text-accent/25 text-lg sm:text-xl animate-bounce" style={{ 
             animationDelay: '2s', 
             animationDuration: '4s',
-            filter: 'drop-shadow(0 0 6px rgba(155, 77, 224, 0.4))'
+            filter: 'drop-shadow(0 0 6px rgba(255, 69, 216, 0.4))'
           }}>♫</div>
-          <div className="absolute bottom-32 left-6 sm:bottom-40 sm:left-20 text-nova-neon/20 text-xl sm:text-3xl animate-bounce" style={{ 
+          <div className="absolute bottom-32 left-6 sm:bottom-40 sm:left-20 text-secondary/20 text-xl sm:text-3xl animate-bounce" style={{ 
             animationDelay: '0.5s', 
             animationDuration: '5s',
-            filter: 'drop-shadow(0 0 10px rgba(168, 85, 247, 0.3))'
+            filter: 'drop-shadow(0 0 10px rgba(153, 69, 255, 0.3))'
           }}>♬</div>
           <div className="hidden sm:block absolute bottom-64 right-24 text-primary/20 text-lg animate-bounce" style={{ 
             animationDelay: '3s', 
@@ -399,19 +404,35 @@ const Home: React.FC = () => {
               <div className="absolute -bottom-6 right-1/3 text-primary/30 text-xs animate-bounce opacity-0 animate-fadeIn" style={{ animationDelay: '1500ms', animationDuration: '3.5s' }}>♩</div>
               
               <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black font-display mb-8 md:mb-12 leading-tight opacity-0 animate-fadeIn relative">
-                <span className="block text-brand bg-clip-text text-transparent mb-2">WHERE</span>
-                <span className="block text-text-primary text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] my-4 md:my-6 relative font-extrabold tracking-tight">
-                  MUSIC
+                <span className="block text-white mb-2">WHERE</span>
+                <span className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl xl:text-[10rem] my-4 md:my-6 relative font-extrabold tracking-tight">
+                  <span className="text-transparent bg-clip-text" style={{
+                    backgroundImage: 'linear-gradient(135deg, #00D4FF 0%, #9945FF 50%, #FF45D8 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent'
+                  }}>
+                    MUSIC
+                  </span>
                   {/* Enhanced glow effect */}
-                  <div className="absolute inset-0 text-text-primary opacity-30 blur-md -z-10">MUSIC</div>
+                  <div className="absolute inset-0 text-white opacity-20 blur-md -z-10">MUSIC</div>
                 </span>
-                <span className="block text-brand bg-clip-text text-transparent mt-2">LIVES FOREVER</span>
+                <span className="block text-white mt-2">LIVES FOREVER</span>
               </h1>
             </div>
           </div>
           
-          <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-text-secondary mb-12 md:mb-16 font-light leading-relaxed max-w-5xl mx-auto opacity-0 animate-fadeIn px-4" style={{ animationDelay: '300ms' }}>
-            Join the <span className="text-primary font-semibold">musical community</span> at your university with the most vibrant <span className="text-text-primary font-bold">music club</span> on campus
+          <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-300 mb-12 md:mb-16 font-light leading-relaxed max-w-5xl mx-auto opacity-0 animate-fadeIn px-4" style={{ animationDelay: '300ms' }}>
+            Join the <span className="font-semibold" style={{
+              backgroundImage: 'linear-gradient(135deg, #00D4FF 0%, #9945FF 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>musical community</span> at your university with the most vibrant <span className="font-bold" style={{
+              backgroundImage: 'linear-gradient(135deg, #9945FF 0%, #FF45D8 100%)',
+              WebkitBackgroundClip: 'text', 
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>music club</span> on campus
           </p>
           
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center items-center opacity-0 animate-fadeIn px-4 mb-12 sm:mb-16 md:mb-20" style={{ animationDelay: '600ms' }}>
@@ -435,6 +456,7 @@ const Home: React.FC = () => {
       {/* Features Section - Modern */}
       <section className="py-20 md:py-32 lg:py-40 relative overflow-hidden bg-gradient-to-b from-dark-surface via-dark-bg to-dark-surface">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-dark-bg/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/3 via-secondary/3 to-accent/3" />
         
         {/* Infinity Symbols - Services Section */}
         <EternotesSymbols density="light" />
