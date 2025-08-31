@@ -6,59 +6,135 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#B45CF0', // Bright purple from NOVA logo
-        secondary: '#8B2FD6', // Deeper purple
-        accent: '#FFFFFF', // Pure white for contrast
+        // Modern Primary Palette - Enhanced contrast
+        primary: {
+          DEFAULT: '#8B5DFF', // More vibrant main purple
+          light: '#A78BFF',   // Softer light variation
+          dark: '#6366F1',    // Deeper contrast
+          50: '#F8FAFF',      // Ultra light
+          100: '#EEEDFF',
+          200: '#DDD9FF',
+          300: '#C7C0FF',
+          400: '#AFA3FF',
+          500: '#8B5DFF',     // Main brand color
+          600: '#6366F1',
+          700: '#4F46E5',
+          800: '#3730A3',
+          900: '#1E1B4B',     // Deep contrast
+        },
+        
+        // Enhanced Accent colors
+        accent: {
+          purple: '#A855F7',  // Electric purple
+          pink: '#F472B6',    // Modern pink
+          blue: '#3B82F6',    // Bright blue
+          cyan: '#22D3EE',    // Vivid cyan
+          emerald: '#10B981', // Success green
+          amber: '#F59E0B',   // Warning yellow
+          white: '#FFFFFF',   // Pure white
+        },
+        
+        // Modern Background system
         dark: {
-          bg: '#0A0A0A', // Deep black background
-          secondary: '#1A0A1A', // Dark purple tint
-          tertiary: '#2D1B35', // Purple-tinted dark
+          bg: '#030712',      // True dark background
+          surface: '#111827', // Elevated surface
+          card: '#1F2937',    // Card background with better contrast
+          elevated: '#374151', // Higher elevation
+          border: '#4B5563',  // Visible borders
+          subtle: '#6B7280',  // Subtle elements
+        },
+        
+        // Accessible Text colors
+        text: {
+          primary: '#F9FAFB',   // High contrast white
+          secondary: '#D1D5DB', // Clear secondary text
+          tertiary: '#9CA3AF',  // Tertiary text
+          muted: '#6B7280',     // Muted but readable
+          accent: '#8B5DFF',    // Brand accent text
+          inverse: '#111827',   // Dark text for light backgrounds
+        },
+        
+        // Semantic colors
+        success: '#10B981',
+        warning: '#F59E0B',
+        error: '#EF4444',
+        info: '#3B82F6',
+        
+        // Legacy mappings for backward compatibility
+        secondary: '#7B3DB0',
+        nova: {
+          purple: '#9B4DE0',
+          deepPurple: '#7B3DB0',
+          darkPurple: '#5D2E85',
+          glowPurple: '#B66FEA',
+          neon: '#A855F7',
+          cosmic: '#6366F1',
         },
         gray: {
-          text: '#E0E0E0', // Light gray for text
-          light: '#F5F5F5', // Light gray
-          dark: '#333333', // Dark gray
-        },
-        nova: {
-          purple: '#B45CF0', // Main NOVA purple
-          deepPurple: '#8B2FD6', // Deep purple
-          darkPurple: '#4A1B5C', // Dark purple accent
-          glowPurple: '#D575FF', // Glow purple
-          neon: '#E891FF', // Neon purple
-          cosmic: '#6B46C1', // Cosmic purple
-        },
-        neon: {
-          purple: '#E891FF',
-          pink: '#FF6EC7',
-          blue: '#00D9FF',
+          text: '#B8BCC8',
+          light: '#E5E7EB',
+          dark: '#374151',
         },
       },
       fontFamily: {
-        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        display: ['Playfair Display', 'serif'],
-        heading: ['Space Grotesk', 'Inter', 'sans-serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        display: ['Playfair Display', 'Georgia', 'serif'],
+        heading: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'Monaco', 'Consolas', 'monospace'],
+      },
+      fontSize: {
+        'xs': ['0.75rem', { lineHeight: '1rem' }],
+        'sm': ['0.875rem', { lineHeight: '1.25rem' }],
+        'base': ['1rem', { lineHeight: '1.5rem' }],
+        'lg': ['1.125rem', { lineHeight: '1.75rem' }],
+        'xl': ['1.25rem', { lineHeight: '1.75rem' }],
+        '2xl': ['1.5rem', { lineHeight: '2rem' }],
+        '3xl': ['1.875rem', { lineHeight: '2.25rem' }],
+        '4xl': ['2.25rem', { lineHeight: '2.5rem' }],
+        '5xl': ['3rem', { lineHeight: '1.2' }],
+        '6xl': ['3.75rem', { lineHeight: '1.1' }],
+        '7xl': ['4.5rem', { lineHeight: '1.1' }],
+        '8xl': ['6rem', { lineHeight: '1' }],
+        '9xl': ['8rem', { lineHeight: '1' }],
+      },
+      screens: {
+        'xs': '475px',
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        '2xl': '1536px',
       },
       backdropBlur: {
         xs: '2px',
       },
       boxShadow: {
-        'glow': '0 0 20px rgba(180, 92, 240, 0.4)',
-        'glow-lg': '0 0 40px rgba(180, 92, 240, 0.6)',
-        'glow-xl': '0 0 60px rgba(180, 92, 240, 0.8)',
-        'neon': '0 0 30px rgba(232, 145, 255, 0.7)',
-        'neon-lg': '0 0 50px rgba(232, 145, 255, 0.8)',
+        // Modern shadow system with better contrast
+        'glow': '0 0 20px rgba(139, 93, 255, 0.4)',
+        'glow-lg': '0 0 40px rgba(139, 93, 255, 0.6)',
+        'glow-xl': '0 0 60px rgba(139, 93, 255, 0.8)',
+        'neon': '0 0 30px rgba(167, 139, 255, 0.7)',
+        'neon-lg': '0 0 50px rgba(167, 139, 255, 0.8)',
         'inner-glow': 'inset 0 1px 0 rgba(255, 255, 255, 0.1)',
-        'modern': '0 8px 32px rgba(180, 92, 240, 0.15)',
-        'modern-lg': '0 16px 48px rgba(180, 92, 240, 0.25)',
-        'cosmic': '0 0 80px rgba(107, 70, 193, 0.5)',
+        'modern': '0 8px 32px rgba(139, 93, 255, 0.15)',
+        'modern-lg': '0 16px 48px rgba(139, 93, 255, 0.25)',
+        'cosmic': '0 0 80px rgba(99, 102, 241, 0.5)',
+        // Additional modern shadows
+        'soft': '0 2px 8px rgba(0, 0, 0, 0.12)',
+        'medium': '0 4px 16px rgba(0, 0, 0, 0.16)',
+        'large': '0 8px 32px rgba(0, 0, 0, 0.20)',
+        'xl': '0 16px 64px rgba(0, 0, 0, 0.24)',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'nova-gradient': 'linear-gradient(135deg, #B45CF0 0%, #8B2FD6 25%, #B45CF0 50%, #E891FF 75%, #B45CF0 100%)',
-        'cosmic-gradient': 'linear-gradient(45deg, #0A0A0A 0%, #4A1B5C 35%, #8B2FD6 70%, #B45CF0 100%)',
-        'neon-gradient': 'linear-gradient(90deg, #E891FF 0%, #FF6EC7 50%, #00D9FF 100%)',
-        'aurora': 'linear-gradient(120deg, #B45CF0 0%, #E891FF 25%, #6B46C1 50%, #8B2FD6 75%, #D575FF 100%)',
+        // Modern gradient system
+        'brand-gradient': 'linear-gradient(135deg, #8B5DFF 0%, #6366F1 100%)',
+        'hero-gradient': 'linear-gradient(135deg, #030712 0%, #1F2937 50%, #374151 100%)',
+        'card-gradient': 'linear-gradient(135deg, #111827 0%, #1F2937 100%)',
+        'accent-gradient': 'linear-gradient(90deg, #8B5DFF 0%, #A855F7 50%, #3B82F6 100%)',
+        'cosmic-gradient': 'linear-gradient(45deg, #030712 0%, #1F2937 35%, #374151 70%, #4B5563 100%)',
+        'aurora': 'linear-gradient(120deg, #8B5DFF 0%, #A855F7 25%, #6366F1 50%, #3B82F6 75%, #22D3EE 100%)',
       },
       animation: {
         'fade-in': 'fadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',

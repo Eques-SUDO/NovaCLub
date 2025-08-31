@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#B45CF0', // Bright purple from ETERNOTE logo
+        primary: '#B45CF0', // Bright purple from ETERNOTES logo
         secondary: '#8B2FD6', // Deeper purple
         accent: '#FFFFFF', // Pure white for contrast
         dark: {
@@ -20,7 +20,7 @@ module.exports = {
           dark: '#333333', // Dark gray
         },
         nova: {
-          purple: '#B45CF0', // Main ETERNOTE purple
+          purple: '#B45CF0', // Main ETERNOTES purple
           deepPurple: '#8B2FD6', // Deep purple
           darkPurple: '#4A1B5C', // Dark purple accent
           glowPurple: '#D575FF', // Glow purple

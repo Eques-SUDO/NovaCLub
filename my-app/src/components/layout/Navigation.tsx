@@ -90,7 +90,7 @@ const Navigation: React.FC = memo(() => {
               {/* Logo - Mobile Optimized */}
               <div className="relative flex items-center justify-center mr-2 sm:mr-3 md:mr-4">
                 <img 
-                  src="/logoupdated.png?v=2" 
+                  src="/etern-logo.PNG" 
                   alt="ETERNOTES Logo" 
                   className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 lg:h-14 lg:w-14 object-cover object-center transition-all duration-300 group-hover:rotate-3 rounded-full"
                 />
@@ -100,10 +100,10 @@ const Navigation: React.FC = memo(() => {
               {/* Text - Mobile Optimized */}
               <div className="relative flex items-center justify-center">
                 <div className="flex flex-col justify-center">
-                  <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold font-heading text-gradient-cosmic group-hover:text-gradient-aurora transition-all duration-300 block leading-[1] tracking-tight">
+                  <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold font-heading text-transparent bg-clip-text bg-gradient-to-r from-white via-nova-neon to-primary group-hover:from-nova-neon group-hover:to-white transition-all duration-300 block leading-[1] tracking-tight">
                     ETERNOTES
                   </span>
-                  <div className="w-0 h-0.5 bg-brand-gradient group-hover:w-full transition-all duration-500 mt-0.5 sm:mt-1"></div>
+                  <div className="w-0 h-0.5 bg-gradient-to-r from-nova-neon to-primary group-hover:w-full transition-all duration-500 mt-0.5 sm:mt-1"></div>
                 </div>
               </div>
             </div>
@@ -159,11 +159,11 @@ const Navigation: React.FC = memo(() => {
         <div className="flex items-center justify-between px-4 sm:px-6 py-4 sm:py-5 border-b border-dark-border">
           <div className="flex items-center gap-2 sm:gap-3">
             <img 
-              src="/logoupdated.png?v=2" 
+              src="/etern-logo.PNG" 
               alt="ETERNOTES MUSIC Logo" 
               className="h-10 w-10 sm:h-12 sm:w-12 object-contain rounded-full"
             />
-            <span className="text-lg sm:text-xl font-bold text-gradient-cosmic">
+            <span className="text-lg sm:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-nova-neon to-primary">
               ETERNOTES
             </span>
           </div>
@@ -205,12 +205,12 @@ const Navigation: React.FC = memo(() => {
           
           {/* Mobile menu footer */}
           <div className="absolute bottom-8 left-6 right-6">
-            <div className="flex items-center justify-center gap-3 text-primary/70 text-sm">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-primary/30"></div>
+            <div className="flex items-center justify-center gap-3 text-nova-neon/60 text-sm">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent to-nova-neon/30"></div>
               <FaMusic className="text-sm" />
-              <span className="uppercase tracking-widest font-medium text-gradient-aurora">ETERNOTES Music Club</span>
+              <span className="uppercase tracking-widest font-medium">ETERNOTES Music Club</span>
               <FaMusic className="text-sm" />
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-primary/30"></div>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent to-nova-neon/30"></div>
             </div>
           </div>
         </div>

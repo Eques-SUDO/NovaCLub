@@ -21,7 +21,7 @@ const HeroSection: React.FC<HeroSectionProps> = memo(({ onJoinClick }) => {
         >
           <div className="flex items-center justify-center gap-4 mb-8">
             <FaMusic className="text-nova-neon text-2xl" />
-            <span className="text-nova-neon font-medium text-lg">ETERNOTE MUSIC CLUB</span>
+            <span className="text-nova-neon font-medium text-lg">ETERNOTES MUSIC CLUB</span>
             <FaMusic className="text-nova-neon text-2xl" />
           </div>
           

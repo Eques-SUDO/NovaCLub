@@ -61,7 +61,7 @@ const Events: React.FC = () => {
     {
       id: 2,
       title: "Music Theory Classes",
-      artist: "ETERNOTE Music Club Instructors",
+      artist: "ETERNOTES Music Club Instructors",
       date: new Date('2025-01-01'),
       time: "TBA",
       price: 0,
@@ -73,7 +73,7 @@ const Events: React.FC = () => {
     {
       id: 3,
       title: "Guitar Classes",
-      artist: "ETERNOTE Music Club Instructors",
+      artist: "ETERNOTES Music Club Instructors",
       date: new Date('2025-01-01'),
       time: "TBA",
       price: 0,
@@ -85,7 +85,7 @@ const Events: React.FC = () => {
     {
       id: 4,
       title: "Choir Practice",
-      artist: "ETERNOTE Music Club Choir",
+      artist: "ETERNOTES Music Club Choir",
       date: new Date('2025-01-01'),
       time: "TBA",
       price: 0,
@@ -156,7 +156,7 @@ const Events: React.FC = () => {
         <div className="text-center mb-12 md:mb-16 px-4">
           <div className="inline-flex items-center gap-2 md:gap-3 mb-6 px-4 md:px-6 py-2 md:py-3 glass rounded-full border border-primary/20">
             <FaMusic className="text-nova-neon text-sm md:text-base" />
-            <span className="text-nova-neon font-medium text-sm md:text-base">ETERNOTE Music Club</span>
+            <span className="text-nova-neon font-medium text-sm md:text-base">ETERNOTES Music Club</span>
           </div>
           
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display text-transparent bg-clip-text bg-gradient-to-r from-nova-neon via-white to-primary mb-4 md:mb-6 leading-tight">
