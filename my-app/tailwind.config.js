@@ -13,11 +13,24 @@ module.exports = {
           bg: '#0A0A0A', // Deep black background
           secondary: '#1A0A1A', // Dark purple tint
           tertiary: '#2D1B35', // Purple-tinted dark
+          surface: '#141414', // Dark surface
+          card: '#1A1A1A', // Dark card background
+          elevated: '#2A2A2A', // Elevated dark surface
+          border: '#333333', // Dark border color
         },
         gray: {
           text: '#E0E0E0', // Light gray for text
           light: '#F5F5F5', // Light gray
           dark: '#333333', // Dark gray
+        },
+        text: {
+          primary: '#FFFFFF', // Primary text color (white)
+          secondary: '#B3B3B3', // Secondary text color (light gray)
+          tertiary: '#808080', // Tertiary text color (medium gray)
+        },
+        accent: {
+          purple: '#8B5CF6', // Accent purple
+          pink: '#EC4899', // Accent pink
         },
         nova: {
           purple: '#B45CF0', // Main ETERNOTES purple
